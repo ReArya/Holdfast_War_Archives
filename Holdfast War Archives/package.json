@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@mui/icons-material": "^6.4.2",
+    "@mui/material": "^6.4.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.474.0",
+    "morgan": "^1.10.0"
+  }
+}
