@@ -180,7 +180,7 @@ const AdminPage = () => {
         Blocks: record.Blocks || 0,
         'Impact Rating': record['Impact Rating'] || 0,
         Regiment: record.Regiment || '',
-        Win: record.Win || 0,
+        Win: record.Win === 1 || record.Win === true,
         Date: record.Date ? new Date(record.Date).toLocaleDateString('en-CA') : new Date().toLocaleDateString('en-CA'),
       });
     } else {
@@ -507,7 +507,7 @@ const AdminPage = () => {
               <InputLabel>Win</InputLabel>
               <Select
                 name="Win"
-                value={formData.Win}
+                value={formData.Win === 1 || formData.Win === true} 
                 onChange={(e) => {
                   console.log("Select onChange - Raw Value:", e.target.value);
                   console.log("Current formData before update:", formData);

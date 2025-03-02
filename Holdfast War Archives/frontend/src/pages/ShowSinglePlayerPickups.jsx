@@ -149,6 +149,16 @@ const PlayerStatsPage = () => {
 
   return (
     <div style={{ backgroundColor: '#f7f9fc', minHeight: '100vh', paddingTop: 32 }}>
+            {/* Header Section */}
+            <header className="max-w-6xl mx-auto px-4 py-8 text-center">
+        <h1 className="text-center text-3xl md:text-5xl font-bold text-gray-800 mb-4">
+          Holdfast War Archives
+        </h1>
+        <h2 className="text-2xl md:text-4xl font-bold text-gray-600">
+          Single Player Pickups Statistics
+        </h2>
+      </header>
+
       <Container maxWidth="xl">
         <StyledCard>
           <CardHeader
@@ -288,9 +298,9 @@ const PlayerStatsPage = () => {
                     </Box>
                   </>
                 ) : (
-                  <Box p={4} display="flex" justifyContent="center">
+                  <Box p={2} display="flex" justifyContent="center">
                     <Typography>
-                      {'Enter an exact player name and press "Search" or select from suggestions to view all data points and statistics.'}
+                      {'Enter a player name and press "Search" to view Pickups Statistics'}
                     </Typography>
                   </Box>
                 )}
