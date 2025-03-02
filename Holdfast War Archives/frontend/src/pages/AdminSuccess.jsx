@@ -142,6 +142,14 @@ const AdminPage = () => {
       );
       
       const { data, pagination: paginationData } = response.data;
+
+      // Format dates in the received data
+      const formattedData = data.map(item => ({
+        ...item,
+        // Keep the original Date for internal use
+        formattedDate: new Date(item.Date).toLocaleDateString('en-US') // MM/DD/YYYY format
+      }));
+
       setPlayerData(data);
       setPagination(prev => ({
         ...prev,
@@ -160,16 +168,20 @@ const AdminPage = () => {
     return () => debouncedSearch.cancel();
   }, [searchTerm]);
 
-  // Handle page change (unchanged)
+  // Handle page change 
   const handlePageChange = (event, newPage) => {
     fetchPlayers(newPage);
   };
 
-  // Modal handlers (unchanged)
+  // Modal handlers 
   const handleOpenModal = (mode, record = null) => {
     setModalMode(mode);
     setSelectedRecord(record);
     if (mode === 'edit' && record) {
+      // For edit mode, prepare the date in YYYY-MM-DD format for the date input
+      const dateObj = record.Date ? new Date(record.Date) : new Date();
+      const formattedDateForInput = dateObj.toISOString().split('T')[0];
+
       setFormData({
         Player: record.Player || '',
         Score: record.Score || 0,
@@ -181,9 +193,12 @@ const AdminPage = () => {
         'Impact Rating': record['Impact Rating'] || 0,
         Regiment: record.Regiment || '',
         Win: record.Win === 1 || record.Win === true,
-        Date: record.Date ? new Date(record.Date).toLocaleDateString('en-CA') : new Date().toLocaleDateString('en-CA'),
+        Date: formattedDateForInput
       });
     } else {
+      // For create mode, use current date in YYYY-MM-DD format
+      const today = new Date().toISOString().split('T')[0];
+
       setFormData({
         Player: '',
         Score: 0,
@@ -195,7 +210,7 @@ const AdminPage = () => {
         'Impact Rating': 0,
         Regiment: '',
         Win: false,
-        Date: new Date().toLocaleDateString('en-CA')
+        Date: today
       });
     }
     setIsModalOpen(true);
@@ -232,6 +247,11 @@ const AdminPage = () => {
   const handleCreate = async () => {
     try {
       const numericFields = ['Score', 'Kills', 'Deaths', 'Assists', 'Team Kills', 'Blocks', 'Impact Rating'];
+
+      // Convert ISO date to MM/DD/YYYY format for saving to server
+      const dateObj = new Date(formData.Date);
+      const formattedDate = dateObj.toLocaleDateString('en-US'); // MM/DD/YYYY
+
       const processedFormData = {
         ...formData,
         ...Object.fromEntries(
@@ -240,7 +260,8 @@ const AdminPage = () => {
             Number(formData[field])
           ])
         ),
-        Win: formData.Win === 'true' || formData.Win === true ? 1 : 0
+        Win: formData.Win === 'true' || formData.Win === true ? 1 : 0,
+        Date: formattedDate
       };
       
       console.log("Processed Form Data:", processedFormData);
@@ -263,6 +284,11 @@ const AdminPage = () => {
       }
       
       const numericFields = ['Score', 'Kills', 'Deaths', 'Assists', 'Team Kills', 'Blocks', 'Impact Rating'];
+
+      // Convert ISO date to MM/DD/YYYY format for saving to server
+      const dateObj = new Date(formData.Date);
+      const formattedDate = dateObj.toLocaleDateString('en-US'); // MM/DD/YYYY
+
       const processedFormData = {
         ...formData,
         ...Object.fromEntries(
@@ -271,7 +297,8 @@ const AdminPage = () => {
             Number(formData[field])
           ])
         ),
-        Win: formData.Win === true ? 1 : 0
+        Win: formData.Win === true ? 1 : 0,
+        Date: formattedDate
       };
       
       const response = await axios.put(`/Pickups/${selectedRecord._id}`, processedFormData);
@@ -387,7 +414,7 @@ const AdminPage = () => {
                         <StyledTableCell>{record['Impact Rating']}</StyledTableCell>
                         <StyledTableCell>{record.Regiment}</StyledTableCell>
                         <StyledTableCell>{record.Win ? 'Yes' : 'No'}</StyledTableCell>
-                        <StyledTableCell>{new Date(record.Date).toLocaleDateString()}</StyledTableCell>
+                        <StyledTableCell>{record.formattedDate || new Date(record.Date).toLocaleDateString('en-US')}</StyledTableCell>
                         <StyledTableCell>
                           <ActionButtonsContainer>
                             <IconButton 
