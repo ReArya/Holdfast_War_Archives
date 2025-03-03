@@ -35,7 +35,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import SearchIcon from '@material-ui/icons/Search';
 import debounce from 'lodash/debounce';
 
-// Styled components (unchanged)
+// Styled components 
 const StyledTableCell = styled(TableCell)({
   paddingTop: 16,
   paddingBottom: 16,
@@ -178,9 +178,23 @@ const AdminPage = () => {
     setModalMode(mode);
     setSelectedRecord(record);
     if (mode === 'edit' && record) {
-      // For edit mode, prepare the date in YYYY-MM-DD format for the date input
-      const dateObj = record.Date ? new Date(record.Date) : new Date();
-      const formattedDateForInput = dateObj.toISOString().split('T')[0];
+    let dateForInput = '';
+    
+    if (record.Date) {
+      // Parse the date without timezone interpretation
+      const parts = new Date(record.Date).toLocaleDateString('en-US').split('/');
+      if (parts.length === 3) {
+        const [month, day, year] = parts;
+        // Format as YYYY-MM-DD with proper padding
+        dateForInput = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      }
+    }
+    
+    // If parsing failed for any reason, use current date
+    if (!dateForInput) {
+      const today = new Date();
+      dateForInput = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    }
 
       setFormData({
         Player: record.Player || '',
@@ -193,12 +207,13 @@ const AdminPage = () => {
         'Impact Rating': record['Impact Rating'] || 0,
         Regiment: record.Regiment || '',
         Win: record.Win === 1 || record.Win === true,
-        Date: formattedDateForInput
+        Date: dateForInput
       });
     } else {
-      // For create mode, use current date in YYYY-MM-DD format
-      const today = new Date().toISOString().split('T')[0];
 
+      const today = new Date();
+      const formattedDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    
       setFormData({
         Player: '',
         Score: 0,
@@ -210,7 +225,7 @@ const AdminPage = () => {
         'Impact Rating': 0,
         Regiment: '',
         Win: false,
-        Date: today
+        Date: formattedDate
       });
     }
     setIsModalOpen(true);
@@ -248,9 +263,8 @@ const AdminPage = () => {
     try {
       const numericFields = ['Score', 'Kills', 'Deaths', 'Assists', 'Team Kills', 'Blocks', 'Impact Rating'];
 
-      // Convert ISO date to MM/DD/YYYY format for saving to server
-      const dateObj = new Date(formData.Date);
-      const formattedDate = dateObj.toLocaleDateString('en-US'); // MM/DD/YYYY
+      const [year, month, day] = formData.Date.split('-');
+      const formattedDate = `${parseInt(month)}/${parseInt(day)}/${year}`;
 
       const processedFormData = {
         ...formData,
@@ -284,10 +298,8 @@ const AdminPage = () => {
       }
       
       const numericFields = ['Score', 'Kills', 'Deaths', 'Assists', 'Team Kills', 'Blocks', 'Impact Rating'];
-
-      // Convert ISO date to MM/DD/YYYY format for saving to server
-      const dateObj = new Date(formData.Date);
-      const formattedDate = dateObj.toLocaleDateString('en-US'); // MM/DD/YYYY
+      const [year, month, day] = formData.Date.split('-');
+      const formattedDate = `${parseInt(month)}/${parseInt(day)}/${year}`;
 
       const processedFormData = {
         ...formData,
@@ -324,7 +336,6 @@ const AdminPage = () => {
     }
   };
 
-  // The rest of the component (UI) remains unchanged
   return (
     <div style={{ backgroundColor: '#f7f9fc', minHeight: '100vh' }}>
       <AppBar position="static">
@@ -414,7 +425,12 @@ const AdminPage = () => {
                         <StyledTableCell>{record['Impact Rating']}</StyledTableCell>
                         <StyledTableCell>{record.Regiment}</StyledTableCell>
                         <StyledTableCell>{record.Win ? 'Yes' : 'No'}</StyledTableCell>
-                        <StyledTableCell>{record.formattedDate || new Date(record.Date).toLocaleDateString('en-US')}</StyledTableCell>
+                        <StyledTableCell>  {(() => {
+                        // Parse date without timezone effects
+                          if (!record.Date) return '';
+                          const date = new Date(record.Date);
+                          return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+                        })()}</StyledTableCell>
                         <StyledTableCell>
                           <ActionButtonsContainer>
                             <IconButton 
@@ -452,7 +468,7 @@ const AdminPage = () => {
         </StyledCard>
       </Container>
 
-      {/* Create/Edit Modal (unchanged) */}
+      {/* Create/Edit Modal */}
       <Dialog open={isModalOpen} onClose={handleCloseModal} maxWidth="md" fullWidth>
         <DialogTitle>
           {modalMode === 'create' ? 'Add New Player Record' : 'Edit Player Record'}
@@ -474,7 +490,6 @@ const AdminPage = () => {
               onChange={handleInputChange}
               fullWidth
             />
-            {/* Other fields remain unchanged */}
             <TextField
               label="Kills"
               name="Kills"
