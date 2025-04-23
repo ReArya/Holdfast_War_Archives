@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import KumiteSeason2Logo from '../assets/Kumite Season 2.png';
+import TwoVersusTwoMayTourneyLogo from '../assets/Two versus Two May Tourney.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
@@ -55,13 +55,13 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick })
     );
 };
 
-const KumiteSeason2 = () => {
+const TwoversusTwoMayTourney = () => {
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState({ oneVOne: false, groupfight: false });
     const [selectedTournament, setSelectedTournament] = useState({ oneVOne: null, groupfight: null });
     const [isLoaded, setIsLoaded] = useState(true);
 
-    // Make sure these URLs match EXACTLY with your route paths in App.jsx
+    // Tournament options
     const oneVOneOptions = [
         { label: 'Holdfast Kumite Season 1', href: '/kumiteSeason1' },
         { label: 'Holdfast Kumite Season 2', href: '/kumiteSeason2' },
@@ -75,20 +75,13 @@ const KumiteSeason2 = () => {
         { label: 'July 2021 Leaderboard', href: '/july2021Leaderboard' },
         { label: 'May 2021 Leaderboard', href: '/may2021Leaderboard' },
         { label: 'April 2021 Leaderboard', href: '/april2021Leaderboard' },
-        { label: 'Three Day Modded Normal Tourney', href: '/threeDayModdedNormalTourney' },
-        { label: 'FHH', href: '/FHH' },
-        { label: '5th Normal Tourney', href: '/fifthNormalTourney' },
-        { label: 'King of Fighters 2019', href: '/kingOfFighters2019' },
-        { label: '4th Normal Tourney', href: '/fourthNormalTourney' },
-        { label: '3rd Normal Tourney', href: '/thirdNormalTourney' },
-        { label: '2nd Normal Tourney', href: '/secondNormalTourney' },
-        { label: '1st Normal Tourney', href: '/firstNormalTourney' },
     ];
 
     const groupfightOptions = [
         { label: 'Three vs. Three Tourney I', href: '/threeVersusThreeTourneyI' },
         { label: 'Three vs. Three Tourney II', href: '/threeVersusThreeTourneyII' },
         { label: 'Three vs. Three Tourney III', href: '/threeVersusThreeTourneyIII' },
+        { label: 'Two vs. Two May Tourney', href: '/twoVersusTwoMay2021Tourney' },
     ];
 
     const toggleDropdown = (type) => {
@@ -101,8 +94,6 @@ const KumiteSeason2 = () => {
     };
 
     const handleOptionClick = (type, option) => {
-        console.log(`Navigation triggered to: ${option.href}`);
-        
         setSelectedTournament({
             ...selectedTournament,
             [type]: option
@@ -167,7 +158,7 @@ const KumiteSeason2 = () => {
                     Holdfast War Archives
                 </h1>
                 <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-                    Kumite Season 2
+                    Two Versus Two May Tourney
                 </h2>
                 <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
             </header>
@@ -239,7 +230,7 @@ const KumiteSeason2 = () => {
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
                                 <p>
-                                    After 9 months and a whopping 6 intermittent (Normal) tournaments, the second installment of the Kumite was here. This time there were only 8 participants, all of whom had been directly invited from either the previous Kumite, normal tournaments, or qualification duels. The prize pool was also much smaller, only $50 CAD. Here the last vestiges of the old order were challenged with specific phenoms from various regiments across the scene, as regiment leaders like Zen and Ed were tossed aside by players of a far lower station. Kumite II likewise marks the rise of dueling phenomenon Pepperoni and the rising star of Highlander and the fall of Caleb and Hex from the dueling scene. Little did the community know that the next year of dueling tournaments would be dominated by the "new guard" of dueling.
+                                    This two versus two tournament was ran in the old Holdfast Melee Server (HMS) discord server under Austro. The veteran Mattbob and the new upstart Adam won the tournament handily defeating Paddy and BobTheBuilder in the finals. Hazen and Bronn met an unlucky fate facing off against Adam and Mattbob in the semifinals, but managed to pull a podium spot finishing in third place. Power and Hunder came up close, but couldn't hold off Paddy and BobTheBuilder. 
                                 </p>
                             </div>
 
@@ -253,21 +244,21 @@ const KumiteSeason2 = () => {
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-trophy text-yellow-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Winner: Pepperoni - $50 CAD
+                                            Winner: Mattbob and Adam
                                         </span>
                                     </li>
                                     {/* Second */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-medal text-gray-400 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Second: Coach
+                                            Second: Paddy and Bob
                                         </span>
                                     </li>
                                     {/* Third */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-award text-orange-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Third: FrostBite
+                                            Third: Hazen and Bronn
                                         </span>
                                     </li>
                                 </ul>
@@ -275,7 +266,7 @@ const KumiteSeason2 = () => {
                                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-md border border-gray-100 mt-4">
                                     <i className="fa-regular fa-calendar text-sky-600 text-xl"></i>
                                     <span className="text-lg font-semibold text-gray-800">
-                                        September 2019
+                                        May 2021
                                     </span>
                                 </div>
                             </div>
@@ -283,7 +274,7 @@ const KumiteSeason2 = () => {
                     </div>
                 </section>
 
-                {/* Image Section - Modified to match the image width rather than stretching */}
+                {/* Image Section */}
                 <section className="mx-auto bg-white rounded-xl shadow-lg overflow-visible border border-gray-100 mb-12 max-w-2xl">
                     <div className="relative">
                         <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
@@ -291,8 +282,8 @@ const KumiteSeason2 = () => {
                     <div className="p-6">
                         <div className="text-center">
                             <img
-                                src={KumiteSeason2Logo}
-                                alt="Kumite Season 2 Scoreboard"
+                                src={TwoVersusTwoMayTourneyLogo}
+                                alt="Two Versus Two May Tourney"
                                 className="object-contain w-full rounded-lg"
                             />
                         </div>
@@ -303,4 +294,4 @@ const KumiteSeason2 = () => {
     );
 };
 
-export default KumiteSeason2;
+export default TwoversusTwoMayTourney;

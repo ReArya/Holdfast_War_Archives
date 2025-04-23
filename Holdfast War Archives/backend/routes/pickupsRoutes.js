@@ -123,7 +123,7 @@ router.post('/insertPlayer', authenticateAdmin, async (request, response) => {
         console.log("Full request body:", JSON.stringify(request.body, null, 2));
         console.log("Win value:", request.body.Win);
         console.log("Win type:", typeof request.body.Win);
-
+        
 
         const requiredFields = [
             'Player',
