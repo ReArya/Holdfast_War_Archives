@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TwoVersusTwoMayTourneyLogo from '../assets/Two versus Two May Tourney.svg';
+import May2v2NormalTourneyLogo from '../assets/2v2 May Normal Tourney.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
@@ -55,7 +55,7 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick })
     );
 };
 
-const TwoversusTwoMayTourney = () => {
+const TwoVersusTwoMay2020NormalTourney = () => {
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState({ oneVOne: false, groupfight: false });
     const [selectedTournament, setSelectedTournament] = useState({ oneVOne: null, groupfight: null });
@@ -84,6 +84,10 @@ const TwoversusTwoMayTourney = () => {
         { label: 'Two vs. Two May Tourney', href: '/twoVersusTwoMay2021Tourney' },
         { label: 'Five vs. Five September 2020 Tourney', href: '/fiveVersusFiveSeptember2020Tourney' },
         { label: 'XMG Five vs. Five April 2020 Tourney', href: '/xmgFiveVersusFiveTourneyApril2020' },
+        { label: 'Risks 3 vs. 3 NA Tourney', href: '/risksNA3v3Tourney' },
+        { label: 'XMG 2 vs. 2 Unrestricted', href: '/xmg2v2Unrestricted' },
+        { label: 'May 2020 2 vs. 2 Normal Tourney', href: '/twoVersusTwoMay2020NormalTourney' },
+        { label: 'HMS NA 3 vs. 3 Tourney', href: '/hmsNAThreeVersusThreeTourneyII' },
     ];
 
     const toggleDropdown = (type) => {
@@ -160,7 +164,7 @@ const TwoversusTwoMayTourney = () => {
                     Holdfast War Archives
                 </h1>
                 <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-                    Two vs. Two May 2021 Tourney
+                    May 2020 2 vs. 2 Normal Tourney
                 </h2>
                 <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
             </header>
@@ -232,7 +236,7 @@ const TwoversusTwoMayTourney = () => {
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
                                 <p>
-                                    This two versus two tournament was ran in the old Holdfast Melee Server (HMS) discord server under Austro. The veteran Mattbob and the new upstart Adam won the tournament handily defeating Paddy and BobTheBuilder in the finals. Hazen and Bronn met an unlucky fate facing off against Adam and Mattbob in the semifinals, but managed to pull a podium spot finishing in third place. Power and Hunder came up close, but couldn't hold off Paddy and BobTheBuilder. 
+                                    This 2v2 was a restricted tourney which meant that the top players were barred from participating. This meant that developing players had a chance for a podium spot as well as go farther in the bracket then before. Up and coming players Polish and Anubis were able to edge out the veterans Blazey and Pilot to win the top podium spot. TRR members Siege and Pina were able to secure a third place finish defeating Jaymo and Tyler in the third place match.
                                 </p>
                             </div>
 
@@ -246,21 +250,21 @@ const TwoversusTwoMayTourney = () => {
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-trophy text-yellow-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Winner: Mattbob and Adam
+                                            Winner: Polish & Anubis
                                         </span>
                                     </li>
                                     {/* Second */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-medal text-gray-400 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Second: Paddy and Bob
+                                            Second: Blazey & Pilot
                                         </span>
                                     </li>
                                     {/* Third */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-award text-orange-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Third: Hazen and Bronn
+                                            Third: Siege & Pina
                                         </span>
                                     </li>
                                 </ul>
@@ -268,7 +272,7 @@ const TwoversusTwoMayTourney = () => {
                                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-md border border-gray-100 mt-4">
                                     <i className="fa-regular fa-calendar text-sky-600 text-xl"></i>
                                     <span className="text-lg font-semibold text-gray-800">
-                                        May 2021
+                                        May 2020
                                     </span>
                                 </div>
                             </div>
@@ -284,8 +288,8 @@ const TwoversusTwoMayTourney = () => {
                     <div className="p-6">
                         <div className="text-center">
                             <img
-                                src={TwoVersusTwoMayTourneyLogo}
-                                alt="Two Versus Two May Tourney"
+                                src={May2v2NormalTourneyLogo}
+                                alt="May 2020 2v2 Normal Tourney"
                                 className="object-contain w-full rounded-lg"
                             />
                         </div>
@@ -296,4 +300,4 @@ const TwoversusTwoMayTourney = () => {
     );
 };
 
-export default TwoversusTwoMayTourney;
+export default TwoVersusTwoMay2020NormalTourney;

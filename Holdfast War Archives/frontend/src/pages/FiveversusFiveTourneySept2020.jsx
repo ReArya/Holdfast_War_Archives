@@ -82,7 +82,7 @@ const  FiveversusFiveTourneySept2020 = () => {
         { label: 'Three vs. Three Tourney II', href: '/threeVersusThreeTourneyII' },
         { label: 'Three vs. Three Tourney III', href: '/threeVersusThreeTourneyIII' },
         { label: 'Two vs. Two May 2021 Tourney', href: '/twoVersusTwoMay2021Tourney' },
-        { label: 'Five vs. Two September 2020 Tourney', href: '/fiveVersusFiveSeptember2020Tourney' },
+        { label: 'Five vs. Five September 2020 Tourney', href: '/fiveVersusFiveSeptember2020Tourney' },
     ];
 
     const toggleDropdown = (type) => {

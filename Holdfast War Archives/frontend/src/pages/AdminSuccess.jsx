@@ -549,18 +549,6 @@ const AdminPage = () => {
                     >
                       Add Player
                     </Button>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      startIcon={<GetAppIcon />}
-                      sx={{ 
-                        px: 2, 
-                        py: 1,
-                        textTransform: 'none',
-                      }}
-                    >
-                      Export
-                    </Button>
                   </Box>
                 </Box>
               }

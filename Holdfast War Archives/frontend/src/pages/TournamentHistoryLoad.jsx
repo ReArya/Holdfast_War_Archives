@@ -90,6 +90,12 @@ const TournamentHistoryLoad = () => {
         { label: 'Three vs. Three Tourney III', href: '/threeVersusThreeTourneyIII' },
         { label: 'Two vs. Two May 2021 Tourney', href: '/twoVersusTwoMay2021Tourney' },
         { label: 'Five vs. Two September 2020 Tourney', href: '/fiveVersusFiveSeptember2020Tourney' },
+        { label: 'XMG Five vs. Five April 2020 Tourney', href: '/xmgFiveVersusFiveTourneyApril2020' },
+        { label: 'Risks 3 vs. 3 NA Tourney', href: '/risksNA3v3Tourney' },
+        { label: 'XMG 2 vs. 2 Unrestricted', href: '/xmg2v2Unrestricted' },
+        { label: 'May 2020 2 vs. 2 Normal Tourney', href: '/twoVersusTwoMay2020NormalTourney' },
+        { label: 'HMS NA 3 vs. 3 Tourney II', href: '/hmsNAThreeVersusThreeTourneyII' },
+        { label: 'HMS NA 3 vs. 3 Tourney I', href: '/hmsNAThreeVersusThreeTourneyI' },
     ];
 
     const toggleDropdown = (type) => {

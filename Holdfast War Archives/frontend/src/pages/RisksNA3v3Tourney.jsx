@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TwoVersusTwoMayTourneyLogo from '../assets/Two versus Two May Tourney.svg';
+import RisksNA3v3TourneyLogo from '../assets/Risks NA 3v3 Tourney.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
@@ -55,7 +55,7 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick })
     );
 };
 
-const TwoversusTwoMayTourney = () => {
+const RisksNA3v3Tourney = () => {
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState({ oneVOne: false, groupfight: false });
     const [selectedTournament, setSelectedTournament] = useState({ oneVOne: null, groupfight: null });
@@ -84,6 +84,7 @@ const TwoversusTwoMayTourney = () => {
         { label: 'Two vs. Two May Tourney', href: '/twoVersusTwoMay2021Tourney' },
         { label: 'Five vs. Five September 2020 Tourney', href: '/fiveVersusFiveSeptember2020Tourney' },
         { label: 'XMG Five vs. Five April 2020 Tourney', href: '/xmgFiveVersusFiveTourneyApril2020' },
+        { label: 'Risks 3 vs. 3 NA Tourney', href: '/risksNA3v3Tourney' },
     ];
 
     const toggleDropdown = (type) => {
@@ -160,7 +161,7 @@ const TwoversusTwoMayTourney = () => {
                     Holdfast War Archives
                 </h1>
                 <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-                    Two vs. Two May 2021 Tourney
+                    Risks NA 3 vs. 3 Tourney
                 </h2>
                 <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
             </header>
@@ -232,7 +233,7 @@ const TwoversusTwoMayTourney = () => {
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
                                 <p>
-                                    This two versus two tournament was ran in the old Holdfast Melee Server (HMS) discord server under Austro. The veteran Mattbob and the new upstart Adam won the tournament handily defeating Paddy and BobTheBuilder in the finals. Hazen and Bronn met an unlucky fate facing off against Adam and Mattbob in the semifinals, but managed to pull a podium spot finishing in third place. Power and Hunder came up close, but couldn't hold off Paddy and BobTheBuilder. 
+                                    This 3 vs. 3 Tourney was organized by the player Risk on December 2018. The Regiment the Nr. 9 would end up having a strong showing as they finished with both the gold and silver in an all Nr.9 grand final. The Nr9 team would end up defeating the Also Nr.9 team 7-1. In the bronze match, the 63e would end up on top defeating Daddy Gloafer and Sons in a close 7-4 match.
                                 </p>
                             </div>
 
@@ -246,21 +247,21 @@ const TwoversusTwoMayTourney = () => {
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-trophy text-yellow-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Winner: Mattbob and Adam
+                                            Winner: Nr.9 
                                         </span>
                                     </li>
                                     {/* Second */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-medal text-gray-400 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Second: Paddy and Bob
+                                            Second: Also Nr.9
                                         </span>
                                     </li>
                                     {/* Third */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-award text-orange-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Third: Hazen and Bronn
+                                            Third: 63e
                                         </span>
                                     </li>
                                 </ul>
@@ -268,7 +269,7 @@ const TwoversusTwoMayTourney = () => {
                                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-md border border-gray-100 mt-4">
                                     <i className="fa-regular fa-calendar text-sky-600 text-xl"></i>
                                     <span className="text-lg font-semibold text-gray-800">
-                                        May 2021
+                                        December 2018
                                     </span>
                                 </div>
                             </div>
@@ -284,8 +285,8 @@ const TwoversusTwoMayTourney = () => {
                     <div className="p-6">
                         <div className="text-center">
                             <img
-                                src={TwoVersusTwoMayTourneyLogo}
-                                alt="Two Versus Two May Tourney"
+                                src={RisksNA3v3TourneyLogo}
+                                alt="Risks NA 3 vs. 3 Tourney"
                                 className="object-contain w-full rounded-lg"
                             />
                         </div>
@@ -296,4 +297,4 @@ const TwoversusTwoMayTourney = () => {
     );
 };
 
-export default TwoversusTwoMayTourney;
+export default RisksNA3v3Tourney;

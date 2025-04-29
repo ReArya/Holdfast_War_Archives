@@ -168,7 +168,7 @@ const ThreeVersusThreeTourneyIII = () => {
                     Holdfast War Archives
                 </h1>
                 <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-                    3 v 3 Tourney III
+                    3 vs. 3 Tourney III
                 </h2>
                 <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
             </header>

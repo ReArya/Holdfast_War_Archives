@@ -34,10 +34,28 @@ import AdminSuccess from './pages/AdminSuccess';
 import Matchmaking from './pages/Matchmaking';
 import Regiment63e from './pages/Regiment63e';
 import LeagueHistoryLoad from './pages/LeagueHistoryLoad';
-import TwoVersusTwoMayTourney from './pages/TwoversusTwoMayTourney';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import TwoversusTwoMayTourney from './pages/TwoversusTwoMayTourney';
 import FiveversusFiveTourneySept2020 from './pages/FiveversusFiveTourneySept2020';
+import XMGFiveVersusFiveTourneyApril2020 from './pages/XMGFiveVersusFiveTourneyApril2020';
+import RisksNA3v3Tourney from './pages/RisksNA3v3Tourney';
+import XMG2v2Unrestricted from './pages/XMG2v2Unrestricted';
+import TwoVersusTwoMay2020NormalTourney from './pages/TwoVersusTwoMay2020NormalTourney';
+import HMSNA3Versus3TourneyII from './pages/HMSNA3Versus3TourneyII';
+import HMSNA3Versus3TourneyI from './pages/HMSNA3Versus3TourneyI'
+import RGLSeason1 from './pages/RGLSeason1';
+import RGLSeason2 from './pages/RGLSeason2';
+import RGLSeason3 from './pages/RGLSeason3';
+import RGLSeason4 from './pages/RGLSeason4';
+import RGLSeason5 from './pages/RGLSeason5';
+import NWLSeason2 from './pages/NWLSeason2';
+import NWLSeason3 from './pages/NWLSeason3';
+import NWLSeason4 from './pages/NWLSeason4';
+import NWLSeason5 from './pages/NWLSeason5';
+import NWLSeason6 from './pages/NWLSeason6';
+import HALSeason1 from './pages/HALSeason1';
+import HALSeason2 from './pages/HALSeason2';
+import HRLSeason2 from './pages/HRLSeason2';
 
 function App() {
   return (
@@ -81,6 +99,25 @@ function App() {
           <Route path="/leagueHistory" element={<LeagueHistoryLoad />} />
           <Route path="/twoVersusTwoMay2021Tourney" element={<TwoversusTwoMayTourney />} />
           <Route path="/fiveVersusFiveSeptember2020Tourney" element={<FiveversusFiveTourneySept2020 />} />
+          <Route path="/xmgFiveVersusFiveTourneyApril2020" element={<XMGFiveVersusFiveTourneyApril2020 />} />
+          <Route path="/risksNA3v3Tourney" element={<RisksNA3v3Tourney />} />
+          <Route path="/xmg2v2Unrestricted" element={<XMG2v2Unrestricted />} />
+          <Route path="/twoVersusTwoMay2020NormalTourney" element={<TwoVersusTwoMay2020NormalTourney />} />
+          <Route path="/hmsNAThreeVersusThreeTourneyII" element={<HMSNA3Versus3TourneyII />} />
+          <Route path="/hmsNAThreeVersusThreeTourneyI" element={<HMSNA3Versus3TourneyI />} />
+          <Route path="/rglSeason1" element={<RGLSeason1 />} />
+          <Route path="/rglSeason2" element={<RGLSeason2 />} />
+          <Route path="/rglSeason3" element={<RGLSeason3 />} />
+          <Route path="/rglSeason4" element={<RGLSeason4 />} />
+          <Route path="/rglSeason5" element={<RGLSeason5 />} />
+          <Route path="/nwlSeason2" element={<NWLSeason2 />} />
+          <Route path="/nwlSeason3" element={<NWLSeason3 />} />
+          <Route path="/nwlSeason4" element={<NWLSeason4 />} />
+          <Route path="/nwlSeason5" element={<NWLSeason5 />} />
+          <Route path="/nwlSeason6" element={<NWLSeason6 />} />
+          <Route path="/halSeason1" element={<HALSeason1 />} />
+          <Route path="/halSeason2" element={<HALSeason2 />} />
+          <Route path="/hrlSeason2" element={<HRLSeason2 />} />
         </Routes>
       </div>
     </div>
