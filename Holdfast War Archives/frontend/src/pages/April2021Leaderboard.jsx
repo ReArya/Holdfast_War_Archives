@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import April2021LeaderboardLogo from '../assets/April 2021 Leaderboard.svg';
+import April2021LeaderboardLogo from '../assets/April-2021-Leaderboard.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
