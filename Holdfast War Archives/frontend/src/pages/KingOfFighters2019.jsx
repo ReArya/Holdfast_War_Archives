@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import KingOfFighters2019Logo from '../assets/King-of-Fighters-2019.svg';
+import KingOfFighters2019Logo from '../assets/King-Of-Fighters-2019.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
