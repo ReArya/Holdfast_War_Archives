@@ -11,4 +11,11 @@ export default defineConfig({
     },
   },
   base: process.env.VITE_BASE_PATH || "/Holdfast_War_Archives",
+  // Add this section to explicitly define the root directory
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+  },
+  // Add this to explicitly define where to find index.html
+  root: '.',
 })
