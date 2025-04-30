@@ -77,7 +77,7 @@ const HRLSeason2 = () => {
     ];
 
     const internationalLeaguesOptions = [
-        { label: 'World Championship 2023', href: '/worldChampionship2023' },
+        { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 3', href: '/nwlSeason3' },
         { label: 'NWL Season 4', href: '/nwlSeason4' },
@@ -89,8 +89,10 @@ const HRLSeason2 = () => {
         { label: 'HAL Season 1', href: '/halSeason1' },
         { label: 'HAL Season 2', href: '/halSeason2' },
         { label: 'HRL Season 2', href: '/hrlSeason2' },
-        { label: 'Veterans vs Newcomers', href: '/veteransVsNewcomers' },
-        { label: 'East vs West Showmatch', href: '/eastVsWestShowmatch' }
+        { label: 'HRL Season 3', href: '/hrlSeason3' },
+        { label: 'HRL Season 4', href: '/hrlSeason4' },
+        { label: 'HRL Season 5', href: '/hrlSeason5' },
+        { label: 'HCL Season 1', href: '/hclSeason1' }
     ];
 
     const toggleDropdown = (type) => {
@@ -252,7 +254,7 @@ const HRLSeason2 = () => {
                                 </h3>
                                 <div className="text-lg leading-relaxed text-gray-700">
                                     <p>
-                                        
+                                        HRL Season 2 added another victory for the KRA as from now on they will prove to be a dominant force in future rifle leagues. The KRA beat the 45e in a dominant fashion to win the gold. The underdog SPACE regiment was able to beat the melee powerhouse 12.Ast to achieve a bronze podium result.
                                     </p>
                                 </div>
                             </div>

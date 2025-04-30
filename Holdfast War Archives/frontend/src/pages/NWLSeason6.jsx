@@ -77,7 +77,7 @@ const NWLSeason6 = () => {
     ];
 
     const internationalLeaguesOptions = [
-        { label: 'World Championship 2023', href: '/worldChampionship2023' },
+        { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 3', href: '/nwlSeason3' },
         { label: 'NWL Season 4', href: '/nwlSeason4' },
@@ -87,10 +87,12 @@ const NWLSeason6 = () => {
 
     const specialEventsOptions = [
         { label: 'HAL Season 1', href: '/halSeason1' },
-        { label: 'Summer Showdown 2023', href: '/summerShowdown2023' },
-        { label: 'Charity Tournament 2022', href: '/charityTournament2022' },
-        { label: 'Veterans vs Newcomers', href: '/veteransVsNewcomers' },
-        { label: 'East vs West Showmatch', href: '/eastVsWestShowmatch' }
+        { label: 'HAL Season 2', href: '/halSeason2' },
+        { label: 'HRL Season 2', href: '/hrlSeason2' },
+        { label: 'HRL Season 3', href: '/hrlSeason3' },
+        { label: 'HRL Season 4', href: '/hrlSeason4' },
+        { label: 'HRL Season 5', href: '/hrlSeason5' },
+        { label: 'HCL Season 1', href: '/hclSeason1' }
     ];
 
     const toggleDropdown = (type) => {

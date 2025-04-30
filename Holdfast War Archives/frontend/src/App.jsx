@@ -56,6 +56,10 @@ import NWLSeason6 from './pages/NWLSeason6';
 import HALSeason1 from './pages/HALSeason1';
 import HALSeason2 from './pages/HALSeason2';
 import HRLSeason2 from './pages/HRLSeason2';
+import HRLSeason3 from './pages/HRLSeason3';
+import HRLSeason4 from './pages/HRLSeason4';
+import HRLSeason5 from './pages/HRLSeason5';
+import HCLSeason1 from './pages/HCLSeason1';
 
 function App() {
   return (
@@ -118,6 +122,10 @@ function App() {
           <Route path="/halSeason1" element={<HALSeason1 />} />
           <Route path="/halSeason2" element={<HALSeason2 />} />
           <Route path="/hrlSeason2" element={<HRLSeason2 />} />
+          <Route path="/hrlSeason3" element={<HRLSeason3 />} />
+          <Route path="/hrlSeason4" element={<HRLSeason4 />} />
+          <Route path="/hrlSeason5" element={<HRLSeason5 />} />
+          <Route path="/hclSeason1" element={<HCLSeason1 />} />
         </Routes>
       </div>
     </div>

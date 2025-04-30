@@ -60,42 +60,54 @@ const TournamentHistoryLoad = () => {
     const [videoOverlay, setVideoOverlay] = useState(false);
     const [selectedTournament, setSelectedTournament] = useState({ oneVOne: null, groupfight: null });
 
-    // Make sure these URLs match EXACTLY with your route paths in App.jsx
-    const oneVOneOptions = [
-        { label: 'Holdfast Kumite Season 1', href: '/kumiteSeason1' },
-        { label: 'Holdfast Kumite Season 2', href: '/kumiteSeason2' },
-        { label: 'Holdfast Kumite Season 3', href: '/kumiteSeason3' },
-        { label: 'Holdfast Kumite Season 4', href: '/kumiteSeason4' },
-        { label: 'Holdfast Kumite Season 5', href: '/kumiteSeason5' },
-        { label: 'Holdfast Kumite Season 6', href: '/kumiteSeason6' },
-        { label: 'Summer 2023 Normal Tourney', href: '/summer2023NormalTourney' },
-        { label: 'Summer 2022 Normal Tourney', href: '/summer2022NormalTourney' },
-        { label: 'Winter 2021 Normal Tourney', href: '/winter2021NormalTourney' },
-        { label: 'July 2021 Leaderboard', href: '/july2021Leaderboard' },
-        { label: 'May 2021 Leaderboard', href: '/may2021Leaderboard' },
-        { label: 'April 2021 Leaderboard', href: '/april2021Leaderboard' },
-        { label: 'Three Day Modded Normal Tourney', href: '/threeDayModdedNormalTourney' },
-        { label: 'FHH', href: '/FHH' },
-        { label: '5th Normal Tourney', href: '/fifthNormalTourney' },
-        { label: 'King of Fighters 2019', href: '/kingOfFighters2019' },
-        { label: '4th Normal Tourney', href: '/fourthNormalTourney' },
-        { label: '3rd Normal Tourney', href: '/thirdNormalTourney' },
-        { label: '2nd Normal Tourney', href: '/secondNormalTourney' },
-        { label: '1st Normal Tourney', href: '/firstNormalTourney' },
-    ];
+// Routes
+const oneVOneOptions = [
+    // Kumite Seasons (chronological order)
+    { label: 'Kumite Season 1', href: '/kumiteSeason1' },
+    { label: 'Kumite Season 2', href: '/kumiteSeason2' },
+    { label: 'Kumite Season 3', href: '/kumiteSeason3' },
+    { label: 'Kumite Season 4', href: '/kumiteSeason4' },
+    { label: 'Kumite Season 5', href: '/kumiteSeason5' },
+    { label: 'Kumite Season 6', href: '/kumiteSeason6' },
+    
+    // Normal Tournaments (chronological order)
+    { label: 'Winter 2021 Tournament', href: '/winter2021NormalTourney' },
+    { label: 'Summer 2022 Tournament', href: '/summer2022NormalTourney' },
+    { label: 'Summer 2023 Tournament', href: '/summer2023NormalTourney' },
+    { label: '1st Normal Tournament', href: '/firstNormalTourney' },
+    { label: '2nd Normal Tournament', href: '/secondNormalTourney' },
+    { label: '3rd Normal Tournament', href: '/thirdNormalTourney' },
+    { label: '4th Normal Tournament', href: '/fourthNormalTourney' },
+    { label: '5th Normal Tournament', href: '/fifthNormalTourney' },
+    { label: 'Three Day Modded Tournament', href: '/threeDayModdedNormalTourney' },
+    
+    // Monthly Leaderboards (chronological order)
+    { label: 'April 2021 Leaderboard', href: '/april2021Leaderboard' },
+    { label: 'May 2021 Leaderboard', href: '/may2021Leaderboard' },
+    { label: 'July 2021 Leaderboard', href: '/july2021Leaderboard' },
+    
+    // Special Events
+    { label: 'King of Fighters 2019', href: '/kingOfFighters2019' },
+    { label: 'FHH Tournament', href: '/FHH' },
+];
 
     const groupfightOptions = [
-        { label: 'Three vs. Three Tourney I', href: '/threeVersusThreeTourneyI' },
-        { label: 'Three vs. Three Tourney II', href: '/threeVersusThreeTourneyII' },
-        { label: 'Three vs. Three Tourney III', href: '/threeVersusThreeTourneyIII' },
-        { label: 'Two vs. Two May 2021 Tourney', href: '/twoVersusTwoMay2021Tourney' },
-        { label: 'Five vs. Two September 2020 Tourney', href: '/fiveVersusFiveSeptember2020Tourney' },
-        { label: 'XMG Five vs. Five April 2020 Tourney', href: '/xmgFiveVersusFiveTourneyApril2020' },
-        { label: 'Risks 3 vs. 3 NA Tourney', href: '/risksNA3v3Tourney' },
-        { label: 'XMG 2 vs. 2 Unrestricted', href: '/xmg2v2Unrestricted' },
-        { label: 'May 2020 2 vs. 2 Normal Tourney', href: '/twoVersusTwoMay2020NormalTourney' },
-        { label: 'HMS NA 3 vs. 3 Tourney II', href: '/hmsNAThreeVersusThreeTourneyII' },
-        { label: 'HMS NA 3 vs. 3 Tourney I', href: '/hmsNAThreeVersusThreeTourneyI' },
+    // 3v3 Tournaments
+    { label: 'Three vs. Three Tournament I', href: '/threeVersusThreeTourneyI' },
+    { label: 'Three vs. Three Tournament II', href: '/threeVersusThreeTourneyII' },
+    { label: 'Three vs. Three Tournament III', href: '/threeVersusThreeTourneyIII' },
+    { label: 'HMS NA 3v3 Tournament I', href: '/hmsNAThreeVersusThreeTourneyI' },
+    { label: 'HMS NA 3v3 Tournament II', href: '/hmsNAThreeVersusThreeTourneyII' },
+    { label: 'Risks NA 3v3 Tournament', href: '/risksNA3v3Tourney' },
+    
+    // 2v2 Tournaments
+    { label: 'May 2020 2v2 Tournament', href: '/twoVersusTwoMay2020NormalTourney' },
+    { label: 'May 2021 2v2 Tournament', href: '/twoVersusTwoMay2021Tourney' },
+    { label: 'XMG 2v2 Unrestricted', href: '/xmg2v2Unrestricted' },
+    
+    // 5v5 Tournaments
+    { label: 'XMG 5v5 April 2020 Tournament', href: '/xmgFiveVersusFiveTourneyApril2020' },
+    { label: 'September 2020 5v5 Tournament', href: '/fiveVersusFiveSeptember2020Tourney' },
     ];
 
     const toggleDropdown = (type) => {
@@ -218,7 +230,7 @@ const TournamentHistoryLoad = () => {
                                         />
                                     </div>
                                     <br />
-                                    <h3 className="text-gray-600 text-xl font-semibold mb-3 text-center">Groupfight Tournament List</h3>
+                                    <h3 className="text-gray-800 text-xl font-semibold mb-3 text-center">Groupfight Tournament List</h3>
                                     <p className="text-gray-600 text-center mb-4">
                                         View historical data for team-based tournaments
                                     </p>
@@ -268,7 +280,7 @@ const TournamentHistoryLoad = () => {
                                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
                                 {/* Video description moved ABOVE the video */}
                                 <div className="mb-5 text-center">
-                                    <p className="text-sky-600 font-medium mb-1">Team Battles</p>
+                                    <p className="text-sky-600 font-medium mb-1">Groupfight Gameplay</p>
                                     <p className="text-gray-600">
                                         5v5 Tournament Gameplay
                                     </p>

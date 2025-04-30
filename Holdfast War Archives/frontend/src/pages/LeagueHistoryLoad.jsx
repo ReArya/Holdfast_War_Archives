@@ -78,7 +78,6 @@ const LeagueHistoryLoad = () => {
     ];
 
     const internationalLeaguesOptions = [
-        { label: 'World Championship 2023', href: '/worldChampionship2023' },
         { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 3', href: '/nwlSeason3' },
@@ -91,8 +90,10 @@ const LeagueHistoryLoad = () => {
         { label: 'HAL Season 1', href: '/halSeason1' },
         { label: 'HAL Season 2', href: '/halSeason2' },
         { label: 'HRL Season 2', href: '/hrlSeason2' },
-        { label: 'Veterans vs Newcomers', href: '/veteransVsNewcomers' },
-        { label: 'East vs West Showmatch', href: '/eastVsWestShowmatch' }
+        { label: 'HRL Season 3', href: '/hrlSeason3' },
+        { label: 'HRL Season 4', href: '/hrlSeason4' },
+        { label: 'HRL Season 5', href: '/hrlSeason5' },
+        { label: 'HCL Season 1', href: '/hclSeason1' }
     ];
 
     const toggleDropdown = (type) => {
@@ -260,9 +261,9 @@ const LeagueHistoryLoad = () => {
                             <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden">
                                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
                                 <div className="mb-5 text-center">
-                                    <p className="text-sky-600 font-medium mb-1">RGL Season 5</p>
+                                    <p className="text-sky-600 font-medium mb-1">Regimental Groupfight League</p>
                                     <p className="text-gray-600">
-                                        RGL League Final
+                                        RGL Season 5 Match
                                     </p>
                                 </div>
                                 
@@ -324,9 +325,9 @@ const LeagueHistoryLoad = () => {
                             <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden">
                                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
                                 <div className="mb-5 text-center">
-                                    <p className="text-sky-600 font-medium mb-1">Naval League</p>
+                                    <p className="text-sky-600 font-medium mb-1">Rifle League</p>
                                     <p className="text-gray-600">
-                                        Naval Sports League Season 1 
+                                        HRL Season 3 Match
                                     </p>
                                 </div>
                                 
@@ -334,7 +335,7 @@ const LeagueHistoryLoad = () => {
                                     <div className="aspect-video">
                                         <iframe
                                             className="w-full h-full"
-                                            src="https://www.youtube.com/embed/-3ejq5UmE_c?playlist=-3ejq5UmE_c&loop=1&autoplay=1&mute=1"
+                                            src="https://www.youtube.com/embed/e7a5F4oHSw8?playlist=e7a5F4oHSw8&loop=1&autoplay=1&mute=1"
                                             title="Naval Sports League Championship"
                                             frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

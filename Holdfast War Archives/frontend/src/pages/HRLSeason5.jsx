@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RGLSeason2Logo from '../assets/RGL Season2.svg';
+import HRLSeason5Logo from '../assets/HRL Season 5.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
@@ -53,7 +53,7 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick })
     );
 };
 
-const RGLSeason2 = () => {
+const HRLSeason5 = () => {
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState({ 
         regionalLeagues: false, 
@@ -156,13 +156,13 @@ const RGLSeason2 = () => {
                     Holdfast War Archives
                 </h1>
                 <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-                    RGL Season 2
+                    HRL Season 5
                 </h2>
                 <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
             </header>
 
             {/* Tournament Dropdowns */}
-            <section className="max-w-6xl mx-auto px-4 mb-16">
+            <section className="max-w-6xl mx-auto px-4 mb-12">
                 <div className="flex flex-col md:flex-row gap-6 justify-center">
                     {/* Regional Leagues Dropdown */}
                     <div className="w-full md:w-1/3">
@@ -240,7 +240,7 @@ const RGLSeason2 = () => {
 
             {/* Content Section */}
             <main className={`max-w-6xl mx-auto px-4 pb-16 transition-all duration-1000 ease-in-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                {/* Tournament Description and Winners - Now side by side */}
+                {/* Tournament Description and Winners - Side by side */}
                 <section className="flex flex-col md:flex-row gap-6 mb-12">
                     {/* Tournament Description */}
                     <div className="w-full md:w-1/2">
@@ -254,7 +254,7 @@ const RGLSeason2 = () => {
                                 </h3>
                                 <div className="text-lg leading-relaxed text-gray-700">
                                     <p>
-                                        Season 1 of RGL proved to be a rousing success as more regiments joined the following year in Season 2. The competition was fierce with a lot of new regiment's aiming to go far. The steady long tenured teams would come out on top as the 45e were not only able to secure a grand finals spot, but win the gold against the 63e who would come up short once again. Despite not making the finals the TRR would secure a podium finish with a bronze medal result.
+                                        HRL Season 5 served as a changing of the guard as the KRA did not only not make the finals, but failed to secure a podium finish. The 7.Fuß would come out of left field from on the brink of elimination in the group stage as the last playoff regiment to winning the entire tournament. The 45e would fall short once again, but secured second place. The 2.BIR and TRRB would share the bronze medal on the podium.
                                     </p>
                                 </div>
                             </div>
@@ -276,21 +276,21 @@ const RGLSeason2 = () => {
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-trophy text-yellow-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Winner: 45e
+                                            Winner: 7.Fuß
                                         </span>
                                     </li>
                                     {/* Second */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-medal text-gray-400 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Second: 63e
+                                            Second: 45e
                                         </span>
                                     </li>
                                     {/* Third */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-award text-orange-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Third: TRR
+                                            Third: 2.BIR/TRRB
                                         </span>
                                     </li>
                                 </ul>
@@ -298,7 +298,7 @@ const RGLSeason2 = () => {
                                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-md border border-gray-100 mt-4">
                                     <i className="fa-regular fa-calendar text-sky-600 text-xl"></i>
                                     <span className="text-lg font-semibold text-gray-800">
-                                        November 2021 - January 2022
+                                        October 2024 - November 2024
                                     </span>
                                 </div>
                             </div>
@@ -306,140 +306,120 @@ const RGLSeason2 = () => {
                     </div>
                 </section>
 
-                {/* Image Section */}
-                <section className="mx-auto bg-white rounded-xl shadow-lg overflow-visible border border-gray-100 mb-12 max-w-2xl">
-                    <div className="relative">
-                        <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
-                    </div>
-                    <div className="p-6">
-                        <div className="text-center">
-                            <img
-                                src={RGLSeason2Logo}
-                                alt="RGL Season 2 Logo"
-                                className="object-contain w-full rounded-lg"
-                            />
+                {/* Tournament Bracket */}
+                <section className="mb-12">
+                    <div className="bg-white rounded-xl shadow-lg overflow-visible border border-gray-100">
+                        <div className="relative">
+                            <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
+                        </div>
+                        <div className="p-8">
+                            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+                                Tournament Bracket
+                            </h3>
+                            <div className="flex justify-center">
+                                <div className="w-full max-w-3xl">
+                                    <img
+                                        src={HRLSeason5Logo}
+                                        alt="HRL Season 5"
+                                        className="w-full object-contain rounded-lg shadow-lg"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                {/* Team Stats Section - Side by side */}
-                <section className="flex flex-col md:flex-row gap-6 mb-12">
-                    {/* Group A */}
-                    <div className="w-full md:w-1/2">
-                        <div className="bg-white rounded-xl shadow-lg overflow-visible border border-gray-100 h-full">
-                            <div className="relative">
-                                <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
-                            </div>
-                            <div className="p-6">
-                                <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                                    Group Stage - Group A
-                                </h3>
-                                <div className="overflow-x-auto">
-                                    <table className="min-w-full divide-y divide-gray-200">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Rank
-                                                </th>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Team
-                                                </th>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    W-L-T
-                                                </th>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Points
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="bg-white divide-y divide-gray-200">
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-0-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45</td>
-                                            </tr>
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">TRR</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">39</td>
-                                            </tr>
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">47e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-2-1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">11</td>
-                                            </tr>
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">77th</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-2-1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">11</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                {/* Group Stage */}
+                <section className="mb-12">
+                    <div className="bg-white rounded-xl shadow-lg overflow-visible border border-gray-100">
+                        <div className="relative">
+                            <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
                         </div>
-                    </div>
-
-                    {/* Group B */}
-                    <div className="w-full md:w-1/2">
-                        <div className="bg-white rounded-xl shadow-lg overflow-visible border border-gray-100 h-full">
-                            <div className="relative">
-                                <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
-                            </div>
-                            <div className="p-6">
-                                <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                                    Group Stage - Group B
-                                </h3>
-                                <div className="overflow-x-auto">
-                                    <table className="min-w-full divide-y divide-gray-200">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Rank
-                                                </th>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Team
-                                                </th>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    W-L-T
-                                                </th>
-                                                <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Points
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="bg-white divide-y divide-gray-200">
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">63e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-0-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45</td>
-                                            </tr>
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">7.Fuß</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">38</td>
-                                            </tr>
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">TRRB</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-2-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">26</td>
-                                            </tr>
-                                            <tr className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">KRA</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-3-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">19</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                        <div className="p-8">
+                            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+                                Group Stage Results
+                            </h3>
+                            <div className="overflow-x-auto">
+                                <table className="min-w-full divide-y divide-gray-200">
+                                    <thead className="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                                                Rank
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                                                Team
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                                                W-L-T
+                                            </th>
+                                            <th scope="col" className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                                                Points
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">CSG</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3-0-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">9</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">KRA</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">7</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">2.BIR</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">TRRB</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">26th</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1-1-1</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">6</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">SCP-38</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1-1-1</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">5</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">7</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">45e</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1-2-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">5</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">8</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">7.Fuß</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1-2-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">9</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">TRR</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1-2-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                        </tr>
+                                        <tr className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">10</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">63e</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">0-3-0</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -449,4 +429,4 @@ const RGLSeason2 = () => {
     );
 };
 
-export default RGLSeason2;
+export default HRLSeason5;

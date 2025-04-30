@@ -73,26 +73,26 @@ const RGLSeason3 = () => {
         { label: 'RGL Season 2', href: '/rglSeason2' },
         { label: 'RGL Season 3', href: '/rglSeason3' },
         { label: 'RGL Season 4', href: '/rglSeason4' },
-        { label: 'North American League Season 2', href: '/northAmericanLeagueSeason2' },
-        { label: 'Asian League Season 1', href: '/asianLeagueSeason1' },
-        { label: 'Oceanic League Season 1', href: '/oceanicLeagueSeason1' }
+        { label: 'RGL Season 5', href: '/rglSeason5' },
     ];
 
     const internationalLeaguesOptions = [
-        { label: 'World Championship 2023', href: '/worldChampionship2023' },
-        { label: 'World Championship 2022', href: '/worldChampionship2022' },
-        { label: 'World Championship 2021', href: '/worldChampionship2021' },
-        { label: 'International Cup 2024', href: '/internationalCup2024' },
-        { label: 'International Cup 2023', href: '/internationalCup2023' },
-        { label: 'Global Masters Series', href: '/globalMastersSeries' }
+        { label: 'NWL Season 2', href: '/nwlSeason2' },
+        { label: 'NWL Season 2', href: '/nwlSeason2' },
+        { label: 'NWL Season 3', href: '/nwlSeason3' },
+        { label: 'NWL Season 4', href: '/nwlSeason4' },
+        { label: 'NWL Season 5', href: '/nwlSeason5' },
+        { label: 'NWL Season 6', href: '/nwlSeason6' }
     ];
 
     const specialEventsOptions = [
-        { label: 'Winter Invitational 2024', href: '/winterInvitational2024' },
-        { label: 'Summer Showdown 2023', href: '/summerShowdown2023' },
-        { label: 'Charity Tournament 2022', href: '/charityTournament2022' },
-        { label: 'Veterans vs Newcomers', href: '/veteransVsNewcomers' },
-        { label: 'East vs West Showmatch', href: '/eastVsWestShowmatch' }
+        { label: 'HAL Season 1', href: '/halSeason1' },
+        { label: 'HAL Season 2', href: '/halSeason2' },
+        { label: 'HRL Season 2', href: '/hrlSeason2' },
+        { label: 'HRL Season 3', href: '/hrlSeason3' },
+        { label: 'HRL Season 4', href: '/hrlSeason4' },
+        { label: 'HRL Season 5', href: '/hrlSeason5' },
+        { label: 'HCL Season 1', href: '/hclSeason1' }
     ];
 
     const toggleDropdown = (type) => {

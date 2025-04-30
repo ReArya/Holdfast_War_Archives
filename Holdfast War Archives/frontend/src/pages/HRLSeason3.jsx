@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RGLSeason2Logo from '../assets/RGL Season2.svg';
+import HRLSeason3Logo from '../assets/HRL Season 3.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
@@ -53,7 +53,7 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick })
     );
 };
 
-const RGLSeason2 = () => {
+const HRLSeason3 = () => {
     const navigate = useNavigate();
     const [dropdownOpen, setDropdownOpen] = useState({ 
         regionalLeagues: false, 
@@ -94,7 +94,6 @@ const RGLSeason2 = () => {
         { label: 'HRL Season 5', href: '/hrlSeason5' },
         { label: 'HCL Season 1', href: '/hclSeason1' }
     ];
-
     const toggleDropdown = (type) => {
         const newState = {
             ...dropdownOpen,
@@ -156,7 +155,7 @@ const RGLSeason2 = () => {
                     Holdfast War Archives
                 </h1>
                 <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-                    RGL Season 2
+                    HRL Season 3
                 </h2>
                 <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
             </header>
@@ -254,7 +253,7 @@ const RGLSeason2 = () => {
                                 </h3>
                                 <div className="text-lg leading-relaxed text-gray-700">
                                     <p>
-                                        Season 1 of RGL proved to be a rousing success as more regiments joined the following year in Season 2. The competition was fierce with a lot of new regiment's aiming to go far. The steady long tenured teams would come out on top as the 45e were not only able to secure a grand finals spot, but win the gold against the 63e who would come up short once again. Despite not making the finals the TRR would secure a podium finish with a bronze medal result.
+                                        Season 3 of the Holdfast Rifle League saw a lot of new regiments aimining for the top prize and even some coming close in the case of the 47e and 92nd. However, the KRA would once again prove too much to handle as they added another HRL trophy in their victory cabinet. The 47e and 92nd would finish second and third respectively.
                                     </p>
                                 </div>
                             </div>
@@ -276,21 +275,21 @@ const RGLSeason2 = () => {
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-trophy text-yellow-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Winner: 45e
+                                            Winner: KRA
                                         </span>
                                     </li>
                                     {/* Second */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-medal text-gray-400 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Second: 63e
+                                            Second: 47e
                                         </span>
                                     </li>
                                     {/* Third */}
                                     <li className="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md border border-gray-100 transition-transform hover:scale-[1.02] duration-300">
                                         <i className="fas fa-award text-orange-500 text-2xl"></i>
                                         <span className="text-lg font-semibold text-gray-800">
-                                            Third: TRR
+                                            Third: 92nd
                                         </span>
                                     </li>
                                 </ul>
@@ -298,7 +297,7 @@ const RGLSeason2 = () => {
                                 <div className="flex items-center space-x-3 p-4 bg-white rounded-lg shadow-md border border-gray-100 mt-4">
                                     <i className="fa-regular fa-calendar text-sky-600 text-xl"></i>
                                     <span className="text-lg font-semibold text-gray-800">
-                                        November 2021 - January 2022
+                                        August 2022 - October 2022
                                     </span>
                                 </div>
                             </div>
@@ -314,15 +313,15 @@ const RGLSeason2 = () => {
                     <div className="p-6">
                         <div className="text-center">
                             <img
-                                src={RGLSeason2Logo}
-                                alt="RGL Season 2 Logo"
+                                src={HRLSeason3Logo}
+                                alt="HRL Season 3"
                                 className="object-contain w-full rounded-lg"
                             />
                         </div>
                     </div>
                 </section>
 
-                {/* Team Stats Section - Side by side */}
+                {/* Team Stats Section */}
                 <section className="flex flex-col md:flex-row gap-6 mb-12">
                     {/* Group A */}
                     <div className="w-full md:w-1/2">
@@ -345,7 +344,7 @@ const RGLSeason2 = () => {
                                                     Team
                                                 </th>
                                                 <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    W-L-T
+                                                    W-L
                                                 </th>
                                                 <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Points
@@ -355,27 +354,27 @@ const RGLSeason2 = () => {
                                         <tbody className="bg-white divide-y divide-gray-200">
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-0-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">92nd</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">9</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">TRR</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">39</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">TRRB</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">47e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-2-1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">11</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45e</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-2</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">77th</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-2-1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">11</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">SPACE</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-3</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -405,7 +404,7 @@ const RGLSeason2 = () => {
                                                     Team
                                                 </th>
                                                 <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    W-L-T
+                                                    W-L
                                                 </th>
                                                 <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Points
@@ -415,27 +414,27 @@ const RGLSeason2 = () => {
                                         <tbody className="bg-white divide-y divide-gray-200">
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">63e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-0-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">47e</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">9</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">7.Fuß</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">38</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">KRA</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">TRRB</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-2-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">26</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">26th</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-2</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">KRA</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-3-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">19</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1stOG</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-3</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -449,4 +448,4 @@ const RGLSeason2 = () => {
     );
 };
 
-export default RGLSeason2;
+export default HRLSeason3;
