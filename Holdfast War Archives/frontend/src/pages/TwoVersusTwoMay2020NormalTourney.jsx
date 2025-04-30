@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import May2v2NormalTourneyLogo from '../assets/2v2 May-Normal-Tourney.svg';
+import May2v2NormalTourneyLogo from '../assets/2v2-May-Normal-Tourney.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
