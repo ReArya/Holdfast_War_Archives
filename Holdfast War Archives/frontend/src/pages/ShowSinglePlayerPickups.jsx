@@ -25,8 +25,9 @@ const PlayerStatsPage = () => {
   const [pagination, setPagination] = useState({ currentPage: 1, total: 0, pages: 0, limit: 10 });
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Updated API URL with environment variable
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5555';
+  // Use relative URLs instead of hardcoded localhost
+  // This will work in both development and production environments
+  const API_BASE_URL = '';
 
   const debouncedSearch = useCallback(
     debounce(async (searchTerm) => {
@@ -44,7 +45,7 @@ const PlayerStatsPage = () => {
     setError(null);
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/Pickups/public?page=${page}&limit=${pagination.limit}&search=${search}&sort=-Date`
+        `/Pickups/public?page=${page}&limit=${pagination.limit}&search=${search}&sort=-Date`
       );
 
       const { data, pagination: paginationData } = response.data;
@@ -69,7 +70,7 @@ const PlayerStatsPage = () => {
 
   const fetchSuggestions = async (search) => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/Pickups/suggestions?search=${search}`);
+      const response = await axios.get(`/Pickups/suggestions?search=${search}`);
       if (response.data && Array.isArray(response.data)) {
         setSuggestions(response.data);
       }
@@ -381,5 +382,4 @@ const PlayerStatsPage = () => {
   );
 };
 
-// Export both the default and named export for compatibility with different import styles
 export default PlayerStatsPage;
