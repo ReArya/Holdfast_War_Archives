@@ -353,27 +353,39 @@ const HRLSeason2 = () => {
                                         <tbody className="bg-white divide-y divide-gray-200">
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2.BIR</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-0-1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">5</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45e</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">4-0-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">17</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">26th</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">4</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">SPACE</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">4-0-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">16</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">63e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-2-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">TRR</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-2-0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">13</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">KRA</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-2-1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">24</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">63e</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-3-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                            </tr>
+                                            <tr className="hover:bg-gray-50">
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">26th</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-3-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                            </tr>
+                                            <tr className="hover:bg-gray-50">
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">6</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">LG.PG</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-5-0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -413,27 +425,39 @@ const HRLSeason2 = () => {
                                         <tbody className="bg-white divide-y divide-gray-200">
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">41e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">3-0-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">6</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">KRA</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">4-0-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">16</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">2</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">45e</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">4</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">12.Ast</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">4-1-0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">12</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">3</td>
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">7.Fuß</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-2-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-1-2</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">11</td>
                                             </tr>
                                             <tr className="hover:bg-gray-50">
                                                 <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">4</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">TRRB</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-3-0</td>
-                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1stGDS</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2-3-0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">9</td>
+                                            </tr>
+                                            <tr className="hover:bg-gray-50">
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">5</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">Nr. 22</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">1-3-1</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">7</td>
+                                            </tr>
+                                            <tr className="hover:bg-gray-50">
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">6</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">RS</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">0-5-0</td>
+                                                <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
                                             </tr>
                                         </tbody>
                                     </table>
