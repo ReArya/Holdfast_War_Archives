@@ -253,8 +253,12 @@ const oneVOneOptions = [
                     </div>
                     <div className="p-8">
                         <div className="flex flex-col md:flex-row gap-8 items-start">
+                            
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     Hosted from November 10th to December 16th 2018, this was the first dueling tournament organized out of the initial chaos that was the competitive scene. With a $500 CAD prize pool and 32 participants, the wheat was separated from the chaff, leaving a finals showdown between two counterparts from the same regiment: Frostbite and Coach. It is the first organized dueling tournament hosted by Austro and sees a large overlap between regiment officers/leaders and the top players at the time. Players like WomenDoctor, Fusion(Loli), and Lenden made their first and last impact on the tournament stage. Likewise, Tachang, a European top duelist, closely contested a semifinal against one of North America's best; a trend that would characterize the weaker North American region at the time.
                                 </p>

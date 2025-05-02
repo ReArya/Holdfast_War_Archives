@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     The May 1v1 Leaderboard Tournament was a fierce battle of individual skill, ultimately cementing Peprika as the champion. Peprika dominated from start to finish, showing exceptional consistency, including an intense semifinal victory over Thad (8–2). In the finals, Peprika faced a strong challenge from Kris, who had surged through the bracket with an impressive performance, including a decisive win over TripleM in the semifinals (8–4). The championship match was a thrilling display of talent, with Peprika edging out Kris in a close 10–7 match. Kris's strong tactical plays and resilience throughout the tournament highlighted their skill, but Peprika's precision secured their title as the victor of this intense 1v1 showdown.
                                 </p>

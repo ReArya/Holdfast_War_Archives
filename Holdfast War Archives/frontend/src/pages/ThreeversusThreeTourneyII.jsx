@@ -256,6 +256,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This is the second iteration of the random three versus three tournaments that was hosted by Austro. The tournament brought together some of the best players in the game, organized into teams of three. XMG Melee's team featuring eLF, Fires, Billjet, Etwa, and Rufus emerged as the champions, showcasing exceptional teamwork and coordination throughout the competition. The runner-up team led by Z0FT with Toasted, Jeff King, Chung, and Comandosim put up a strong fight but ultimately fell short of the championship. The Girl Gang team, consisting of Ben, Rickdick, Siege, Gondal, and Jayy, secured a respectable third place finish.
                                 </p>

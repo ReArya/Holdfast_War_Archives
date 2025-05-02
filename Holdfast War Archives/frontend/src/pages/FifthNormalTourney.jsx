@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This was the 5th Normal Tourney that was ran in the HMS Server which bars those of a high skill level from competing. As a result, a lot of new faces have the chance to go further in the tournament and show off their skills and improve. Elkholm ended up winning the tournament in a series of hard fought matches against players such as Polish, Peep, and ItalianTurtle. Polish would fall to Elkholm 8-10 finishing second place. VHA would end up winning third place in another hard fought close match against Peep 10-9.
                                 </p>

@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     In a thrilling Finals showdown, Highlander emerged victorious over Clear with a decisive 10-4 win. Not to be overlooked, the fierce battle for third place saw Ed outdueling Sock. Earlier in the tournament, standout performances included Highlander and ToasterCoaster advancing to the Semifinals, while Sock and Bacon showcased their prowess by reaching Round 3. Furthermore, ToasterCoaster and Bacon had a nailbiting 5-4 matchup that was the most intense of the tournament by far.
                                 </p>

@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     In the April Leaderboard Tournament, the competition was fierce, but it was Power who ultimately emerged victorious. Power showcased exceptional consistency and strategic prowess, defeating strong competitors like Ben (Amy) (6-1) in the quarterfinals and Adam (8–6) in a hard-fought semifinal match. Meanwhile, DankCookies dominated their side of the bracket with commanding performances, including a decisive victory against Peprika (8–6) in the semifinals. The final showdown between Power and DankCookies was an exhilarating battle, with both players giving their all. Ultimately, Power clinched the championship with a score of 10–8, solidifying their place as the tournament's champion. DankCookies, despite falling short in the final match, proved to be a formidable contender throughout the event.
                                 </p>

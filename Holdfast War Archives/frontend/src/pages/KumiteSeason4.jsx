@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                 Firmly within the era of groupfighting, Kumite took the stage of an annual reminder of a time long past, where an old skill was to be practiced by members of the community. From the ashes of the Royal Rangers' dynasty saw a final displaying a rivalry that would span years between Ecual and Power, that would be fought on the fields of Kumite as much as they were in the most important matches of RGL. Top players in the game would fall short of the mark against dueling's strongest paragons, as Adam suffered a humiliating defeat to Aeris and Ed to Highlander, who had watched his fiercest rivals fade away, only to be replaced by a new generation. The generation of pure groupfighters would not yet claim their first Kumite, however, as the only defense of a title was added to the Nevadan trophy cabinet by Ecual.
                                 </p>

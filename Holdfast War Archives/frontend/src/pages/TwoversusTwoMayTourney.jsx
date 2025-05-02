@@ -253,6 +253,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This two versus two tournament was ran in the old Holdfast Melee Server (HMS) discord server under Austro. The veteran Mattbob and the new upstart Adam won the tournament handily defeating Paddy and BobTheBuilder in the finals. Hazen and Bronn met an unlucky fate facing off against Adam and Mattbob in the semifinals, but managed to pull a podium spot finishing in third place. Power and Hunder came up close, but couldn't hold off Paddy and BobTheBuilder. 
                                 </p>

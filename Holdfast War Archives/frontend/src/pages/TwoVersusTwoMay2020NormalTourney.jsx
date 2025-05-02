@@ -253,6 +253,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This 2v2 was a restricted tourney which meant that the top players were barred from participating. This meant that developing players had a chance for a podium spot as well as go farther in the bracket then before. Up and coming players Polish and Anubis were able to edge out the veterans Blazey and Pilot to win the top podium spot. TRR members Siege and Pina were able to secure a third place finish defeating Jaymo and Tyler in the third place match.
                                 </p>

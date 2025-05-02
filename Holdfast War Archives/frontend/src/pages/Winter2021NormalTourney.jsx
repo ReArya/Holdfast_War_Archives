@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     Aries displayed unwavering skill and determination throughout the event, defeating VG 8–3 in the quarterfinals and Gimli 8–5 in a challenging semifinal match. In the grand finale, Aries secured the championship by overcoming Hunder with an impressive 8–5 win. Hunder's journey to the finals included a closely contested 8–6 victory over Coner_B and a solid performance against Bacon in the semifinals. The tournament showcased intense competition and highlighted Aries as a standout player and a threat for future tourneys.
                                 </p>

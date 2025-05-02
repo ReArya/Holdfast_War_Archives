@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This was the 1st Normal Tourney that was ran in the HMS Server which bars those of a high skill level from competing. As a result, a lot of new faces have the chance to go further in the tournament and show off their skills and improve. Hex would be crowned the first Normal Tourney victor with a win over Caleb 20-16. This tournament would mark a success as future Normal melee tournaments would be hosted. Noble a tournament favorite would end up taking the bronze medal with a 10-3 victory of RomanLaw.
                                 </p>

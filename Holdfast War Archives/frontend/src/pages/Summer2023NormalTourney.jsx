@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     The Summer 2023 Normal Tournament showcased intense 1v1 melee battles with a strong lineup of players. The tournament began with 16 competitors, and Chung emerged as the champion after a dominant performance. In the semifinals, Chung defeated Chrome Ops 7–3, showcasing superior skill and strategy. On the other side of the bracket, Ben (Amy) edged past Cloud in a nail-biting match, winning 7–6. In the grand finals, Chung maintained control with a decisive 10–4 victory over Ben (Amy), securing first place. Chrome Ops claimed third place after defeating Cloud 7–1 in the consolation match.
                                 </p>

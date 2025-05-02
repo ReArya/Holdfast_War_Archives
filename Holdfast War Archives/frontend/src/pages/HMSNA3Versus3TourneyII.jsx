@@ -253,6 +253,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This early 3 versus 3 tournament was conducted in the HMS discord server during the NA melee communities infancy. As a result, some information has been lost to time. However, the 63e team was able to overcome the Anti-Comintern Pact in the grand finals in this relatively small tournament. The Green Squad would end up taking third place. More tournaments were to follow as the community only grew from here.
                                 </p>

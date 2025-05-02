@@ -253,6 +253,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                            <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This 5 versus 5 tournament was organized by the XMG melee discord on April 2020. Which is the european focused community that hosts NA events on occasion. The event was won by the Very Very Nice Melee team over the God Crusader 10-2 in the finals. The 63e a coalition of 63e memebers was able to finish on the podium earning the third place medal. 
                                 </p>

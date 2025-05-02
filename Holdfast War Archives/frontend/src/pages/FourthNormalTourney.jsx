@@ -256,6 +256,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This was the 4th Normal Tourney which bars those of a high skill level from competing. As a result, a lot of new faces have the chance to go further in the tournament and show off their skills and improve. Dingus would end up winning the tournament sweeping his competition and beating his fellow 63e regiment member Sealand in the finals. TheRomanLaw would get a surprising third place result upseting Tortuga in the third place match.
                                 </p>

@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     Bob emerged as the standout contender, dominating the brackets with sharp performances, including a decisive victory over Choog (10–4) in the semifinals. His consistency and strategy were unmatched throughout the event. Meanwhile, Pero demonstrated exceptional resilience, taking down tough opponents like Thad (10–6) in the semifinals. Perc's dynamic gameplay and adaptability made for an exciting journey to the final match. The grand finale saw Bob and Pero face off in an electrifying showdown. Bob secured a convincing 10–3 victory, claiming the tournament title. While Perc's journey was remarkable, it was Bob's steady dominance that led him to lift the champion's trophy.
                                 </p>

@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                            <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     After 9 months and a whopping 6 intermittent (Normal) tournaments, the second installment of the Kumite was here. This time there were only 8 participants, all of whom had been directly invited from either the previous Kumite, normal tournaments, or qualification duels. The prize pool was also much smaller, only $50 CAD. Here the last vestiges of the old order were challenged with specific phenoms from various regiments across the scene, as regiment leaders like Zen and Ed were tossed aside by players of a far lower station. Kumite II likewise marks the rise of dueling phenomenon Pepperoni and the rising star of Highlander and the fall of Caleb and Hex from the dueling scene. Little did the community know that the next year of dueling tournaments would be dominated by the "new guard" of dueling.
                                 </p>

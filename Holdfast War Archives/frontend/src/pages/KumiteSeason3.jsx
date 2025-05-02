@@ -256,6 +256,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     After 18 months the Kumite was back for a third time, this time with a 16-player format and a $20 USD prize pool. Between 2019 and 2021 dueling had gone from the premier form of competitive to an afterthought in the eyes of the melee community, and the last vestiges of dueling's premier talents would face off against the new generation of players that had grown up with groupfighting alongside dueling. Names yet to peak such as Z0FT, Adam, and Kris would meet their match against the ever-consistent Highlander, and the finalist pariah Wraith. Nevada's own passing of the torch saw widely-recognized dueling GOAT Pepperoni fall to his brethren in Ecual, who would dominate the greats of the old era and firmly usher in one anew.
                                 </p>

@@ -253,6 +253,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This 3 vs. 3 Tourney was organized by the player Risk on December 2018. The Regiment the Nr. 9 would end up having a strong showing as they finished with both the gold and silver in an all Nr.9 grand final. The Nr9 team would end up defeating the Also Nr.9 team 7-1. In the bronze match, the 63e would end up on top defeating Daddy Gloafer and Sons in a close 7-4 match.
                                 </p>

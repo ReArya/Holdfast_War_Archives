@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     The July 2021 Leaderboard tournament was a thrilling contest that saw Julian rise to the top in spectacular fashion. Starting strong, Julian powered through the brackets with notable victories over Winter in Round 3 and a hard-fought 8–6 semifinal match against Peprika. In the grand finals, Julian showcased unmatched precision and adaptability, defeating Adam the Meta with a dominant 8–1 scoreline. Adam, who had shown incredible resilience in earlier rounds, including an 8–6 victory over Ed in the semifinals, was unable to overcome Julian's commanding playstyle in the final match. This event demonstrated Julian's exceptional skill and secured his place as a top competitor in the Holdfast melee community.
                                 </p>

@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     Half a decade removed from the height of dueling, Kumite stood far-removed from the "glory days" of Pepperoni and Wraith. Nonetheless, the Kumite "regulars" remained constant, aside from the noted absence of Ecual. Highlander returned to defend his title, while Aeris set their eyes once more upon breaking through the winning side Kumite. Names like Clear, Russel, and Bacon stood as upstarts to attempt dark horse runs into the tournament, but it quickly became clear that was the realm of gods, not men, that would fight the sixth Kumite. Dispatching of Russel without issue, Highlander stood poised to defend the Kumite title against Z0FT, who had reinforced the glass ceiling that had blocked Aeris from a Kumite title. This time three of the four previous year's semifinalists would see a new winner, as Z0FT returned the previous 10-9 in the inverse to secure the 63e its first Kumite.
                                 </p>

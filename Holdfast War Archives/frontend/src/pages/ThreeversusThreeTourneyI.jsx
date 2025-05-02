@@ -254,6 +254,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This is the first iteration of the random three versus three tournaments that was hosted by Austro. The team of Section, Crack, and ChromeOps came out on top as they defeated the European team of Tmey, Milosz, and Robo 7-4 in the finals. Perc, Legion, and 7nation ended up falling short as the favorites, but still ended up taking the bronze.
                                 </p>

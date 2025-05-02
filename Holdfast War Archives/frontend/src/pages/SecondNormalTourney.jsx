@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This was the 2nd Normal Tourney which bars those of a high skill level from competing. As a result, a lot of new faces have the chance to go further in the tournament and show off their skills and improve. The finals would end up being Goofer versus Josh with Goofer winning 20-12. This would be a sign to come as Goofer would propel his 1v1 melee status for future tournaments after this victory. For the third place match Taylor would win the bronze in a close 5-4 match against Fanta.
                                 </p>

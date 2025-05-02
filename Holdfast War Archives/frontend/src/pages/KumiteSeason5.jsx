@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                 With the new year came a new Kumite for the duelers of Holdfast to compete in, and with it came the complete dawn of a new era. Now considered a veteran surrounded by sharks, Ecual returned for a third time to Kumite to defend his title against names hungry to claim a title that had been denied twice. New pillars of Wraith's Melee Server like Clear, Z0FT, and Perc set their eyes upon what had been denied to them, setting upon that which Highlander had lost four times previously. But this time would prove different, for Highlander had conquered the Nevadan dynasty that had denied him thrice, and in a hotly contested final defeated the perennial podium of Aeris.
                                 </p>

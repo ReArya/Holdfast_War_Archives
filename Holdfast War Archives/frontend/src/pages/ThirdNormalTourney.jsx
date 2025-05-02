@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This was the 3rd Normal Tourney which bars those of a high skill level from competing. As a result, a lot of new faces have the chance to go further in the tournament and show off their skills and improve. Highlander would end up winning this tournament to solidify his status as a 1v1 meleer to be feared for future tournaments. Dingus would have a strong showing ending with a second place in a close hard fought match with Highlander. Toomose would end up with a third place finish beating his fellow KRA member Jaynex (7-6).
                                 </p>

@@ -255,6 +255,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     The First HH Tournament (A series of tournaments ran by Cereberus) gave melee players another opportunity to prove their skills. Wraith ended up winning the inaugural tournament, defeating old Holdfast greats such as Elf and Bob who at the time were EU greats expected to win the tournament. This marked the first of many tournaments that was well known due to its big prize pool bringing the best of the best to compete.
                                 </p>

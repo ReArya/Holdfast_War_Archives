@@ -253,6 +253,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     The September 2020 Five versus Five Tourney was a dominant showing by the 12es Regiment. The 12es would end up fielding 4 teams which in total is almost half of the tournament's participants. Two 12es teams would end up taking podium spots with the A team taking the gold and the B team taking the bronze. The 77th/TRR team put up a fight in the finals, but where ultimately unsuccessful in their comeback. The 12es B team would end up defeating the 45e coilition soundly for their third place medal.
                                 </p>

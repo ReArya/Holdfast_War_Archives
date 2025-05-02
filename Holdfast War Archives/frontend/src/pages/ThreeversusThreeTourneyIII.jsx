@@ -256,6 +256,9 @@ const oneVOneOptions = [
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             {/* Paragraph Section */}
                             <div className="flex-1 text-lg leading-relaxed text-gray-700">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                    Tournament Summary
+                                </h3>
                                 <p>
                                     This is the third iteration of the random three versus three tournaments that was hosted by Austro. Teams were selected at random and fought for the 3 versus 3 crown. Team Charlie which consisted of Peprika, Fires, Gondal, Henry, and Iron won the tourney over a series of hardfought matches throughtout the tournament that came to the wire during the Semifinals and Finals matches over team Delta and Eagle respectively. This would be the last 3 versus 3 tourney that was ran by Austro at the old HMS discord.
                                 </p>
