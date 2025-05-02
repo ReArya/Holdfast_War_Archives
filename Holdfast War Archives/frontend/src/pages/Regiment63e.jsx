@@ -40,19 +40,27 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick })
           />
         </svg>
       </button>
+
       {isOpen && (
-        <ul className="absolute left-0 right-0 z-20 mt-2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+        <div 
+          className="absolute left-0 right-0 z-10 mt-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dropdown-menu"
+        >
           {options.map((option, index) => (
-            <li key={index}>
-              <button
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-sky-100 hover:text-sky-800"
-                onClick={() => onOptionClick(option)}
-              >
-                {option.label}
-              </button>
-            </li>
+            <a
+              key={index}
+              href={option.href}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700"
+              role="menuitem"
+              tabIndex="-1"
+              onClick={(e) => {
+                e.preventDefault();
+                onOptionClick && onOptionClick(option);
+              }}
+            >
+              {option.label}
+            </a>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
@@ -126,13 +134,16 @@ const Regiment63e = () => {
   }, [activeTab, mainContentRef]);
 
   const regimentOptions = [
-    { label: '2.BIR', href: '/regiment2.BIR' },
+    { label: '26th', href: '/regiment26th' },
+    { label: '2.BIR', href: '/regiment2.BIR'},
     { label: '45e', href: '/regiment45e' },
-    { label: '51st', href: '/regiment51st' },
     { label: '63e', href: '/regiment63e' },
     { label: '77th', href: '/regiment77th' },
     { label: '7Fuß', href: '/regiment7Fuß' },
     { label: 'KRA', href: '/regimentKRA' },
+    { label: 'No. 16', href: '/regimentNo.16' },
+    { label: 'TRR', href: '/regimentTRR' },
+    { label: 'TRRB', href: '/regimentTRRB' },
   ];
 
   const handleOptionClick = (option) => {
@@ -188,7 +199,7 @@ const Regiment63e = () => {
       {/* Regiment Dropdown Section */}
       <section className="max-w-md mx-auto mb-12">
         <div className="relative bg-white rounded-xl shadow-lg overflow-visible transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-700 to-blue-600" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-sky-600" />
           <div className="p-8">
             <div className="relative z-20">
               <Dropdown
@@ -196,16 +207,14 @@ const Regiment63e = () => {
                 options={regimentOptions}
                 isOpen={dropdownOpen}
                 toggleDropdown={toggleDropdown}
-                id="regiment"
                 onOptionClick={handleOptionClick}
               />
             </div>
-            <div className="pt-4 pb-0">
-              <h3 className="text-gray-800 text-xl font-semibold mb-3 text-center">Regiment List</h3>
-              <p className="text-gray-600 text-center">
-                View historical data for North American regiments
-              </p>
-            </div>
+            <br />
+            <h3 className="text-gray-800 text-xl font-semibold mb-3 text-center">Regiment List</h3>
+            <p className="text-gray-600 text-center mb-4">
+              View historical data for North American regiments
+            </p>
           </div>
         </div>
       </section>

@@ -40,6 +40,8 @@ import RegimentKRA from './pages/RegimentKRA';
 import Regiment77th from './pages/Regiment77th';
 import Regiment7Fuß from './pages/Regiment7Fuß';
 import RegimentNo16 from './pages/RegimentNo16';
+import RegimentTRR from './pages/RegimentTRR';
+import RegimentTRRB from './pages/RegimentTRRB';
 import LeagueHistoryLoad from './pages/LeagueHistoryLoad';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import TwoversusTwoMayTourney from './pages/TwoversusTwoMayTourney';
@@ -114,6 +116,8 @@ function App() {
           <Route path="/regiment7Fuß" element={<Regiment7Fuß />} />
           <Route path="/regimentKRA" element={<RegimentKRA />} />
           <Route path="/regimentNo.16" element={<RegimentNo16 />} />
+          <Route path="/regimentTRR" element={<RegimentTRR />} />
+          <Route path="/regimentTRRB" element={<RegimentTRRB />} />
           <Route path="/leagueHistory" element={<LeagueHistoryLoad />} />
           <Route path="/twoVersusTwoMay2021Tourney" element={<TwoversusTwoMayTourney />} />
           <Route path="/fiveVersusFiveSeptember2020Tourney" element={<FiveversusFiveTourneySept2020 />} />

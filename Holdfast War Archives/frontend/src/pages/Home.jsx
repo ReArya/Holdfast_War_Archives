@@ -30,9 +30,9 @@ const Home = () => {
 
       {/* Main content with improved spacing and shadows */}
       <main className={`max-w-6xl mx-auto px-4 pb-16 transition-all duration-1000 ease-in-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Video 1 and containers 1&2 group */}
-          <div className="w-full md:w-1/2 flex flex-col gap-6">
+        <div className="flex flex-col gap-8">
+          {/* Video sections - Now in single column on all devices for consistency */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Video 1 with description above */}
             <div className="bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 relative overflow-hidden">
               {/* Curved blue line at top */}
@@ -58,36 +58,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Containers 1&2 with enhanced styling */}
-            <div className="flex flex-col sm:flex-row gap-6">
-              <div className="w-full sm:w-1/2">
-                <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
-                  <div className="p-6">
-                    <a href="https://discord.gg/eMQxrPbYdJ" className="flex items-center space-x-4">
-                      <i className="fa-brands fa-discord text-sky-600 text-3xl"></i>
-                      <span className="text-gray-700">Holdfast Nations at War Discord Server</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="w-full sm:w-1/2">
-                <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
-                  <div className="p-6">
-                    <a href="https://store.steampowered.com/app/589290/Holdfast_Nations_At_War/" className="flex items-center space-x-4">
-                      <i className="fa-brands fa-steam text-sky-600 text-3xl"></i>
-                      <span className="text-gray-700">Holdfast Nations at War Steam Page</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Video 2 and containers 3&4 group */}
-          <div className="w-full md:w-1/2 flex flex-col gap-6">
             {/* Video 2 with description above */}
             <div className="bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 relative overflow-hidden">
               {/* Curved blue line at top */}
@@ -113,30 +84,51 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Containers 3&4 with enhanced styling */}
-            <div className="flex flex-col sm:flex-row gap-6">
-              <div className="w-full sm:w-1/2">
-                <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
-                  <div className="p-6">
-                    <a href="https://discord.gg/5NBDpURfsw" className="flex items-center space-x-4">
-                      <i className="fa-brands fa-discord text-sky-600 text-3xl"></i>
-                      <span className="text-gray-700">Wraiths Melee Discord Server</span>
-                    </a>
-                  </div>
-                </div>
+          </div>
+
+          {/* Button containers - Now in consistent grid for all screen sizes */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {/* Container 1 */}
+            <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
+              <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
+              <div className="p-6">
+                <a href="https://discord.gg/eMQxrPbYdJ" className="flex items-center space-x-4">
+                  <i className="fa-brands fa-discord text-sky-600 text-3xl"></i>
+                  <span className="text-gray-700">Holdfast Nations at War Discord Server</span>
+                </a>
               </div>
-              <div className="w-full sm:w-1/2">
-                <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
-                  <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
-                  <div className="p-6">
-                    <a href="https://www.youtube.com/@WraithsMeleeServer" className="flex items-center space-x-4">
-                      <i className="fa-brands fa-youtube text-sky-600 text-3xl"></i>
-                      <span className="text-gray-700">Wraiths Melee Youtube Channel</span>
-                    </a>
-                  </div>
-                </div>
+            </div>
+            
+            {/* Container 2 */}
+            <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
+              <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
+              <div className="p-6">
+                <a href="https://store.steampowered.com/app/589290/Holdfast_Nations_At_War/" className="flex items-center space-x-4">
+                  <i className="fa-brands fa-steam text-sky-600 text-3xl"></i>
+                  <span className="text-gray-700">Holdfast Nations at War Steam Page</span>
+                </a>
+              </div>
+            </div>
+            
+            {/* Container 3 */}
+            <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
+              <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
+              <div className="p-6">
+                <a href="https://discord.gg/5NBDpURfsw" className="flex items-center space-x-4">
+                  <i className="fa-brands fa-discord text-sky-600 text-3xl"></i>
+                  <span className="text-gray-700">Wraiths Melee Discord Server</span>
+                </a>
+              </div>
+            </div>
+            
+            {/* Container 4 */}
+            <div className="relative bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100 h-full">
+              <div className="absolute top-0 left-0 w-full h-1 bg-sky-600 rounded-b-md" />
+              <div className="p-6">
+                <a href="https://www.youtube.com/@WraithsMeleeServer" className="flex items-center space-x-4">
+                  <i className="fa-brands fa-youtube text-sky-600 text-3xl"></i>
+                  <span className="text-gray-700">Wraiths Melee Youtube Channel</span>
+                </a>
               </div>
             </div>
           </div>

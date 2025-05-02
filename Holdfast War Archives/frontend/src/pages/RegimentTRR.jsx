@@ -1,8 +1,7 @@
-// Enhanced Regiment63e.jsx with improved UI/UX and modular structure
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import RegimentKRALogo from '../assets/KRA.png';
+import RegimentTRRLogo from '../assets/TRR.png';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
@@ -99,38 +98,65 @@ const TabSystem = ({ tabs, activeTab, setActiveTab }) => (
 );
 
 // Card component for better organization
-const Card = ({ title, children, className = "", style = {} }) => (
-  <section className={`bg-white rounded-xl shadow border border-gray-100 ${className}`} style={style}>
+const Card = ({ title, children, className = "", style = {}, forwardedRef }) => (
+  <section 
+    className={`bg-white rounded-xl shadow border border-gray-100 ${className}`} 
+    style={style}
+    ref={forwardedRef}
+  >
     <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
-    <div className="p-6">
+    <div className="p-6 h-full flex flex-col">
       {title && <h3 className="text-xl font-bold text-gray-800 mb-4">{title}</h3>}
-      {children}
+      <div className="flex-grow">{children}</div>
     </div>
   </section>
 );
 
-const RegimentKRA = () => {
+const RegimentTRR = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedRegiment, setSelectedRegiment] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const [containerHeight, setContainerHeight] = useState("auto");
+  
+  // Refs for measuring heights
+  const logoCardRef = useRef(null);
+  const playersCardRef = useRef(null);
   const mainContentRef = useRef(null);
-  const [contentHeight, setContentHeight] = useState(0);
-
+  
   useEffect(() => setIsLoaded(true), []);
 
-  // Effect to measure and set the height of the main content
+  // Calculate and synchronize heights
   useEffect(() => {
-    if (mainContentRef.current) {
-      // Add a small timeout to ensure content is fully rendered
-      const timer = setTimeout(() => {
-        setContentHeight(mainContentRef.current.clientHeight);
-      }, 100);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [activeTab, mainContentRef]);
+    const updateHeights = () => {
+      if (logoCardRef.current && playersCardRef.current && mainContentRef.current) {
+        // Reset heights to auto first to get natural heights
+        mainContentRef.current.style.height = "auto";
+        
+        // Wait for render cycle
+        setTimeout(() => {
+          // Calculate the total height of the sidebar (logo + players)
+          const logoHeight = logoCardRef.current.offsetHeight;
+          const playerCardHeight = playersCardRef.current.offsetHeight;
+          const sidebarTotalHeight = logoHeight + playerCardHeight + 24; // 24px is the gap
+          
+          // Get natural height of main content
+          const mainContentHeight = mainContentRef.current.offsetHeight;
+          
+          // Set the height to the taller of the two
+          const newHeight = Math.max(sidebarTotalHeight, mainContentHeight);
+          setContainerHeight(`${newHeight}px`);
+        }, 100);
+      }
+    };
+
+    updateHeights();
+    
+    // Also update on tab change or window resize
+    window.addEventListener('resize', updateHeights);
+    return () => window.removeEventListener('resize', updateHeights);
+  }, [activeTab, isLoaded]);
 
   const regimentOptions = [
     { label: '26th', href: '/regiment26th' },
@@ -156,17 +182,12 @@ const RegimentKRA = () => {
   };
 
   const achievements = [
-    { icon: 'fa-award', text: 'RGL Season 1 - 3rd Place', color: 'orange' },
-    { icon: 'fa-medal', text: 'NWL Season 3 - 2nd Place', color: 'gray' },
-    { icon: 'fa-medal', text: 'NWL Season 4 - 2nd Place', color: 'gray' },
-    { icon: 'fa-medal', text: 'NWL Season 5 - 2nd Place', color: 'gray' },
-    { icon: 'fa-award', text: 'NWL Season 6 - 3rd Place', color: 'orange' },
-    { icon: 'fa-trophy', text: 'HRL Season 2 - 1st Place', color: 'yellow' },
-    { icon: 'fa-trophy', text: 'HRL Season 3 - 1st Place', color: 'yellow' },
-    { icon: 'fa-trophy', text: 'HRL Season 4 - 1st Place', color: 'yellow' },
+    { icon: 'fa-trophy', text: 'RGL Season 1 - 1st Place', color: 'yellow' },
+    { icon: 'fa-award', text: 'RGL Season 2 - 3rd Place', color: 'orange' },
+    { icon: 'fa-trophy', text: 'NWL Season 3 - 1st Place', color: 'yellow' },
   ];
 
-  const notablePlayers = ['Almondo', 'Kaldir', 'Sock'];
+  const notablePlayers = ['Hazen', 'Bucket', 'DankCookies'];
 
   // Group achievements by league for better organization
   const groupedAchievements = achievements.reduce((acc, achievement) => {
@@ -188,7 +209,7 @@ const RegimentKRA = () => {
           Holdfast War Archives
         </h1>
         <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-          KRA Regiment
+          TRR Regiment
         </h2>
         <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
       </header>
@@ -220,13 +241,16 @@ const RegimentKRA = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left sidebar - About & Logo */}
           <div className="lg:col-span-3 space-y-6 flex flex-col">
-            <Card className="flex flex-col items-center text-center">
+            <Card 
+              className="flex flex-col items-center text-center"
+              forwardedRef={logoCardRef}
+            >
               <div className="w-32 h-32 rounded-full bg-sky-50 flex items-center justify-center shadow border border-sky-100 mb-4">
-                <img src={RegimentKRALogo} alt="KRA Regiment Logo" className="w-full h-full object-contain p-2" />
+                <img src={RegimentTRRLogo} alt="TRR Regiment Logo" className="w-full h-full object-contain p-2" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">KRA Regiment</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">TRR Regiment</h3>
               <a 
-                href="https://discord.gg/KRA" 
+                href="https://discord.gg/trr" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition text-sm flex items-center justify-center"
@@ -239,7 +263,7 @@ const RegimentKRA = () => {
             <Card 
               title="Notable Players" 
               className="flex-grow"
-              style={{ height: contentHeight > 0 ? `${contentHeight}px` : 'auto' }}
+              forwardedRef={playersCardRef}
             >
               <div className="h-full flex flex-col">
                 <ul className="space-y-2 flex-grow">
@@ -258,57 +282,65 @@ const RegimentKRA = () => {
 
           {/* Main content area */}
           <div className="lg:col-span-9">
-            <Card title="Regiment Overview" ref={mainContentRef}>
-              <p className="text-base text-gray-700 mb-4">
-                The KRA is one of the oldest regiments in the community. Beginning as the KRRC this regiment is not only the biggest British faction themed regiment, but regiment overall. The KRA has been apart of countless leagues and as a result has filled their accolades cabinet to the brim.
-              </p>
-              
-              <TabSystem 
-                tabs={['Achievements', 'Media']} 
-                activeTab={activeTab} 
-                setActiveTab={setActiveTab} 
-              />
-              
-              {activeTab === 0 && (
-                <div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {Object.entries(groupedAchievements).map(([league, leagueAchievements]) => (
-                      <div key={league} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                        <h4 className="text-md font-semibold text-sky-700 mb-3">{league} League</h4>
-                        <ul className="space-y-2">
-                          {leagueAchievements.map((achievement, idx) => (
-                            <AchievementItem key={idx} {...achievement} />
-                          ))}
-                        </ul>
+            <Card 
+              title="Regiment Overview" 
+              forwardedRef={mainContentRef}
+              style={{ height: containerHeight }}
+            >
+              <div className="h-full flex flex-col">
+                <p className="text-base text-gray-700 mb-4">
+                The TRR stands as one of the longest-standing British regiments still active in the community. Under Colonel Honor's leadership, the regiment became a feared competitive powerhouse in earlier seasons. Now led by Bucket and DankCookies, the TRR is determined to restore its former glory and competitive dominance.
+                </p>
+                
+                <TabSystem 
+                  tabs={['Achievements', 'Media']} 
+                  activeTab={activeTab} 
+                  setActiveTab={setActiveTab} 
+                />
+                
+                <div className="flex-grow">
+                  {activeTab === 0 && (
+                    <div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {Object.entries(groupedAchievements).map(([league, leagueAchievements]) => (
+                          <div key={league} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                            <h4 className="text-md font-semibold text-sky-700 mb-3">{league} League</h4>
+                            <ul className="space-y-2">
+                              {leagueAchievements.map((achievement, idx) => (
+                                <AchievementItem key={idx} {...achievement} />
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                      
+                      {Object.keys(groupedAchievements).length === 0 && (
+                        <div className="text-center py-6">
+                          <i className="fas fa-trophy text-gray-300 text-4xl mb-2"></i>
+                          <p className="text-gray-500 italic">No achievements recorded yet.</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   
-                  {Object.keys(groupedAchievements).length === 0 && (
-                    <div className="text-center py-6">
-                      <i className="fas fa-trophy text-gray-300 text-4xl mb-2"></i>
-                      <p className="text-gray-500 italic">No achievements recorded yet.</p>
+                  {activeTab === 1 && (
+                    <div className="space-y-4">
+                      <div className="rounded-lg overflow-hidden shadow-md">
+                        <div className="aspect-video">
+                          <iframe
+                            className="w-full h-full"
+                            src="https://www.youtube.com/embed/6mwBT55OwJg?autoplay=1&mute=1"
+                            title="TRR Regiment Battle Footage"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
-              )}
-              
-              {activeTab === 1 && (
-                <div className="space-y-4">
-                  <div className="rounded-lg overflow-hidden shadow-md">
-                    <div className="aspect-video">
-                      <iframe
-                        className="w-full h-full"
-                        src="https://www.youtube.com/embed/5gcUgV5hhy4?autoplay=1&mute=1"
-                        title="KRA Regiment Battle Footage"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </div>
-                </div>
-              )}
+              </div>
             </Card>
           </div>
         </div>
@@ -317,4 +349,4 @@ const RegimentKRA = () => {
   );
 };
 
-export default RegimentKRA;
+export default RegimentTRR;

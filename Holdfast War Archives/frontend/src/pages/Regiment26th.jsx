@@ -3,32 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Regiment26thLogo from '../assets/26th.png';
 
-const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
+const Dropdown = ({ title, options, isOpen, toggleDropdown, onOptionClick }) => {
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        toggleDropdown(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [toggleDropdown]);
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         type="button"
-        onClick={() => toggleDropdown(!isOpen)}
-        className="w-full flex items-center justify-between bg-white px-4 py-3 text-base font-semibold text-sky-600 shadow ring-1 ring-gray-300 hover:bg-gray-50 rounded-lg transition-all"
-        id={`dropdown-button-${id}`}
-        aria-haspopup="true"
-        aria-expanded={isOpen}
+        onClick={toggleDropdown}
+        className="dropdown-toggle w-full flex items-center justify-center bg-white px-4 py-3 text-base font-semibold text-sky-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 rounded-md group transition-all"
       >
         <span>{title}</span>
         <svg
-          className={`w-5 h-5 ml-2 transform transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 ml-2 text-sky-600 transition-transform group-hover:translate-x-1 ${isOpen ? 'rotate-180' : ''}`}
           viewBox="0 0 20 20"
           fill="currentColor"
         >
@@ -39,19 +26,27 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick })
           />
         </svg>
       </button>
+      
       {isOpen && (
-        <ul className="absolute left-0 right-0 z-20 mt-2 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+        <div 
+          className="absolute left-0 right-0 z-10 mt-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dropdown-menu"
+        >
           {options.map((option, index) => (
-            <li key={index}>
-              <button
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-sky-100 hover:text-sky-800"
-                onClick={() => onOptionClick(option)}
-              >
-                {option.label}
-              </button>
-            </li>
+            <a
+              key={index}
+              href={option.href}
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-sky-50 hover:text-sky-700"
+              role="menuitem"
+              tabIndex="-1"
+              onClick={(e) => {
+                e.preventDefault();
+                onOptionClick && onOptionClick(option);
+              }}
+            >
+              {option.label}
+            </a>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
@@ -151,30 +146,46 @@ const Regiment26th = () => {
     return () => window.removeEventListener('resize', updateHeights);
   }, [activeTab, isLoaded]);
 
+  // Add pagination for regiments display
   const regimentOptions = [
-    { label: '2.BIR', href: '/regiment2.BIR' },
+    { label: '26th', href: '/regiment26th' },
+    { label: '2.BIR', href: '/regiment2.BIR'},
     { label: '45e', href: '/regiment45e' },
-    { label: '51st', href: '/regiment51st' },
     { label: '63e', href: '/regiment63e' },
     { label: '77th', href: '/regiment77th' },
     { label: '7Fuß', href: '/regiment7Fuß' },
     { label: 'KRA', href: '/regimentKRA' },
+    { label: 'No. 16', href: '/regimentNo.16' },
+    { label: 'TRR', href: '/regimentTRR' },
+    { label: 'TRRB', href: '/regimentTRRB' },
   ];
-
+  
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  
   const handleOptionClick = (option) => {
     setSelectedRegiment(option);
     setDropdownOpen(false);
     navigate(option.href);
   };
-  
-  const toggleDropdown = (value) => {
-    setDropdownOpen(value);
-  };
 
-  const achievements = [
+  // Add event listener to close dropdown when clicking outside
+  useEffect(() => {
+    const closeDropdowns = (event) => {
+      const isDropdownButton = event.target.closest('.dropdown-toggle');
+      const isDropdownMenu = event.target.closest('.dropdown-menu');
+      
+      if (!isDropdownButton && !isDropdownMenu) {
+        setDropdownOpen(false);
+      }
+    };
 
-  ];
+    document.addEventListener('mousedown', closeDropdowns);
+    return () => document.removeEventListener('mousedown', closeDropdowns);
+  }, []);
 
+  const achievements = [];
   const notablePlayers = ['Spacey', 'Carjaxx', 'Berry'];
 
   // Group achievements by league for better organization
@@ -205,7 +216,7 @@ const Regiment26th = () => {
       {/* Regiment Dropdown Section */}
       <section className="max-w-md mx-auto mb-12">
         <div className="relative bg-white rounded-xl shadow-lg overflow-visible transition-all duration-200 hover:shadow-xl hover:translate-y-[-4px] border border-gray-100">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-700 to-blue-600" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-sky-600" />
           <div className="p-8">
             <div className="relative z-20">
               <Dropdown
@@ -213,16 +224,14 @@ const Regiment26th = () => {
                 options={regimentOptions}
                 isOpen={dropdownOpen}
                 toggleDropdown={toggleDropdown}
-                id="regiment"
                 onOptionClick={handleOptionClick}
               />
             </div>
-            <div className="pt-4 pb-0">
-              <h3 className="text-gray-800 text-xl font-semibold mb-3 text-center">Regiment List</h3>
-              <p className="text-gray-600 text-center">
-                View historical data for North American regiments
-              </p>
-            </div>
+            <br />
+            <h3 className="text-gray-800 text-xl font-semibold mb-3 text-center">Regiment List</h3>
+            <p className="text-gray-600 text-center mb-4">
+              View historical data for North American regiments
+            </p>
           </div>
         </div>
       </section>
@@ -236,7 +245,7 @@ const Regiment26th = () => {
               forwardedRef={logoCardRef}
             >
               <div className="w-32 h-32 rounded-full bg-sky-50 flex items-center justify-center shadow border border-sky-100 mb-4">
-                <img src={Regiment26thLogo} alt="2BIR Regiment Logo" className="w-full h-full object-contain p-2" />
+                <img src={Regiment26thLogo} alt="26th Regiment Logo" className="w-full h-full object-contain p-2" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">26th Regiment</h3>
               <a 

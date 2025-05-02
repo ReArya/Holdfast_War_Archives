@@ -28,7 +28,7 @@ const Dropdown = ({ title, options, isOpen, toggleDropdown, onOptionClick }) => 
       
       {isOpen && (
         <div 
-          className="absolute left-0 right-0 z-10 mt-1 max-h-36 overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dropdown-menu"
+          className="absolute left-0 right-0 z-10 mt-1 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dropdown-menu"
         >
           {options.map((option, index) => (
             <a
