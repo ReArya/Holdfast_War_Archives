@@ -78,7 +78,6 @@ const RGLSeason2 = () => {
 
     const internationalLeaguesOptions = [
         { label: 'NWL Season 2', href: '/nwlSeason2' },
-        { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 3', href: '/nwlSeason3' },
         { label: 'NWL Season 4', href: '/nwlSeason4' },
         { label: 'NWL Season 5', href: '/nwlSeason5' },
@@ -247,7 +246,7 @@ const RGLSeason2 = () => {
                             </div>
                             <div className="p-8">
                                 <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                                    Tournament Summary
+                                    League Summary
                                 </h3>
                                 <div className="text-lg leading-relaxed text-gray-700">
                                     <p>

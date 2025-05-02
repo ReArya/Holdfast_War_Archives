@@ -79,7 +79,6 @@ const LeagueHistoryLoad = () => {
 
     const internationalLeaguesOptions = [
         { label: 'NWL Season 2', href: '/nwlSeason2' },
-        { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 3', href: '/nwlSeason3' },
         { label: 'NWL Season 4', href: '/nwlSeason4' },
         { label: 'NWL Season 5', href: '/nwlSeason5' },

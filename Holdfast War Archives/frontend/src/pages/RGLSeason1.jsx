@@ -78,7 +78,6 @@ const RGLSeason1 = () => {
 
     const internationalLeaguesOptions = [
         { label: 'NWL Season 2', href: '/nwlSeason2' },
-        { label: 'NWL Season 2', href: '/nwlSeason2' },
         { label: 'NWL Season 3', href: '/nwlSeason3' },
         { label: 'NWL Season 4', href: '/nwlSeason4' },
         { label: 'NWL Season 5', href: '/nwlSeason5' },
@@ -247,11 +246,11 @@ const RGLSeason1 = () => {
                             </div>
                             <div className="p-8">
                                 <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                                    Tournament Summary
+                                    League Summary
                                 </h3>
                                 <div className="text-lg leading-relaxed text-gray-700">
                                     <p>
-                                        RGL Season 1 served as the first official League Tournament Held for Regimental Groupfighting. Its start was small as reflected in the small amount of regiments particpating. However, over the years this number will only grow. The TRR would end up winning the inaugural league over the 63e in a close 15-14 final. The KRA would end round out the podium earning the bronze medal.
+                                        RGL Season 1 served as the first official League Held for Regimental Groupfighting. Its start was small as reflected in the small amount of regiments particpating. However, over the years this number will only grow. The TRR would end up winning the inaugural league over the 63e in a close 15-14 final. The KRA would end round out the podium earning the bronze medal.
                                     </p>
                                 </div>
                             </div>
