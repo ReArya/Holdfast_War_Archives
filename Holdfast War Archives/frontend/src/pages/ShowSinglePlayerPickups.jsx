@@ -210,6 +210,8 @@ const PlayerStatsPage = () => {
                           <option value="Deaths">Deaths</option>
                           <option value="Assists">Assists</option>
                           <option value="Blocks">Blocks</option>
+                          <option value="Team Kills">Team Kills</option>
+                          <option value="Impact Rating">Impact Rating</option>
                         </select>
                       </div>
                     </div>
