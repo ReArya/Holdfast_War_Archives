@@ -32,7 +32,14 @@ import SecondNormalTourney from './pages/SecondNormalTourney';
 import FirstNormalTourney from './pages/FirstNormalTourney';
 import AdminSuccess from './pages/AdminSuccess';
 import Matchmaking from './pages/Matchmaking';
+import Regiment2BIR from './pages/Regiment2BIR';
+import Regiment26th from './pages/Regiment26th';
+import Regiment45e from './pages/Regiment45e';
 import Regiment63e from './pages/Regiment63e';
+import RegimentKRA from './pages/RegimentKRA';
+import Regiment77th from './pages/Regiment77th';
+import Regiment7Fuß from './pages/Regiment7Fuß';
+import RegimentNo16 from './pages/RegimentNo16';
 import LeagueHistoryLoad from './pages/LeagueHistoryLoad';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import TwoversusTwoMayTourney from './pages/TwoversusTwoMayTourney';
@@ -99,7 +106,14 @@ function App() {
           <Route path="/firstNormalTourney" element={<FirstNormalTourney />} />
           <Route path="/adminSuccess" element={<AdminSuccess />} />
           <Route path="/matchMaking" element={<Matchmaking />} />
+          <Route path="/regiment2.BIR" element={<Regiment2BIR />} />
+          <Route path="/regiment26th" element={<Regiment26th />} />
+          <Route path="/regiment45e" element={<Regiment45e />} />
           <Route path="/regiment63e" element={<Regiment63e />} />
+          <Route path="/regiment77th" element={<Regiment77th />} />
+          <Route path="/regiment7Fuß" element={<Regiment7Fuß />} />
+          <Route path="/regimentKRA" element={<RegimentKRA />} />
+          <Route path="/regimentNo.16" element={<RegimentNo16 />} />
           <Route path="/leagueHistory" element={<LeagueHistoryLoad />} />
           <Route path="/twoVersusTwoMay2021Tourney" element={<TwoversusTwoMayTourney />} />
           <Route path="/fiveVersusFiveSeptember2020Tourney" element={<FiveversusFiveTourneySept2020 />} />

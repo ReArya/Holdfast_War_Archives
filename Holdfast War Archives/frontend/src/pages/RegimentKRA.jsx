@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Regiment63eLogo from '../assets/63e.png';
+import RegimentKRALogo from '../assets/KRA.png';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
@@ -102,7 +102,7 @@ const Card = ({ title, children, className = "", style = {} }) => (
   </section>
 );
 
-const Regiment63e = () => {
+const RegimentKRA = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedRegiment, setSelectedRegiment] = useState(null);
@@ -146,19 +146,17 @@ const Regiment63e = () => {
   };
 
   const achievements = [
-    { icon: 'fa-medal', text: 'RGL 1 - 2nd Place', color: 'gray' },
-    { icon: 'fa-medal', text: 'RGL Season 2 - 2nd Place', color: 'gray' },
-    { icon: 'fa-trophy', text: 'RGL Season 3 - 1st Place', color: 'yellow' },
-    { icon: 'fa-trophy', text: 'RGL Season 4 - 1st Place', color: 'yellow' },
-    { icon: 'fa-award', text: 'NWL Season 2 - 3rd Place', color: 'orange' },
-    { icon: 'fa-award', text: 'NWL Season 3 - 3rd Place', color: 'orange' },
-    { icon: 'fa-award', text: 'NWL Season 4 - 3rd Place', color: 'orange' },
-    { icon: 'fa-trophy', text: 'NWL Season 5 - 1st Place', color: 'yellow' },
-    { icon: 'fa-trophy', text: 'NWL Season 6 - 1st Place', color: 'yellow' },
-    { icon: 'fa-award', text: 'HAL Season 2 - 3rd Place', color: 'orange' },
+    { icon: 'fa-award', text: 'RGL Season 1 - 3rd Place', color: 'orange' },
+    { icon: 'fa-medal', text: 'NWL Season 3 - 2nd Place', color: 'gray' },
+    { icon: 'fa-medal', text: 'NWL Season 4 - 2nd Place', color: 'gray' },
+    { icon: 'fa-medal', text: 'NWL Season 5 - 2nd Place', color: 'gray' },
+    { icon: 'fa-award', text: 'NWL Season 6 - 3rd Place', color: 'orange' },
+    { icon: 'fa-trophy', text: 'HRL Season 2 - 1st Place', color: 'yellow' },
+    { icon: 'fa-trophy', text: 'HRL Season 3 - 1st Place', color: 'yellow' },
+    { icon: 'fa-trophy', text: 'HRL Season 4 - 1st Place', color: 'yellow' },
   ];
 
-  const notablePlayers = ['JacobT', 'Z0FT', 'Fires'];
+  const notablePlayers = ['Almondo', 'Kaldir', 'Sock'];
 
   // Group achievements by league for better organization
   const groupedAchievements = achievements.reduce((acc, achievement) => {
@@ -180,7 +178,7 @@ const Regiment63e = () => {
           Holdfast War Archives
         </h1>
         <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-          63e Regiment
+          KRA Regiment
         </h2>
         <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
       </header>
@@ -216,11 +214,11 @@ const Regiment63e = () => {
           <div className="lg:col-span-3 space-y-6 flex flex-col">
             <Card className="flex flex-col items-center text-center">
               <div className="w-32 h-32 rounded-full bg-sky-50 flex items-center justify-center shadow border border-sky-100 mb-4">
-                <img src={Regiment63eLogo} alt="63e Regiment Logo" className="w-full h-full object-contain p-2" />
+                <img src={RegimentKRALogo} alt="KRA Regiment Logo" className="w-full h-full object-contain p-2" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">63e Regiment</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">KRA Regiment</h3>
               <a 
-                href="https://discord.gg/63e" 
+                href="https://discord.gg/KRA" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition text-sm flex items-center justify-center"
@@ -254,7 +252,7 @@ const Regiment63e = () => {
           <div className="lg:col-span-9">
             <Card title="Regiment Overview" ref={mainContentRef}>
               <p className="text-base text-gray-700 mb-4">
-                The 63e Regiment is one of the premier North American regiments in Holdfast: Nations at War. With over a decade of history, it originated in the Mount and Blade Warband Napoleonic Wars community and is known as a competitive powerhouse.
+                The KRA is one of the oldest regiments in the community. Beginning as the KRRC this regiment is not only the biggest British faction themed regiment, but regiment overall. The KRA has been apart of countless leagues and as a result has filled their accolades cabinet to the brim.
               </p>
               
               <TabSystem 
@@ -293,8 +291,8 @@ const Regiment63e = () => {
                     <div className="aspect-video">
                       <iframe
                         className="w-full h-full"
-                        src="https://www.youtube.com/embed/BWSrzR0OZE0?autoplay=1&mute=1"
-                        title="63e Regiment Battle Footage"
+                        src="https://www.youtube.com/embed/5gcUgV5hhy4?autoplay=1&mute=1"
+                        title="KRA Regiment Battle Footage"
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
@@ -311,4 +309,4 @@ const Regiment63e = () => {
   );
 };
 
-export default Regiment63e;
+export default RegimentKRA;

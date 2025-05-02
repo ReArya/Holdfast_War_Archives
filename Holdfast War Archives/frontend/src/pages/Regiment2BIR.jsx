@@ -1,8 +1,7 @@
-// Enhanced Regiment63e.jsx with improved UI/UX and modular structure
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import Regiment63eLogo from '../assets/63e.png';
+import Regiment2BIRLogo from '../assets/2BIR.png';
 
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
@@ -92,38 +91,65 @@ const TabSystem = ({ tabs, activeTab, setActiveTab }) => (
 );
 
 // Card component for better organization
-const Card = ({ title, children, className = "", style = {} }) => (
-  <section className={`bg-white rounded-xl shadow border border-gray-100 ${className}`} style={style}>
+const Card = ({ title, children, className = "", style = {}, forwardedRef }) => (
+  <section 
+    className={`bg-white rounded-xl shadow border border-gray-100 ${className}`} 
+    style={style}
+    ref={forwardedRef}
+  >
     <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full rounded-t-xl" />
-    <div className="p-6">
+    <div className="p-6 h-full flex flex-col">
       {title && <h3 className="text-xl font-bold text-gray-800 mb-4">{title}</h3>}
-      {children}
+      <div className="flex-grow">{children}</div>
     </div>
   </section>
 );
 
-const Regiment63e = () => {
+const Regiment2BIR = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedRegiment, setSelectedRegiment] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
+  const [containerHeight, setContainerHeight] = useState("auto");
+  
+  // Refs for measuring heights
+  const logoCardRef = useRef(null);
+  const playersCardRef = useRef(null);
   const mainContentRef = useRef(null);
-  const [contentHeight, setContentHeight] = useState(0);
-
+  
   useEffect(() => setIsLoaded(true), []);
 
-  // Effect to measure and set the height of the main content
+  // Calculate and synchronize heights
   useEffect(() => {
-    if (mainContentRef.current) {
-      // Add a small timeout to ensure content is fully rendered
-      const timer = setTimeout(() => {
-        setContentHeight(mainContentRef.current.clientHeight);
-      }, 100);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [activeTab, mainContentRef]);
+    const updateHeights = () => {
+      if (logoCardRef.current && playersCardRef.current && mainContentRef.current) {
+        // Reset heights to auto first to get natural heights
+        mainContentRef.current.style.height = "auto";
+        
+        // Wait for render cycle
+        setTimeout(() => {
+          // Calculate the total height of the sidebar (logo + players)
+          const logoHeight = logoCardRef.current.offsetHeight;
+          const playerCardHeight = playersCardRef.current.offsetHeight;
+          const sidebarTotalHeight = logoHeight + playerCardHeight + 24; // 24px is the gap
+          
+          // Get natural height of main content
+          const mainContentHeight = mainContentRef.current.offsetHeight;
+          
+          // Set the height to the taller of the two
+          const newHeight = Math.max(sidebarTotalHeight, mainContentHeight);
+          setContainerHeight(`${newHeight}px`);
+        }, 100);
+      }
+    };
+
+    updateHeights();
+    
+    // Also update on tab change or window resize
+    window.addEventListener('resize', updateHeights);
+    return () => window.removeEventListener('resize', updateHeights);
+  }, [activeTab, isLoaded]);
 
   const regimentOptions = [
     { label: '2.BIR', href: '/regiment2.BIR' },
@@ -146,19 +172,11 @@ const Regiment63e = () => {
   };
 
   const achievements = [
-    { icon: 'fa-medal', text: 'RGL 1 - 2nd Place', color: 'gray' },
-    { icon: 'fa-medal', text: 'RGL Season 2 - 2nd Place', color: 'gray' },
-    { icon: 'fa-trophy', text: 'RGL Season 3 - 1st Place', color: 'yellow' },
-    { icon: 'fa-trophy', text: 'RGL Season 4 - 1st Place', color: 'yellow' },
-    { icon: 'fa-award', text: 'NWL Season 2 - 3rd Place', color: 'orange' },
-    { icon: 'fa-award', text: 'NWL Season 3 - 3rd Place', color: 'orange' },
-    { icon: 'fa-award', text: 'NWL Season 4 - 3rd Place', color: 'orange' },
-    { icon: 'fa-trophy', text: 'NWL Season 5 - 1st Place', color: 'yellow' },
-    { icon: 'fa-trophy', text: 'NWL Season 6 - 1st Place', color: 'yellow' },
-    { icon: 'fa-award', text: 'HAL Season 2 - 3rd Place', color: 'orange' },
+    { icon: 'fa-trophy', text: 'HAL Season 2 - 1st Place', color: 'yellow' },
+    { icon: 'fa-award', text: 'HRL Season 5 - 3rd Place', color: 'orange' },
   ];
 
-  const notablePlayers = ['JacobT', 'Z0FT', 'Fires'];
+  const notablePlayers = ['Cloud', 'PRC', 'Paddy'];
 
   // Group achievements by league for better organization
   const groupedAchievements = achievements.reduce((acc, achievement) => {
@@ -180,7 +198,7 @@ const Regiment63e = () => {
           Holdfast War Archives
         </h1>
         <h2 className="text-center text-2xl md:text-3xl font-bold text-sky-700 mb-6">
-          63e Regiment
+          2.BIR Regiment
         </h2>
         <div className="w-24 h-1 bg-sky-700 mx-auto mb-8 rounded-full" />
       </header>
@@ -214,13 +232,16 @@ const Regiment63e = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left sidebar - About & Logo */}
           <div className="lg:col-span-3 space-y-6 flex flex-col">
-            <Card className="flex flex-col items-center text-center">
+            <Card 
+              className="flex flex-col items-center text-center"
+              forwardedRef={logoCardRef}
+            >
               <div className="w-32 h-32 rounded-full bg-sky-50 flex items-center justify-center shadow border border-sky-100 mb-4">
-                <img src={Regiment63eLogo} alt="63e Regiment Logo" className="w-full h-full object-contain p-2" />
+                <img src={Regiment2BIRLogo} alt="2BIR Regiment Logo" className="w-full h-full object-contain p-2" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">63e Regiment</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">2BIR Regiment</h3>
               <a 
-                href="https://discord.gg/63e" 
+                href="https://discord.gg/2bir" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="w-full px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700 transition text-sm flex items-center justify-center"
@@ -233,7 +254,7 @@ const Regiment63e = () => {
             <Card 
               title="Notable Players" 
               className="flex-grow"
-              style={{ height: contentHeight > 0 ? `${contentHeight}px` : 'auto' }}
+              forwardedRef={playersCardRef}
             >
               <div className="h-full flex flex-col">
                 <ul className="space-y-2 flex-grow">
@@ -252,57 +273,65 @@ const Regiment63e = () => {
 
           {/* Main content area */}
           <div className="lg:col-span-9">
-            <Card title="Regiment Overview" ref={mainContentRef}>
-              <p className="text-base text-gray-700 mb-4">
-                The 63e Regiment is one of the premier North American regiments in Holdfast: Nations at War. With over a decade of history, it originated in the Mount and Blade Warband Napoleonic Wars community and is known as a competitive powerhouse.
-              </p>
-              
-              <TabSystem 
-                tabs={['Achievements', 'Media']} 
-                activeTab={activeTab} 
-                setActiveTab={setActiveTab} 
-              />
-              
-              {activeTab === 0 && (
-                <div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {Object.entries(groupedAchievements).map(([league, leagueAchievements]) => (
-                      <div key={league} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
-                        <h4 className="text-md font-semibold text-sky-700 mb-3">{league} League</h4>
-                        <ul className="space-y-2">
-                          {leagueAchievements.map((achievement, idx) => (
-                            <AchievementItem key={idx} {...achievement} />
-                          ))}
-                        </ul>
+            <Card 
+              title="Regiment Overview" 
+              forwardedRef={mainContentRef}
+              style={{ height: containerHeight }}
+            >
+              <div className="h-full flex flex-col">
+                <p className="text-base text-gray-700 mb-4">
+                  The 2.BIR is a relatively new regiment which began as a spinoff of the TRR and SPACE. Even in their young history the 2.BIR has achieved some podium finishes in various leagues. More are sure to come for this Swedish themed regiment.
+                </p>
+                
+                <TabSystem 
+                  tabs={['Achievements', 'Media']} 
+                  activeTab={activeTab} 
+                  setActiveTab={setActiveTab} 
+                />
+                
+                <div className="flex-grow">
+                  {activeTab === 0 && (
+                    <div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {Object.entries(groupedAchievements).map(([league, leagueAchievements]) => (
+                          <div key={league} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
+                            <h4 className="text-md font-semibold text-sky-700 mb-3">{league} League</h4>
+                            <ul className="space-y-2">
+                              {leagueAchievements.map((achievement, idx) => (
+                                <AchievementItem key={idx} {...achievement} />
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                      
+                      {Object.keys(groupedAchievements).length === 0 && (
+                        <div className="text-center py-6">
+                          <i className="fas fa-trophy text-gray-300 text-4xl mb-2"></i>
+                          <p className="text-gray-500 italic">No achievements recorded yet.</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   
-                  {Object.keys(groupedAchievements).length === 0 && (
-                    <div className="text-center py-6">
-                      <i className="fas fa-trophy text-gray-300 text-4xl mb-2"></i>
-                      <p className="text-gray-500 italic">No achievements recorded yet.</p>
+                  {activeTab === 1 && (
+                    <div className="space-y-4">
+                      <div className="rounded-lg overflow-hidden shadow-md">
+                        <div className="aspect-video">
+                          <iframe
+                            className="w-full h-full"
+                            src="https://www.youtube.com/embed/N1IJMPTj5WM?autoplay=1&mute=1"
+                            title="2BIR Regiment Battle Footage"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          ></iframe>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
-              )}
-              
-              {activeTab === 1 && (
-                <div className="space-y-4">
-                  <div className="rounded-lg overflow-hidden shadow-md">
-                    <div className="aspect-video">
-                      <iframe
-                        className="w-full h-full"
-                        src="https://www.youtube.com/embed/BWSrzR0OZE0?autoplay=1&mute=1"
-                        title="63e Regiment Battle Footage"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </div>
-                </div>
-              )}
+              </div>
             </Card>
           </div>
         </div>
@@ -311,4 +340,4 @@ const Regiment63e = () => {
   );
 };
 
-export default Regiment63e;
+export default Regiment2BIR;

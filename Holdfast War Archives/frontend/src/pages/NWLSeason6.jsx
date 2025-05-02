@@ -148,9 +148,6 @@ const NWLSeason6 = () => {
             {/* Header Section */}
             <header className={`max-w-6xl mx-auto px-4 pt-12 pb-8 transition-opacity duration-1000 ease-in-out ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="text-center mb-2">
-                    <span className="inline-block px-4 py-1 rounded-full bg-sky-100 text-sky-800 text-sm font-medium mb-3">
-                        League Archives
-                    </span>
                 </div>
                 <h1 className="text-center text-4xl md:text-5xl font-bold text-gray-800 mb-3 tracking-tight">
                     Holdfast War Archives

@@ -58,13 +58,17 @@ const RegimentRecordsLoad = () => {
   const [selectedRegiment, setSelectedRegiment] = useState(null);
 
   const regimentOptions = [
+    { label: '26th', href: '/regiment26th' },
     { label: '2.BIR', href: '/regiment2.BIR'},
     { label: '45e', href: '/regiment45e' },
-    { label: '51st', href: '/regiment51st' },
     { label: '63e', href: '/regiment63e' },
     { label: '77th', href: '/regiment77th' },
     { label: '7Fuß', href: '/regiment7Fuß' },
     { label: 'KRA', href: '/regimentKRA' },
+    { label: 'No. 16', href: '/regimentNo.16' },
+    { label: 'TRR', href: '/regimentTRR' },
+    { label: 'TRRB', href: '/regimentTRRB' },
+    
   ];
 
   const toggleDropdown = () => {
