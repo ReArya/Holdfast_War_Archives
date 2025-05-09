@@ -577,7 +577,104 @@ const PlayerComparisonPage = () => {
                         </div>
                       </div>
                     </div>
-                    
+
+                                        {/* Player 1 Data Table */}
+                    <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden mb-8">
+                      <div className="p-4 border-b border-gray-200 bg-gray-50">
+                        <h4 className="text-lg font-medium text-sky-700">Player 1: {searchTerm1}</h4>
+                        <p className="text-sm text-gray-600">Showing most recent records first</p>
+                      </div>
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full divide-y divide-gray-200">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Date
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Score
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Kills
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Deaths
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Assists
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Blocks
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Team Kills
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Impact Rating
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Regiment
+                              </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Win
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-gray-200">
+                            {playerData1.map((record) => (
+                              <tr key={record._id} className="hover:bg-sky-50 transition-colors">
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {new Date(record.Date).toLocaleDateString()}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {record.Score}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {record.Kills}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {record.Deaths}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {record.Assists}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {record.Blocks}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {record['Team Kills']}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  {record['Impact Rating']}
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
+                                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                    {record.Regiment}
+                                  </span>
+                                </td>
+                                <td className="px-6 py-3 whitespace-nowrap text-sm">
+                                  <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${record.Win ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                    {record.Win ? 'Victory' : 'Defeat'}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      
+                      <div className="flex justify-center py-4 bg-gray-50 border-t border-gray-200">
+                        <Pagination
+                          count={pagination1.pages}
+                          page={pagination1.currentPage}
+                          onChange={handlePageChange1}
+                          color="primary"
+                          size="medium"
+                          className="pagination-container"
+                        />
+                      </div>
+                    </div>
+
                     {/* Player 2 Data Table */}
                     <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
                       <div className="p-4 border-b border-gray-200 bg-gray-50">
