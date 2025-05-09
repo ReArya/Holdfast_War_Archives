@@ -3,7 +3,7 @@
 // Holdfast War Archives
 // Compare Two Player Pickups Page
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import {
@@ -24,6 +24,7 @@ const PlayerComparisonPage = () => {
   // State for Player 1
   const [searchTerm1, setSearchTerm1] = useState('');
   const [suggestions1, setSuggestions1] = useState([]);
+  const [highlightedIndex1, setHighlightedIndex1] = useState(-1);
   const [playerData1, setPlayerData1] = useState([]);
   const [isLoading1, setIsLoading1] = useState(false);
   const [error1, setError1] = useState(null);
@@ -32,6 +33,7 @@ const PlayerComparisonPage = () => {
   // State for Player 2
   const [searchTerm2, setSearchTerm2] = useState('');
   const [suggestions2, setSuggestions2] = useState([]);
+  const [highlightedIndex2, setHighlightedIndex2] = useState(-1);
   const [playerData2, setPlayerData2] = useState([]);
   const [isLoading2, setIsLoading2] = useState(false);
   const [error2, setError2] = useState(null);
@@ -40,11 +42,18 @@ const PlayerComparisonPage = () => {
   // Common statistic selection for comparison
   const [selectedStat, setSelectedStat] = useState('Score');
   const [isLoaded, setIsLoaded] = useState(false);
+  
+  // Refs for search inputs
+  const searchInputRef1 = useRef(null);
+  const searchInputRef2 = useRef(null);
+
+  // Use relative URLs instead of hardcoded localhost
+  const API_BASE_URL = '';
 
   // Debounced search functions for each player
   const debouncedSearch1 = useCallback(
     debounce(async (term) => {
-      if (term.trim()) {
+      if (term.trim() && term.length >= 2) {
         await fetchSuggestions1(term);
       } else {
         setSuggestions1([]);
@@ -55,7 +64,7 @@ const PlayerComparisonPage = () => {
 
   const debouncedSearch2 = useCallback(
     debounce(async (term) => {
-      if (term.trim()) {
+      if (term.trim() && term.length >= 2) {
         await fetchSuggestions2(term);
       } else {
         setSuggestions2([]);
@@ -70,7 +79,7 @@ const PlayerComparisonPage = () => {
     setError1(null);
     try {
       const response = await axios.get(
-        `http://localhost:5555/Pickups/public?page=${page}&limit=${pagination1.limit}&search=${search}&sort=-Date`
+        `/Pickups/public?page=${page}&limit=${pagination1.limit}&search=${encodeURIComponent(search)}&sort=-Date`
       );
       const { data, pagination: paginationData } = response.data;
       const exactMatches = data.filter((record) => record.Player === search);
@@ -94,7 +103,7 @@ const PlayerComparisonPage = () => {
     setError2(null);
     try {
       const response = await axios.get(
-        `http://localhost:5555/Pickups/public?page=${page}&limit=${pagination2.limit}&search=${search}&sort=-Date`
+        `/Pickups/public?page=${page}&limit=${pagination2.limit}&search=${encodeURIComponent(search)}&sort=-Date`
       );
       const { data, pagination: paginationData } = response.data;
       const exactMatches = data.filter((record) => record.Player === search);
@@ -114,25 +123,61 @@ const PlayerComparisonPage = () => {
 
   // Fetch suggestions for Player 1
   const fetchSuggestions1 = async (term) => {
+    if (!term || term.length < 2) {
+      setSuggestions1([]);
+      return;
+    }
+    
     try {
-      const response = await axios.get(`http://localhost:5555/Pickups/suggestions?search=${term}`);
-      if (Array.isArray(response.data)) {
+      const response = await axios.get(`/Pickups/suggestions?search=${encodeURIComponent(term)}`);
+      if (response.data && Array.isArray(response.data)) {
         setSuggestions1(response.data);
       }
     } catch (err) {
       console.error('Failed to load suggestions for player1:', err);
+      setSuggestions1([]);
     }
   };
 
   // Fetch suggestions for Player 2
   const fetchSuggestions2 = async (term) => {
+    if (!term || term.length < 2) {
+      setSuggestions2([]);
+      return;
+    }
+    
     try {
-      const response = await axios.get(`http://localhost:5555/Pickups/suggestions?search=${term}`);
-      if (Array.isArray(response.data)) {
+      const response = await axios.get(`/Pickups/suggestions?search=${encodeURIComponent(term)}`);
+      if (response.data && Array.isArray(response.data)) {
         setSuggestions2(response.data);
       }
     } catch (err) {
       console.error('Failed to load suggestions for player2:', err);
+      setSuggestions2([]);
+    }
+  };
+
+  // Handle suggestion selection for Player 1
+  const handleSuggestionSelect1 = (player) => {
+    setSearchTerm1(player);
+    fetchPlayers1(1, player);
+    setSuggestions1([]);
+    setHighlightedIndex1(-1);
+    // Focus back on input after selection
+    if (searchInputRef1.current) {
+      searchInputRef1.current.focus();
+    }
+  };
+
+  // Handle suggestion selection for Player 2
+  const handleSuggestionSelect2 = (player) => {
+    setSearchTerm2(player);
+    fetchPlayers2(1, player);
+    setSuggestions2([]);
+    setHighlightedIndex2(-1);
+    // Focus back on input after selection
+    if (searchInputRef2.current) {
+      searchInputRef2.current.focus();
     }
   };
 
@@ -146,9 +191,54 @@ const PlayerComparisonPage = () => {
     return () => debouncedSearch2.cancel();
   }, [searchTerm2, debouncedSearch2]);
 
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        suggestions1.length > 0 && 
+        !event.target.closest('.search-container-1') && 
+        !event.target.closest('.suggestions-dropdown-1')
+      ) {
+        setSuggestions1([]);
+        setHighlightedIndex1(-1);
+      }
+      
+      if (
+        suggestions2.length > 0 && 
+        !event.target.closest('.search-container-2') && 
+        !event.target.closest('.suggestions-dropdown-2')
+      ) {
+        setSuggestions2([]);
+        setHighlightedIndex2(-1);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [suggestions1.length, suggestions2.length]);
+
+  // Reset highlighted indices when suggestions change
+  useEffect(() => {
+    setHighlightedIndex1(-1);
+  }, [suggestions1]);
+
+  useEffect(() => {
+    setHighlightedIndex2(-1);
+  }, [suggestions2]);
+
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  const handlePageChange1 = (event, newPage) => {
+    fetchPlayers1(newPage);
+  };
+
+  const handlePageChange2 = (event, newPage) => {
+    fetchPlayers2(newPage);
+  };
 
   // Single submit handler that fetches both players' data
   const handleSubmit = (e) => {
@@ -157,14 +247,8 @@ const PlayerComparisonPage = () => {
       fetchPlayers1(1, searchTerm1);
       fetchPlayers2(1, searchTerm2);
     }
-  };
-
-  const handlePageChange1 = (event, newPage) => {
-    fetchPlayers1(newPage);
-  };
-
-  const handlePageChange2 = (event, newPage) => {
-    fetchPlayers2(newPage);
+    setSuggestions1([]);
+    setSuggestions2([]);
   };
 
   return (
@@ -206,38 +290,70 @@ const PlayerComparisonPage = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Player 1
                   </label>
-                  <div className="relative">
+                  <div className="relative search-container-1">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <SearchIcon className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
+                      ref={searchInputRef1}
                       type="text"
                       className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                       placeholder="Search Player 1..."
                       value={searchTerm1}
                       onChange={(e) => {
                         setSearchTerm1(e.target.value);
+                        setHighlightedIndex1(-1);
                         debouncedSearch1(e.target.value);
                       }}
-                    />
-                  </div>
-                  {suggestions1.length > 0 && (
-                    <div className="bg-white shadow-md rounded-md border border-gray-200 max-h-60 overflow-y-auto mt-1">
-                      {suggestions1.map((player) => (
-                        <div
-                          key={player}
-                          onClick={() => {
-                            setSearchTerm1(player);
-                            fetchPlayers1(1, player);
+                      onKeyDown={(e) => {
+                        if (suggestions1.length > 0) {
+                          // Arrow down
+                          if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            setHighlightedIndex1((prev) => 
+                              prev < suggestions1.length - 1 ? prev + 1 : prev
+                            );
+                          }
+                          // Arrow up
+                          else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            setHighlightedIndex1((prev) => (prev > 0 ? prev - 1 : 0));
+                          }
+                          // Enter
+                          else if (e.key === 'Enter' && highlightedIndex1 >= 0) {
+                            e.preventDefault();
+                            handleSuggestionSelect1(suggestions1[highlightedIndex1]);
+                          }
+                          // Escape
+                          else if (e.key === 'Escape') {
                             setSuggestions1([]);
-                          }}
-                          className="px-4 py-2 hover:bg-sky-50 cursor-pointer text-sm text-gray-700 hover:text-sky-700"
-                        >
-                          {player}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                            setHighlightedIndex1(-1);
+                          }
+                        }
+                      }}
+                      autoComplete="off"
+                    />
+                    
+                    {/* Suggestion dropdown for Player 1 */}
+                    {suggestions1.length > 0 && (
+                      <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200 max-h-60 overflow-y-auto suggestions-dropdown-1">
+                        {suggestions1.map((player, index) => (
+                          <div
+                            key={player}
+                            onClick={() => handleSuggestionSelect1(player)}
+                            className={`px-4 py-2 cursor-pointer text-sm ${
+                              index === highlightedIndex1
+                                ? 'bg-sky-100 text-sky-700'
+                                : 'text-gray-700 hover:bg-sky-50 hover:text-sky-700'
+                            }`}
+                            onMouseEnter={() => setHighlightedIndex1(index)}
+                          >
+                            {player}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Player 2 Search Input */}
@@ -245,42 +361,74 @@ const PlayerComparisonPage = () => {
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Player 2
                   </label>
-                  <div className="relative">
+                  <div className="relative search-container-2">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <SearchIcon className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
+                      ref={searchInputRef2}
                       type="text"
                       className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                       placeholder="Search Player 2..."
                       value={searchTerm2}
                       onChange={(e) => {
                         setSearchTerm2(e.target.value);
+                        setHighlightedIndex2(-1);
                         debouncedSearch2(e.target.value);
                       }}
-                    />
-                  </div>
-                  {suggestions2.length > 0 && (
-                    <div className="bg-white shadow-md rounded-md border border-gray-200 max-h-60 overflow-y-auto mt-1">
-                      {suggestions2.map((player) => (
-                        <div
-                          key={player}
-                          onClick={() => {
-                            setSearchTerm2(player);
-                            fetchPlayers2(1, player);
+                      onKeyDown={(e) => {
+                        if (suggestions2.length > 0) {
+                          // Arrow down
+                          if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            setHighlightedIndex2((prev) => 
+                              prev < suggestions2.length - 1 ? prev + 1 : prev
+                            );
+                          }
+                          // Arrow up
+                          else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            setHighlightedIndex2((prev) => (prev > 0 ? prev - 1 : 0));
+                          }
+                          // Enter
+                          else if (e.key === 'Enter' && highlightedIndex2 >= 0) {
+                            e.preventDefault();
+                            handleSuggestionSelect2(suggestions2[highlightedIndex2]);
+                          }
+                          // Escape
+                          else if (e.key === 'Escape') {
                             setSuggestions2([]);
-                          }}
-                          className="px-4 py-2 hover:bg-sky-50 cursor-pointer text-sm text-gray-700 hover:text-sky-700"
-                        >
-                          {player}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                            setHighlightedIndex2(-1);
+                          }
+                        }
+                      }}
+                      autoComplete="off"
+                    />
+                    
+                    {/* Suggestion dropdown for Player 2 */}
+                    {suggestions2.length > 0 && (
+                      <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200 max-h-60 overflow-y-auto suggestions-dropdown-2">
+                        {suggestions2.map((player, index) => (
+                          <div
+                            key={player}
+                            onClick={() => handleSuggestionSelect2(player)}
+                            className={`px-4 py-2 cursor-pointer text-sm ${
+                              index === highlightedIndex2
+                                ? 'bg-sky-100 text-sky-700'
+                                : 'text-gray-700 hover:bg-sky-50 hover:text-sky-700'
+                            }`}
+                            onMouseEnter={() => setHighlightedIndex2(index)}
+                          >
+                            {player}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                  {/* Statistic Selector */}
-                  <div className="w-full md:w-1/3">
+                {/* Statistic Selector */}
+                <div className="w-full md:w-1/3">
                   <label htmlFor="stat-select" className="block text-sm font-medium text-gray-700 mb-1">
                     Statistic to Compare
                   </label>
@@ -429,104 +577,7 @@ const PlayerComparisonPage = () => {
                         </div>
                       </div>
                     </div>
-
-                    {/* Player 1 Data Table */}
-                    <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden mb-8">
-                      <div className="p-4 border-b border-gray-200 bg-gray-50">
-                        <h4 className="text-lg font-medium text-sky-700">Player 1: {searchTerm1}</h4>
-                        <p className="text-sm text-gray-600">Showing most recent records first</p>
-                      </div>
-                      <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Date
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Score
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Kills
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Deaths
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Assists
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Blocks
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Team Kills
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Impact Rating
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Regiment
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Win
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            {playerData1.map((record) => (
-                              <tr key={record._id} className="hover:bg-sky-50 transition-colors">
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {new Date(record.Date).toLocaleDateString()}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {record.Score}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {record.Kills}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {record.Deaths}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {record.Assists}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {record.Blocks}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {record['Team Kills']}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {record['Impact Rating']}
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                    {record.Regiment}
-                                  </span>
-                                </td>
-                                <td className="px-6 py-3 whitespace-nowrap text-sm">
-                                  <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${record.Win ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                    {record.Win ? 'Victory' : 'Defeat'}
-                                  </span>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                      
-                      <div className="flex justify-center py-4 bg-gray-50 border-t border-gray-200">
-                        <Pagination
-                          count={pagination1.pages}
-                          page={pagination1.currentPage}
-                          onChange={handlePageChange1}
-                          color="primary"
-                          size="medium"
-                          className="pagination-container"
-                        />
-                      </div>
-                    </div>
-
+                    
                     {/* Player 2 Data Table */}
                     <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
                       <div className="p-4 border-b border-gray-200 bg-gray-50">
