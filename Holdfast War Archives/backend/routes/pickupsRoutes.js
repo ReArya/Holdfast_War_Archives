@@ -59,9 +59,9 @@ router.get('/suggestions', async (request, response) => {
             return response.status(200).json([]);
         }
         
-        // Find distinct player names that match the search term (case insensitive)
+        // Modified regex to match only at the beginning of player names (start with ^)
         const playerNames = await PickupsStats.distinct("Player", {
-            Player: { $regex: searchTerm, $options: 'i' }
+            Player: { $regex: `^${searchTerm}`, $options: 'i' }
         });
         
         // Limit to first 10 results for performance
