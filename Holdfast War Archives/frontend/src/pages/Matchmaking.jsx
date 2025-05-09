@@ -383,7 +383,7 @@ const Matchmaking = () => {
                 <h3 className="text-gray-800 text-xl font-semibold mb-6 text-center">Add Players To Matchmake</h3>
                 
                 {/* Search Input with Enhanced Autocomplete */}
-                <div className="mb-6 search-container">
+                + <div className="mb-6 search-container relative w-full"> 
                   <TextField
                     fullWidth
                     variant="outlined"
@@ -444,7 +444,7 @@ const Matchmaking = () => {
                   
                   {/* Enhanced Suggestions Dropdown */}
                   {suggestions.length > 0 && (
-                    <div className="suggestions-dropdown mt-1 absolute z-10 w-full bg-white shadow-lg rounded-lg border border-gray-200 max-h-60 overflow-y-auto">
+                    <div className="suggestions-dropdown mt-1 absolute left-0 z-10 w-full bg-white rounded-lg border border-gray-200 shadow-lg max-h-60 overflow-y-auto">
                       {suggestions.map((player, index) => (
                         <div
                           key={player}
