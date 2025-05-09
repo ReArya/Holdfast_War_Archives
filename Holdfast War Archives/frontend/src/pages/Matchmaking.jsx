@@ -1,10 +1,11 @@
 // Albert Mendez IV
 // Matchmaking.jsx
 // Holdfast War Archives
-// Matchmaking Page
+// Matchmaking Page with Enhanced Autocomplete
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
+import debounce from 'lodash/debounce';
 import {
   Typography,
   Card,
@@ -37,6 +38,8 @@ const Matchmaking = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const searchInputRef = useRef(null);
 
   // State for selected players and matchmaking
   const [selectedPlayers, setSelectedPlayers] = useState([]);
@@ -48,14 +51,59 @@ const Matchmaking = () => {
   const [teamA, setTeamA] = useState([]);
   const [teamB, setTeamB] = useState([]);
 
+  // Create debounced search function
+  const debouncedSearch = useCallback(
+    debounce(async (term) => {
+      if (term.trim() && term.length >= 2) {
+        await fetchSuggestions(term);
+      } else {
+        setSuggestions([]);
+      }
+    }, 300),
+    []
+  );
+
   // Set isLoaded to true after component mount for animation
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
+  // Use debounced search whenever searchTerm changes
+  useEffect(() => {
+    debouncedSearch(searchTerm);
+    return () => debouncedSearch.cancel();
+  }, [searchTerm, debouncedSearch]);
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        suggestions.length > 0 && 
+        !event.target.closest('.search-container') && 
+        !event.target.closest('.suggestions-dropdown')
+      ) {
+        setSuggestions([]);
+        setHighlightedIndex(-1);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [suggestions.length]);
+
+  // Reset highlighted index when suggestions change
+  useEffect(() => {
+    setHighlightedIndex(-1);
+  }, [suggestions]);
+
   // Fetch player suggestions
   const fetchSuggestions = async (term) => {
-    if (!term || term.length < 2) return;
+    if (!term || term.length < 2) {
+      setSuggestions([]);
+      return;
+    }
     
     try {
       setIsLoading(true);
@@ -122,27 +170,35 @@ const Matchmaking = () => {
     }
   };
 
-  // Handle manual player addition
-  const handleAddPlayer = async () => {
-    if (searchTerm.trim()) {
-      if (searchTerm.length >= 2) {
-        setIsLoading(true);
-        await fetchSuggestions(searchTerm);
-        setIsLoading(false);
-        
-        // If there's exactly one suggestion, use it directly
-        if (suggestions.length === 1) {
-          addPlayer(suggestions[0]);
-        } else if (suggestions.length > 0) {
-          // Just show the suggestions without adding anyone yet
-          // User can click on a suggestion to add that player
-        } else {
-          // No suggestions found, try to add the exact name
+  // Handle suggestion selection
+  const handleSuggestionSelect = (player) => {
+    addPlayer(player);
+    setSuggestions([]);
+    setHighlightedIndex(-1);
+    // Focus back on input after selection
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  };
+
+  // Handle search input changes
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+  };
+  
+  // Handle key press in search input
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (highlightedIndex >= 0 && highlightedIndex < suggestions.length) {
+        // If a suggestion is highlighted, select it
+        handleSuggestionSelect(suggestions[highlightedIndex]);
+      } else {
+        // Otherwise try to add the current search term
+        if (searchTerm.trim()) {
           addPlayer(searchTerm.trim());
         }
-      } else {
-        // Search term too short
-        setError('Please enter at least 2 characters to search');
       }
     }
   };
@@ -285,20 +341,6 @@ const Matchmaking = () => {
     }
   };
 
-  // Handle search input changes
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-  };
-  
-  // Handle key press in search input
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAddPlayer();
-    }
-  };
-
   // Calculate team averages
   const getTeamAverage = (team) => {
     if (team.length === 0) return 0;
@@ -330,239 +372,267 @@ const Matchmaking = () => {
         </p>
       </header>
 
-{/* Main Content */}
-<main className={`max-w-6xl mx-auto px-4 pb-16 transition-all duration-1000 ease-in-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-  <div className="flex flex-col md:flex-row gap-8">
-    {/* Player Search and Selection */}
-    <div className="w-full md:w-1/2">
-      <div className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 h-full">
-        <div className="absolute top-0 left-0 w-full h-1 bg-sky-600" />
-        <div className="p-6 flex flex-col h-full">
-          <h3 className="text-gray-800 text-xl font-semibold mb-6 text-center">Add Players To Matchmake</h3>
-          
-          {/* Search Input */}
-          <div className="mb-6">
-            <TextField
-              fullWidth
-              variant="outlined"
-              label="Search for a player"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              onKeyPress={handleKeyPress}
-              className="bg-white rounded-lg"
-              InputProps={{
-                startAdornment: <SearchIcon className="mr-2 text-gray-400" />,
-                endAdornment: (
-                  <IconButton 
-                    onClick={handleAddPlayer}
-                    disabled={!searchTerm.trim()}
-                    size="small"
-                    className="text-sky-600 hover:text-sky-800"
-                  >
-                    <PersonAddIcon />
-                  </IconButton>
-                )
-              }}
-            />
-            
-            {isLoading && (
-              <div className="flex justify-center mt-2">
-                <CircularProgress size={24} className="text-sky-600" />
-              </div>
-            )}
-            
-            {suggestions.length > 0 && (
-              <div className="mt-2">
-                <List className="bg-white shadow-md rounded-lg border border-gray-200 max-h-60 overflow-y-auto">
-                  {suggestions.map((player) => (
-                    <ListItem
-                      button
-                      key={player}
-                      onClick={() => {
-                        addPlayer(player);
-                      }}
-                      className="hover:bg-sky-50 flex justify-between transition-colors duration-200"
-                    >
-                      <ListItemText primary={player} />
-                      <PersonAddIcon fontSize="small" className="text-sky-600" />
-                    </ListItem>
-                  ))}
-                </List>
-              </div>
-            )}
-            
-            {error && (
-              <div className="px-4 py-3 text-red-500 bg-red-50 border-l-4 border-red-400 mt-3 rounded-r-md">
-                {error}
-              </div>
-            )}
-          </div>
-          
-          {/* Selected Players */}
-          <div className="flex-grow flex flex-col">
-            <h4 className="font-medium text-gray-700 mb-3">
-              Selected Players ({selectedPlayers.length})
-            </h4>
-            
-            {selectedPlayers.length === 0 ? (
-              <div className="text-gray-500 text-sm italic bg-gray-50 p-4 rounded-lg border border-gray-100 flex-grow">
-                No players selected yet. Search and add players above.
-              </div>
-            ) : (
-              <div className="flex flex-wrap gap-2 mb-6 bg-sky-50 p-3 rounded-lg border border-sky-100 flex-grow">
-                {selectedPlayers.map((player) => (
-                  <Chip
-                    key={player.name}
-                    label={`${player.name} (${player.impactRating})`}
-                    onDelete={() => removePlayer(player.name)}
-                    deleteIcon={<DeleteIcon />}
-                    className="m-1 bg-white shadow-sm"
-                  />
-                ))}
-              </div>
-            )}
-            
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<GroupIcon />}
-              disabled={selectedPlayers.length === 0 || isMatchmaking}
-              onClick={findMatches}
-              className="mt-auto bg-sky-600 hover:bg-sky-700 transition-colors duration-200 py-3"
-              fullWidth
-            >
-              {isMatchmaking ? 'Finding Matches...' : 'Find Balanced Teams'}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    {/* Matchmaking Results */}
-    <div className="w-full md:w-1/2">
-      <div className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 h-full">
-        <div className="absolute top-0 left-0 w-full h-1 bg-sky-600" />
-        <div className="p-6 flex flex-col h-full">
-          <h3 className="text-gray-800 text-xl font-semibold mb-6 text-center">Matchmaking Results</h3>
-          
-          {isMatchmaking ? (
-            <div className="p-12 flex flex-col items-center justify-center bg-gray-50 rounded-lg flex-grow">
-              <CircularProgress className="text-indigo-600 mb-4" />
-              <Typography className="text-gray-600">Finding balanced teams...</Typography>
-            </div>
-          ) : matchmakingComplete ? (
-            <div className="transition-all duration-500 ease-in-out flex-grow flex flex-col">
-              <div className="flex justify-between mb-4">
-                <div className="text-lg font-medium text-blue-700">
-                  Team A <span className="text-sm font-normal">(Avg: {getTeamAverage(teamA)})</span>
-                </div>
-                <div className="text-lg font-medium text-red-700">
-                  Team B <span className="text-sm font-normal">(Avg: {getTeamAverage(teamB)})</span>
-                </div>
-              </div>
-              
-              <div className="flex gap-4 flex-grow">
-                {/* Team A */}
-                <div className="flex-1 rounded-xl p-4 bg-blue-50 border border-blue-200 shadow-sm">
-                  {teamA.map((player, index) => (
-                    <div key={player.name} className="mb-2 last:mb-0">
-                      <div className="flex justify-between items-center py-2">
-                        <Typography className="font-medium">
-                          {player.name}
-                        </Typography>
-                        <Chip
+      {/* Main Content */}
+      <main className={`max-w-6xl mx-auto px-4 pb-16 transition-all duration-1000 ease-in-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Player Search and Selection */}
+          <div className="w-full md:w-1/2">
+            <div className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 h-full">
+              <div className="absolute top-0 left-0 w-full h-1 bg-sky-600" />
+              <div className="p-6 flex flex-col h-full">
+                <h3 className="text-gray-800 text-xl font-semibold mb-6 text-center">Add Players To Matchmake</h3>
+                
+                {/* Search Input with Enhanced Autocomplete */}
+                <div className="mb-6 search-container">
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    label="Search for a player"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    onKeyDown={(e) => {
+                      if (suggestions.length > 0) {
+                        // Arrow down
+                        if (e.key === 'ArrowDown') {
+                          e.preventDefault();
+                          setHighlightedIndex((prev) => 
+                            prev < suggestions.length - 1 ? prev + 1 : prev
+                          );
+                        }
+                        // Arrow up
+                        else if (e.key === 'ArrowUp') {
+                          e.preventDefault();
+                          setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+                        }
+                        // Enter
+                        else if (e.key === 'Enter' && highlightedIndex >= 0) {
+                          e.preventDefault();
+                          handleSuggestionSelect(suggestions[highlightedIndex]);
+                        }
+                        // Escape
+                        else if (e.key === 'Escape') {
+                          setSuggestions([]);
+                          setHighlightedIndex(-1);
+                        }
+                      } else if (e.key === 'Enter') {
+                        handleKeyPress(e);
+                      }
+                    }}
+                    className="bg-white rounded-lg"
+                    inputRef={searchInputRef}
+                    InputProps={{
+                      startAdornment: <SearchIcon className="mr-2 text-gray-400" />,
+                      endAdornment: (
+                        <IconButton 
+                          onClick={() => searchTerm.trim() && addPlayer(searchTerm.trim())}
+                          disabled={!searchTerm.trim()}
                           size="small"
-                          label={player.impactRating}
-                          className="bg-blue-100 text-blue-800"
-                        />
-                      </div>
-                      {index < teamA.length - 1 && <Divider className="my-1" />}
+                          className="text-sky-600 hover:text-sky-800"
+                        >
+                          <PersonAddIcon />
+                        </IconButton>
+                      )
+                    }}
+                    autoComplete="off"
+                  />
+                  
+                  {isLoading && (
+                    <div className="flex justify-center mt-2">
+                      <CircularProgress size={24} className="text-sky-600" />
                     </div>
-                  ))}
+                  )}
+                  
+                  {/* Enhanced Suggestions Dropdown */}
+                  {suggestions.length > 0 && (
+                    <div className="suggestions-dropdown mt-1 absolute z-10 w-full bg-white shadow-lg rounded-lg border border-gray-200 max-h-60 overflow-y-auto">
+                      {suggestions.map((player, index) => (
+                        <div
+                          key={player}
+                          onClick={() => handleSuggestionSelect(player)}
+                          className={`px-4 py-2 cursor-pointer hover:bg-sky-50 flex justify-between items-center transition-colors duration-200 ${
+                            index === highlightedIndex ? 'bg-sky-100 text-sky-700' : 'text-gray-700'
+                          }`}
+                          onMouseEnter={() => setHighlightedIndex(index)}
+                        >
+                          <span>{player}</span>
+                          <PersonAddIcon fontSize="small" className="text-sky-600" />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {error && (
+                    <div className="px-4 py-3 text-red-500 bg-red-50 border-l-4 border-red-400 mt-3 rounded-r-md">
+                      {error}
+                    </div>
+                  )}
                 </div>
                 
-                {/* Team B */}
-                <div className="flex-1 rounded-xl p-4 bg-red-50 border border-red-200 shadow-sm">
-                  {teamB.map((player, index) => (
-                    <div key={player.name} className="mb-2 last:mb-0">
-                      <div className="flex justify-between items-center py-2">
-                        <Typography className="font-medium">
-                          {player.name}
-                        </Typography>
-                        <Chip
-                          size="small"
-                          label={player.impactRating}
-                          className="bg-red-100 text-red-800"
-                        />
-                      </div>
-                      {index < teamB.length - 1 && <Divider className="my-1" />}
+                {/* Selected Players */}
+                <div className="flex-grow flex flex-col">
+                  <h4 className="font-medium text-gray-700 mb-3">
+                    Selected Players ({selectedPlayers.length})
+                  </h4>
+                  
+                  {selectedPlayers.length === 0 ? (
+                    <div className="text-gray-500 text-sm italic bg-gray-50 p-4 rounded-lg border border-gray-100 flex-grow">
+                      No players selected yet. Search and add players above.
                     </div>
-                  ))}
+                  ) : (
+                    <div className="flex flex-wrap gap-2 mb-6 bg-sky-50 p-3 rounded-lg border border-sky-100 flex-grow">
+                      {selectedPlayers.map((player) => (
+                        <Chip
+                          key={player.name}
+                          label={`${player.name} (${player.impactRating})`}
+                          onDelete={() => removePlayer(player.name)}
+                          deleteIcon={<DeleteIcon />}
+                          className="m-1 bg-white shadow-sm"
+                        />
+                      ))}
+                    </div>
+                  )}
+                  
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<GroupIcon />}
+                    disabled={selectedPlayers.length === 0 || isMatchmaking}
+                    onClick={findMatches}
+                    className="mt-auto bg-sky-600 hover:bg-sky-700 transition-colors duration-200 py-3"
+                    fullWidth
+                  >
+                    {isMatchmaking ? 'Finding Matches...' : 'Find Balanced Teams'}
+                  </Button>
                 </div>
               </div>
-              
-              <div className="mt-6 p-4 text-sm text-gray-600 bg-gray-50 rounded-lg border border-gray-100">
-                <p className="mb-2">✅ Teams created with balanced impact ratings</p>
-                <p>📊 Optimal competitive matchup for practice gameplay</p>
+            </div>
+          </div>
+          
+          {/* Matchmaking Results */}
+          <div className="w-full md:w-1/2">
+            <div className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 h-full">
+              <div className="absolute top-0 left-0 w-full h-1 bg-sky-600" />
+              <div className="p-6 flex flex-col h-full">
+                <h3 className="text-gray-800 text-xl font-semibold mb-6 text-center">Matchmaking Results</h3>
+                
+                {isMatchmaking ? (
+                  <div className="p-12 flex flex-col items-center justify-center bg-gray-50 rounded-lg flex-grow">
+                    <CircularProgress className="text-indigo-600 mb-4" />
+                    <Typography className="text-gray-600">Finding balanced teams...</Typography>
+                  </div>
+                ) : matchmakingComplete ? (
+                  <div className="transition-all duration-500 ease-in-out flex-grow flex flex-col">
+                    <div className="flex justify-between mb-4">
+                      <div className="text-lg font-medium text-blue-700">
+                        Team A <span className="text-sm font-normal">(Avg: {getTeamAverage(teamA)})</span>
+                      </div>
+                      <div className="text-lg font-medium text-red-700">
+                        Team B <span className="text-sm font-normal">(Avg: {getTeamAverage(teamB)})</span>
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-4 flex-grow">
+                      {/* Team A */}
+                      <div className="flex-1 rounded-xl p-4 bg-blue-50 border border-blue-200 shadow-sm">
+                        {teamA.map((player, index) => (
+                          <div key={player.name} className="mb-2 last:mb-0">
+                            <div className="flex justify-between items-center py-2">
+                              <Typography className="font-medium">
+                                {player.name}
+                              </Typography>
+                              <Chip
+                                size="small"
+                                label={player.impactRating}
+                                className="bg-blue-100 text-blue-800"
+                              />
+                            </div>
+                            {index < teamA.length - 1 && <Divider className="my-1" />}
+                          </div>
+                        ))}
+                      </div>
+                      
+                      {/* Team B */}
+                      <div className="flex-1 rounded-xl p-4 bg-red-50 border border-red-200 shadow-sm">
+                        {teamB.map((player, index) => (
+                          <div key={player.name} className="mb-2 last:mb-0">
+                            <div className="flex justify-between items-center py-2">
+                              <Typography className="font-medium">
+                                {player.name}
+                              </Typography>
+                              <Chip
+                                size="small"
+                                label={player.impactRating}
+                                className="bg-red-100 text-red-800"
+                              />
+                            </div>
+                            {index < teamB.length - 1 && <Divider className="my-1" />}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="mt-6 p-4 text-sm text-gray-600 bg-gray-50 rounded-lg border border-gray-100">
+                      <p className="mb-2">✅ Teams created with balanced impact ratings</p>
+                      <p>📊 Optimal competitive matchup for practice gameplay</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="text-center p-12 text-gray-500 bg-gray-50 rounded-lg border border-gray-100 flex-grow flex flex-col justify-center items-center">
+                    <GroupIcon style={{ fontSize: 48 }} className="mb-4 opacity-50 text-indigo-300" />
+                    <p className="text-lg mb-2">Ready to create balanced teams</p>
+                    <p className="text-gray-500">
+                      Select players from the search panel and click "Find Balanced Teams"
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
-          ) : (
-            <div className="text-center p-12 text-gray-500 bg-gray-50 rounded-lg border border-gray-100 flex-grow flex flex-col justify-center items-center">
-              <GroupIcon style={{ fontSize: 48 }} className="mb-4 opacity-50 text-indigo-300" />
-              <p className="text-lg mb-2">Ready to create balanced teams</p>
-              <p className="text-gray-500">
-                Select players from the search panel and click "Find Balanced Teams"
-              </p>
+          </div>
+        </div>
+        
+        {/* How It Works Section */}
+        <div className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mt-12">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-700 to-blue-600" />
+          <div className="p-6">
+            <h3 className="text-center text-2xl font-semibold text-gray-800 mb-8">How Matchmaking Works</h3>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]">
+                <div className="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <span className="text-sky-700 font-bold text-lg">1</span>
+                </div>
+                <h4 className="text-center text-lg font-medium text-gray-800 mb-3">Select Players</h4>
+                <p className="text-center text-gray-600">
+                  Search for players you want to practice with and add them to your selected list.
+                  The system calculates their average impact rating.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]">
+                <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <span className="text-indigo-700 font-bold text-lg">2</span>
+                </div>
+                <h4 className="text-center text-lg font-medium text-gray-800 mb-3">Find Matches</h4>
+                <p className="text-center text-gray-600">
+                  The algorithm searches for players with similar impact ratings
+                  to create balanced opposing teams of equal size.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <span className="text-green-700 font-bold text-lg">3</span>
+                </div>
+                <h4 className="text-center text-lg font-medium text-gray-800 mb-3">Team Formation</h4>
+                <p className="text-center text-gray-600">
+                  Results display your selected players as Team A and matched opponents as Team B,
+                  with team average ratings for comparison.
+                </p>
+              </div>
             </div>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  {/* How It Works Section */}
-  <div className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mt-12">
-    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-sky-700 to-blue-600" />
-    <div className="p-6">
-      <h3 className="text-center text-2xl font-semibold text-gray-800 mb-8">How Matchmaking Works</h3>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]">
-          <div className="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center mb-4 mx-auto">
-            <span className="text-sky-700 font-bold text-lg">1</span>
           </div>
-          <h4 className="text-center text-lg font-medium text-gray-800 mb-3">Select Players</h4>
-          <p className="text-center text-gray-600">
-            Search for players you want to practice with and add them to your selected list.
-            The system calculates their average impact rating.
-          </p>
         </div>
-        
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]">
-          <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mb-4 mx-auto">
-            <span className="text-indigo-700 font-bold text-lg">2</span>
-          </div>
-          <h4 className="text-center text-lg font-medium text-gray-800 mb-3">Find Matches</h4>
-          <p className="text-center text-gray-600">
-            The algorithm searches for players with similar impact ratings
-            to create balanced opposing teams of equal size.
-          </p>
-        </div>
-        
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md hover:translate-y-[-2px]">
-          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 mx-auto">
-            <span className="text-green-700 font-bold text-lg">3</span>
-          </div>
-          <h4 className="text-center text-lg font-medium text-gray-800 mb-3">Team Formation</h4>
-          <p className="text-center text-gray-600">
-            Results display your selected players as Team A and matched opponents as Team B,
-            with team average ratings for comparison.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
+      </main>
     </div>
   );
 };
