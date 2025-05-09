@@ -20,6 +20,16 @@ import { Pagination } from '@material-ui/lab';
 import { CircularProgress } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
+// Create an axios instance with proper configuration
+const api = axios.create({
+  baseURL: '',
+  timeout: 15000, // Increased timeout for mobile networks
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  }
+});
+
 const PlayerStatsPage = () => {
   const [playerData, setPlayerData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,11 +40,22 @@ const PlayerStatsPage = () => {
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [pagination, setPagination] = useState({ currentPage: 1, total: 0, pages: 0, limit: 10 });
   const [isLoaded, setIsLoaded] = useState(false);
+  const [networkStatus, setNetworkStatus] = useState('online');
   const searchInputRef = useRef(null);
 
-  // Use relative URLs instead of hardcoded localhost
-  // This will work in both development and production environments
-  const API_BASE_URL = '';
+  // Monitor network status (especially important for mobile)
+  useEffect(() => {
+    const handleOnline = () => setNetworkStatus('online');
+    const handleOffline = () => setNetworkStatus('offline');
+    
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const debouncedSearch = useCallback(
     debounce(async (searchTerm) => {
@@ -48,28 +69,64 @@ const PlayerStatsPage = () => {
   );
 
   const fetchPlayers = async (page = pagination.currentPage, search = searchTerm) => {
+    if (networkStatus === 'offline') {
+      setError('You appear to be offline. Please check your internet connection and try again.');
+      return;
+    }
+    
     setIsLoading(true);
     setError(null);
+    
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `/Pickups/public?page=${page}&limit=${pagination.limit}&search=${encodeURIComponent(search)}&sort=-Date`
       );
 
+      console.log('API Response:', response); // Debug response
+      
       const { data, pagination: paginationData } = response.data;
-      const exactMatches = data.filter((record) => record.Player === search);
-      if (exactMatches.length > 0) {
-        setPlayerData(exactMatches);
-        setPagination((prev) => ({
-          ...prev,
-          ...paginationData,
-          currentPage: page,
-        }));
+      
+      if (data && Array.isArray(data)) {
+        const exactMatches = data.filter((record) => 
+          record.Player && search && record.Player.toLowerCase() === search.toLowerCase()
+        );
+        
+        if (exactMatches.length > 0) {
+          setPlayerData(exactMatches);
+          setPagination((prev) => ({
+            ...prev,
+            ...paginationData,
+            currentPage: page,
+          }));
+        } else {
+          setPlayerData(data); // Show all results if no exact match
+          setPagination((prev) => ({
+            ...prev,
+            ...paginationData,
+            currentPage: page,
+          }));
+          if (search) {
+            setError(`No exact match found for "${search}". Showing all results.`);
+          }
+        }
       } else {
         setPlayerData([]);
-        setError(`No exact match found for "${search}".`);
+        setError('Invalid response format received from server.');
       }
     } catch (err) {
-      setError(`Failed to load player data. Error: ${err.message}`);
+      console.error('API Error:', err); // Debug error
+      
+      // Enhanced error handling with more specific messages
+      if (err.response) {
+        // Server returned an error response (4xx, 5xx)
+        setError(`Server error: ${err.response.status} ${err.response.statusText}`);
+      } else if (err.request) {
+        // Request was made but no response received
+        setError('No response received from the server. Please check your connection.');
+      } else {
+        // Error in setting up the request
+        setError(`Failed to load player data: ${err.message}`);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -82,9 +139,13 @@ const PlayerStatsPage = () => {
     }
     
     try {
-      const response = await axios.get(`/Pickups/suggestions?search=${encodeURIComponent(search)}`);
+      const response = await api.get(`/Pickups/suggestions?search=${encodeURIComponent(search)}`);
+      console.log('Suggestions response:', response); // Debug suggestions
+      
       if (response.data && Array.isArray(response.data)) {
         setSuggestions(response.data);
+      } else {
+        setSuggestions([]);
       }
     } catch (err) {
       console.error('Failed to load suggestions:', err);
@@ -148,6 +209,20 @@ const PlayerStatsPage = () => {
     }
   };
 
+  // Safe data formatting function
+  const formatDate = (dateString) => {
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        return "Invalid Date";
+      }
+      return date.toLocaleDateString();
+    } catch (err) {
+      console.error('Date formatting error:', err);
+      return "Invalid Date";
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-gray-100">
       <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-2 w-full" />
@@ -171,6 +246,12 @@ const PlayerStatsPage = () => {
         <div className="relative bg-white rounded-xl shadow-lg overflow-visible transition-all duration-200 hover:shadow-xl border border-gray-100">
           <div className="absolute top-0 left-0 w-full h-1 bg-sky-600" />
           
+          {networkStatus === 'offline' && (
+            <div className="px-6 py-3 text-amber-700 bg-amber-50 border-l-4 border-amber-500">
+              You are currently offline. Some features may not work until you reconnect.
+            </div>
+          )}
+          
           <div className="p-6 border-b border-gray-200">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <h3 className="text-xl font-semibold text-gray-800">
@@ -192,7 +273,6 @@ const PlayerStatsPage = () => {
                       onChange={(e) => {
                         setSearchTerm(e.target.value);
                         setHighlightedIndex(-1);
-                        debouncedSearch(e.target.value);
                       }}
                       onKeyDown={(e) => {
                         if (suggestions.length > 0) {
@@ -246,8 +326,19 @@ const PlayerStatsPage = () => {
                   <button
                     type="submit"
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 transition-colors"
+                    disabled={isLoading}
                   >
-                    Search
+                    {isLoading ? (
+                      <span className="flex items-center">
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Loading
+                      </span>
+                    ) : (
+                      "Search"
+                    )}
                   </button>
                 </div>
               </form>
@@ -296,19 +387,14 @@ const PlayerStatsPage = () => {
                       <div className="h-96">
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart
-                            data={[...playerData].sort((a, b) => new Date(a.Date) - new Date(b.Date))}
+                            data={[...playerData]
+                              .filter(record => record && record.Date) // Filter out records with invalid date
+                              .sort((a, b) => new Date(a.Date) - new Date(b.Date))}
                             margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
                           >
                             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
                             <XAxis 
-                              dataKey={(record) => {
-                                const date = new Date(record.Date);
-                                if (isNaN(date.getTime())) {
-                                  // Handle invalid date
-                                  return "Invalid Date";
-                                }
-                                return date.toLocaleDateString();  
-                              }}
+                              dataKey={(record) => formatDate(record.Date)}
                               tick={{ fontSize: 12, fill: '#4b5563' }}
                               angle={-45}
                               textAnchor="end"
@@ -322,6 +408,7 @@ const PlayerStatsPage = () => {
                                 border: '1px solid #e5e7eb',
                               }} 
                               formatter={(value) => [value, selectedStat]}
+                              labelFormatter={(label) => `Date: ${label}`}
                             />
                             <Legend wrapperStyle={{ paddingTop: 10 }} />
                             <Line
@@ -338,7 +425,63 @@ const PlayerStatsPage = () => {
                       </div>
                     </div>
 
-                    <div className="bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
+                    {/* Mobile-optimized table view */}
+                    <div className="block md:hidden bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden mb-6">
+                      <div className="p-4 border-b border-gray-200 bg-gray-50">
+                        <h4 className="text-lg font-medium text-sky-700">Performance Records</h4>
+                        <p className="text-sm text-gray-600">Showing most recent records first</p>
+                      </div>
+                      
+                      <div className="divide-y divide-gray-200">
+                        {playerData.map((record) => (
+                          <div key={record._id} className="p-4">
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="font-medium text-gray-900">{formatDate(record.Date)}</span>
+                              <span className={`px-2 py-1 text-xs font-semibold rounded-full ${record.Win ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
+                                {record.Win ? 'Victory' : 'Defeat'}
+                              </span>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 gap-2 text-sm">
+                              <div>
+                                <span className="text-gray-500">Score:</span> {record.Score}
+                              </div>
+                              <div>
+                                <span className="text-gray-500">K/D/A:</span> {record.Kills}/{record.Deaths}/{record.Assists}
+                              </div>
+                              <div>
+                                <span className="text-gray-500">Blocks:</span> {record.Blocks}
+                              </div>
+                              <div>
+                                <span className="text-gray-500">TK:</span> {record['Team Kills']}
+                              </div>
+                              <div>
+                                <span className="text-gray-500">Impact:</span> {record['Impact Rating']}
+                              </div>
+                              <div>
+                                <span className="text-gray-500">Regiment:</span> <span className="px-1 text-xs font-semibold rounded bg-blue-100 text-blue-800">{record.Regiment}</span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      
+                      {pagination.pages > 1 && (
+                        <div className="flex justify-center py-4 bg-gray-50 border-t border-gray-200">
+                          <Pagination
+                            count={pagination.pages}
+                            page={pagination.currentPage}
+                            onChange={handlePageChange}
+                            color="primary"
+                            size="small"
+                            className="pagination-container"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Desktop table view - hidden on mobile */}
+                    <div className="hidden md:block bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden">
                       <div className="p-4 border-b border-gray-200 bg-gray-50">
                         <h4 className="text-lg font-medium text-sky-700">Performance Records</h4>
                         <p className="text-sm text-gray-600">Showing most recent records first</p>
@@ -383,7 +526,7 @@ const PlayerStatsPage = () => {
                             {playerData.map((record) => (
                               <tr key={record._id} className="hover:bg-sky-50 transition-colors">
                                 <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
-                                  {new Date(record.Date).toLocaleDateString()}
+                                  {formatDate(record.Date)}
                                 </td>
                                 <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-900">
                                   {record.Score}
