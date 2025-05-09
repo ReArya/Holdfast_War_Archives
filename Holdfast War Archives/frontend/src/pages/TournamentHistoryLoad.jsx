@@ -245,13 +245,13 @@ const oneVOneOptions = [
                         </div>
                     </div>
 
-                    {/* Video Section with descriptions ABOVE videos - with hover effect */}
+                    {/* Video Section with equal height containers */}
                     <div className="flex flex-col md:flex-row gap-8 justify-center relative">
-                        {/* Video 1 with description above */}
+                        {/* Video Container 1 */}
                         <div className="w-full md:w-1/2">
-                            <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden">
+                            <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden h-full flex flex-col">
                                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
-                                {/* Video description moved ABOVE the video */}
+                                {/* Video description */}
                                 <div className="mb-5 text-center">
                                     <p className="text-sky-600 font-medium mb-1">Tournament Showcase</p>
                                     <p className="text-gray-600">
@@ -259,10 +259,11 @@ const oneVOneOptions = [
                                     </p>
                                 </div>
                                 
-                                <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300">
-                                    <div className="aspect-video">
+                                {/* Video wrapper with flex-grow to take available space */}
+                                <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300 flex-grow">
+                                    <div className="relative w-full aspect-video">
                                         <iframe
-                                            className="w-full h-full"
+                                            className="w-full h-full absolute top-0 left-0"
                                             src="https://www.youtube.com/embed/GeDaYomnBuI?playlist=GeDaYomnBuI&loop=1&autoplay=1&mute=1"
                                             title="Summer 2022 Normal Tourney Gameplay"
                                             frameBorder="0"
@@ -280,11 +281,11 @@ const oneVOneOptions = [
                             </div>
                         </div>
 
-                        {/* Video 2 with description above */}
+                        {/* Video Container 2 */}
                         <div className="w-full md:w-1/2">
-                            <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden">
+                            <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden h-full flex flex-col">
                                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
-                                {/* Video description moved ABOVE the video */}
+                                {/* Video description */}
                                 <div className="mb-5 text-center">
                                     <p className="text-sky-600 font-medium mb-1">Groupfight Gameplay</p>
                                     <p className="text-gray-600">
@@ -292,10 +293,11 @@ const oneVOneOptions = [
                                     </p>
                                 </div>
                                 
-                                <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300">
-                                    <div className="aspect-video">
+                                {/* Video wrapper with flex-grow to take available space */}
+                                <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300 flex-grow">
+                                    <div className="relative w-full aspect-video">
                                         <iframe
-                                            className="w-full h-full"
+                                            className="w-full h-full absolute top-0 left-0"
                                             src="https://www.youtube.com/embed/Ro92AtBthvE?playlist=Ro92AtBthvE&loop=1&autoplay=1&mute=1"
                                             title="5v5 Tournament Gameplay"
                                             frameBorder="0"

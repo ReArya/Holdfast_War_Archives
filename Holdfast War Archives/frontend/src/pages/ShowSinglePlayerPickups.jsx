@@ -73,16 +73,29 @@ const PlayerStatsPage = () => {
     }
   };
 
-  const fetchSuggestions = async (search) => {
-    try {
-      const response = await axios.get(`/Pickups/suggestions?search=${search}`);
-      if (response.data && Array.isArray(response.data)) {
-        setSuggestions(response.data);
-      }
-    } catch (err) {
-      console.error('Failed to load suggestions:', err);
+  // const fetchSuggestions = async (search) => {
+  //   try {
+  //     const response = await axios.get(`/Pickups/suggestions?search=${search}`);
+  //     if (response.data && Array.isArray(response.data)) {
+  //       setSuggestions(response.data);
+  //     }
+  //   } catch (err) {
+  //     console.error('Failed to load suggestions:', err);
+  //   }
+  // };
+  
+  // Changes to fetchSuggestions function to limit suggestions to 5
+const fetchSuggestions = async (search) => {
+  try {
+    const response = await axios.get(`/Pickups/suggestions?search=${search}`);
+    if (response.data && Array.isArray(response.data)) {
+      // Limit suggestions to top 5 results
+      setSuggestions(response.data.slice(0, 5));
     }
-  };
+  } catch (err) {
+    console.error('Failed to load suggestions:', err);
+  }
+};
 
   useEffect(() => {
     debouncedSearch(searchTerm);
@@ -160,7 +173,7 @@ const PlayerStatsPage = () => {
               </form>
             </div>
 
-            {suggestions.length > 0 && (
+            {/* {suggestions.length > 0 && (
               <div className="mt-2 sm:ml-auto sm:w-72">
                 <div className="bg-white shadow-md rounded-md border border-gray-200 max-h-60 overflow-y-auto">
                   {suggestions.map((player) => (
@@ -178,7 +191,27 @@ const PlayerStatsPage = () => {
                   ))}
                 </div>
               </div>
-            )}
+            )} */}
+            {suggestions.length > 0 && (
+  <div className="absolute mt-1 w-full z-10">
+    <div className="bg-white shadow-lg rounded-md border border-gray-200 max-h-60 overflow-y-auto">
+      {suggestions.map((player) => (
+        <div
+          key={player}
+          onClick={() => {
+            setSearchTerm(player);
+            fetchPlayers(1, player);
+            setSuggestions([]);
+          }}
+          className="px-4 py-2 hover:bg-sky-50 cursor-pointer text-sm text-gray-700 hover:text-sky-700 border-b last:border-b-0 border-gray-100 flex items-center"
+        >
+          <SearchIcon className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" />
+          <span className="truncate">{player}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
           </div>
 
           {error && (

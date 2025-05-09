@@ -185,6 +185,7 @@ const LeagueHistoryLoad = () => {
                 </header>
 
                 <main className={`max-w-6xl mx-auto px-4 pb-16 transition-all duration-1000 ease-in-out ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                    {/* Dropdown Section */}
                     <div className="flex flex-col md:flex-row gap-6 justify-center mb-12">
                         {/* Regional Leagues Dropdown */}
                         <div className="w-full md:w-1/3">
@@ -259,100 +260,103 @@ const LeagueHistoryLoad = () => {
                         </div>
                     </div>
 
-                    {/* Three Video Section with descriptions above videos */}
+                    {/* Video Container Section with equal heights */}
                     <div className="flex flex-col md:flex-row gap-6 justify-center relative">
-                        {/* Video 1 - Regional League */}
-                        <div className="w-full md:w-1/3">
-                            <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden">
-                                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
-                                <div className="mb-5 text-center">
-                                    <p className="text-sky-600 font-medium mb-1">Regimental Groupfight League</p>
-                                    <p className="text-gray-600">
-                                        RGL Season 5 Match
-                                    </p>
-                                </div>
-                                
-                                <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300">
-                                    <div className="aspect-video">
-                                        <iframe
-                                            className="w-full h-full"
-                                            src="https://www.youtube.com/embed/IJtR43b-gHI?playlist=IJtR43b-gHI&loop=1&autoplay=1&mute=1"
-                                            title="RGL Season 5 League Final"
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                        ></iframe>
+                        {/* Video containers with grid for consistent heights */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+                            {/* Video 1 - Regional League */}
+                            <div className="flex flex-col h-full">
+                                <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden flex-1 flex flex-col">
+                                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
+                                    <div className="mb-5 text-center">
+                                        <p className="text-sky-600 font-medium mb-1">Regimental Groupfight League</p>
+                                        <p className="text-gray-600">
+                                            RGL Season 5 Match
+                                        </p>
                                     </div>
-                                    {/* Full overlay when dropdown is open */}
-                                    {videoOverlay && (
-                                        <div 
-                                            className="absolute top-0 left-0 w-full h-full bg-black opacity-30"
-                                        ></div>
-                                    )}
+                                    
+                                    <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300 flex-1 flex flex-col">
+                                        <div className="aspect-video w-full h-full">
+                                            <iframe
+                                                className="w-full h-full"
+                                                src="https://www.youtube.com/embed/IJtR43b-gHI?playlist=IJtR43b-gHI&loop=1&autoplay=1&mute=1"
+                                                title="RGL Season 5 League Final"
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                        {/* Full overlay when dropdown is open */}
+                                        {videoOverlay && (
+                                            <div 
+                                                className="absolute top-0 left-0 w-full h-full bg-black opacity-30"
+                                            ></div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Video 2 - International League */}
-                        <div className="w-full md:w-1/3">
-                            <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden">
-                                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
-                                <div className="mb-5 text-center">
-                                    <p className="text-sky-600 font-medium mb-1">Line League</p>
-                                    <p className="text-gray-600">
-                                        NWL Season 3 Match
-                                    </p>
-                                </div>
-                                
-                                <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300">
-                                    <div className="aspect-video">
-                                        <iframe
-                                            className="w-full h-full"
-                                            src="https://www.youtube.com/embed/R11z2w2KWd8?playlist=R11z2w2KWd8&loop=1&autoplay=1&mute=1"
-                                            title="Regimental Line Competition"
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                        ></iframe>
+                            {/* Video 2 - International League */}
+                            <div className="flex flex-col h-full">
+                                <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden flex-1 flex flex-col">
+                                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
+                                    <div className="mb-5 text-center">
+                                        <p className="text-sky-600 font-medium mb-1">Line League</p>
+                                        <p className="text-gray-600">
+                                            NWL Season 3 Match
+                                        </p>
                                     </div>
-                                    {/* Full overlay when dropdown is open */}
-                                    {videoOverlay && (
-                                        <div 
-                                            className="absolute top-0 left-0 w-full h-full bg-black opacity-30"
-                                        ></div>
-                                    )}
+                                    
+                                    <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300 flex-1 flex flex-col">
+                                        <div className="aspect-video w-full h-full">
+                                            <iframe
+                                                className="w-full h-full"
+                                                src="https://www.youtube.com/embed/R11z2w2KWd8?playlist=R11z2w2KWd8&loop=1&autoplay=1&mute=1"
+                                                title="Regimental Line Competition"
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                        {/* Full overlay when dropdown is open */}
+                                        {videoOverlay && (
+                                            <div 
+                                                className="absolute top-0 left-0 w-full h-full bg-black opacity-30"
+                                            ></div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Video 3 - Special Events */}
-                        <div className="w-full md:w-1/3">
-                            <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden">
-                                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
-                                <div className="mb-5 text-center">
-                                    <p className="text-sky-600 font-medium mb-1">Rifle League</p>
-                                    <p className="text-gray-600">
-                                        HRL Season 3 Match
-                                    </p>
-                                </div>
-                                
-                                <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300">
-                                    <div className="aspect-video">
-                                        <iframe
-                                            className="w-full h-full"
-                                            src="https://www.youtube.com/embed/e7a5F4oHSw8?playlist=e7a5F4oHSw8&loop=1&autoplay=1&mute=1"
-                                            title="Naval Sports League Championship"
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                        ></iframe>
+                            {/* Video 3 - Special Events */}
+                            <div className="flex flex-col h-full">
+                                <div className="relative bg-white rounded-xl shadow-md p-6 w-full border border-gray-100 overflow-hidden flex-1 flex flex-col">
+                                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-sky-700 to-blue-600 rounded-t-lg" />
+                                    <div className="mb-5 text-center">
+                                        <p className="text-sky-600 font-medium mb-1">Rifle League</p>
+                                        <p className="text-gray-600">
+                                            HRL Season 3 Match
+                                        </p>
                                     </div>
-                                    {/* Full overlay when dropdown is open */}
-                                    {videoOverlay && (
-                                        <div 
-                                            className="absolute top-0 left-0 w-full h-full bg-black opacity-30"
-                                        ></div>
-                                    )}
+                                    
+                                    <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300 flex-1 flex flex-col">
+                                        <div className="aspect-video w-full h-full">
+                                            <iframe
+                                                className="w-full h-full"
+                                                src="https://www.youtube.com/embed/e7a5F4oHSw8?playlist=e7a5F4oHSw8&loop=1&autoplay=1&mute=1"
+                                                title="Naval Sports League Championship"
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                        {/* Full overlay when dropdown is open */}
+                                        {videoOverlay && (
+                                            <div 
+                                                className="absolute top-0 left-0 w-full h-full bg-black opacity-30"
+                                            ></div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

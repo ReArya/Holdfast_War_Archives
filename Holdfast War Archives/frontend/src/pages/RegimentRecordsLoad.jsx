@@ -176,15 +176,15 @@ const RegimentRecordsLoad = () => {
             </div>
           </div>
 
-          {/* Content Section - Logo and Video */}
+          {/* Content Section - Logo and Video with equal height containers */}
           <div className="flex flex-col md:flex-row gap-8 justify-center relative">
             {/* Logo Section */}
             <div className="w-full md:w-1/2">
-              <div className="bg-white rounded-xl shadow-md w-full border border-gray-100 relative overflow-hidden">
+              <div className="bg-white rounded-xl shadow-md w-full border border-gray-100 relative overflow-hidden h-full flex flex-col">
                 {/* Blue gradient strip at the very top of the container */}
                 <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full" />
                 
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <div className="mb-5 text-center">
                     <p className="text-sky-600 font-medium mb-1">North American Holdfast Competitive Leagues</p>
                     <p className="text-gray-600">
@@ -192,8 +192,8 @@ const RegimentRecordsLoad = () => {
                     </p>
                   </div>
                   
-                  <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300">
-                    <div className="aspect-video flex items-center justify-center">
+                  <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300 flex-grow flex items-center justify-center">
+                    <div className="aspect-video w-full flex items-center justify-center">
                       <img
                         src={NAHoldfastLogo}
                         alt="North American Competitive Holdfast Logo"
@@ -208,11 +208,11 @@ const RegimentRecordsLoad = () => {
 
             {/* Video Section */}
             <div className="w-full md:w-1/2">
-              <div className="bg-white rounded-xl shadow-md w-full border border-gray-100 relative overflow-hidden">
+              <div className="bg-white rounded-xl shadow-md w-full border border-gray-100 relative overflow-hidden h-full flex flex-col">
                 {/* Blue gradient strip at the very top of the container */}
                 <div className="bg-gradient-to-r from-sky-700 to-blue-600 h-1 w-full" />
                 
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <div className="mb-5 text-center">
                     <p className="text-sky-600 font-medium mb-1">RGL Season 5 Final</p>
                     <p className="text-gray-600">
@@ -220,10 +220,10 @@ const RegimentRecordsLoad = () => {
                     </p>
                   </div>
                   
-                  <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300">
-                    <div className="aspect-video">
+                  <div className="overflow-hidden rounded-lg shadow-lg relative transition-transform hover:scale-[1.02] duration-300 flex-grow">
+                    <div className="relative w-full aspect-video">
                       <iframe
-                        className="w-full h-full"
+                        className="w-full h-full absolute top-0 left-0"
                         src="https://www.youtube.com/embed/IJtR43b-gHI?playlist=IJtR43b-gHI&loop=1&autoplay=1&mute=1"
                         title="Holdfast Regiment Battle Footage"
                         frameBorder="0"
