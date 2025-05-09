@@ -1,9 +1,15 @@
+// Albert Mendez IV
+// ThreeversusThreeTourneyII.jsx
+// Holdfast War Archives
+// Three Versus Three Tourney II Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ThreeVersusThreeTourneyIILogo from '../assets/Three v Three Tourney II.svg';
 import ThreeVersusThreeTourneyIITeams from '../assets/Teams 3v3 Tourney II.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

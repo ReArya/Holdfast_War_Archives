@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// RisksNA3v3Tourney.jsx
+// Holdfast War Archives
+// Risks North American 3 Versus 3 Tourney Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RisksNA3v3TourneyLogo from '../assets/Risks NA 3v3 Tourney.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

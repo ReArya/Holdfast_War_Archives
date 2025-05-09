@@ -1,9 +1,14 @@
-// Enhanced Regiment63e.jsx with improved UI/UX and modular structure
+// Albert Mendez IV
+// RegimentKRA.jsx
+// Holdfast War Archives
+// KRA Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import RegimentKRALogo from '../assets/KRA.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

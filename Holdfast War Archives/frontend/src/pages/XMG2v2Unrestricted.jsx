@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// XMG2v2Unrestricted.jsx
+// Holdfast War Archives
+// XMG 2v2 Unrestricted Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import XMG2v2UnrestrictedLogo from '../assets/XMG2v2Unrestricted.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// Summer2022NormalTourney.jsx
+// Holdfast War Archives
+// Summer 2022 Normal Tourney Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Summer2022NormalTourneyLogo from '../assets/Summer 2022 Normal Tourney.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

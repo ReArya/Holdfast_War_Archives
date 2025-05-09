@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// RegimentTRR.jsx
+// Holdfast War Archives
+// TRR Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import RegimentTRRLogo from '../assets/TRR.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

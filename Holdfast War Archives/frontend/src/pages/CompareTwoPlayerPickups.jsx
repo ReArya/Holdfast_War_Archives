@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// CompareTwoPlayerPickups.jsx
+// Holdfast War Archives
+// Compare Two Player Pickups Page
+
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
@@ -274,8 +279,8 @@ const PlayerComparisonPage = () => {
                   )}
                 </div>
 
-                               {/* Statistic Selector */}
-                               <div className="w-full md:w-1/3">
+                  {/* Statistic Selector */}
+                  <div className="w-full md:w-1/3">
                   <label htmlFor="stat-select" className="block text-sm font-medium text-gray-700 mb-1">
                     Statistic to Compare
                   </label>

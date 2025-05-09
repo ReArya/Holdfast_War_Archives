@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// AdminSuccess.jsx
+// Holdfast War Archives
+// Contains the admin functionality including CRUD operations
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -389,6 +394,7 @@ const AdminPage = () => {
     }
   };
 
+  // handles the update of a player record
   const handleUpdate = async () => {
     try {
       if (!selectedRecord?._id) {

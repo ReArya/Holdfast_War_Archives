@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// RGLSeason3.jsx
+// Holdfast War Archives
+// RGL Season 3 Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RGLSeason3Logo from '../assets/RGL Season3.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

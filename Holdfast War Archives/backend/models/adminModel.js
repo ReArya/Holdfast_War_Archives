@@ -1,6 +1,12 @@
+// Albert Mendez IV
+// adminModel.js
+// Holdfast War Archives
+// Admin Model Schema for the admin functionality
+
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+// sets the schema for the admin login
 const adminSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true }

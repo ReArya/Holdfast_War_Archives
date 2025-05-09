@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// HMSNA3Versus3TourneyII.jsx
+// Holdfast War Archives
+// Holdfast Melee Server North American 3 Versus 3 Tourney II Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HMSNA3v3IILogo from '../assets/HMS NA 3v3 II.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// FifthNormalTourney.jsx
+// Holdfast War Archives
+// Fifth Normal Tourney Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FifthNormalTourneyLogo from '../assets/Fifth Normal Tourney.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Drop Down Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// Home.jsx
+// Holdfast War Archives
+// Home Page
+
 import React, { useState, useEffect } from 'react';
 
 const Home = () => {

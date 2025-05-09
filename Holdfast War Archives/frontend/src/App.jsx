@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// app.jsx
+// Holdfast War Archives
+// Contains all the routes that link the pages to the React-Router-Dom
+
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -70,6 +75,7 @@ import HRLSeason4 from './pages/HRLSeason4';
 import HRLSeason5 from './pages/HRLSeason5';
 import HCLSeason1 from './pages/HCLSeason1';
 
+// list of routes and their corresponding location in the file structure
 function App() {
   return (
     <div className="min-h-screen">

@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// Regiment26th.jsx
+// Holdfast War Archives
+// 26th Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Regiment26thLogo from '../assets/26th.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

@@ -1,5 +1,11 @@
+// Albert Mendez IV
+// pickupsModel.js
+// Holdfast War Archives
+// Pickups Model Schema for the public
+
 import mongoose from "mongoose";
 
+// sets the public pickups schema 
 const pickupsSchema = mongoose.Schema(
     {
         Player: {
@@ -51,8 +57,5 @@ const pickupsSchema = mongoose.Schema(
         versionKey : false
     }
 );
-
-
-
 
 export const PickupsStats = mongoose.model('PickupsStats', pickupsSchema)

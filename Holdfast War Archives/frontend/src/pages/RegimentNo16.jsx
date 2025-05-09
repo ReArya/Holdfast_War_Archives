@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// RegimentNo16.jsx
+// Holdfast War Archives
+// No.16 Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import RegimentNo16Logo from '../assets/No.16.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

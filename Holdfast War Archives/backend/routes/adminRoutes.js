@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// adminRoutes.js
+// Holdfast War Archives
+// Sets the admin routes for the admin functionality
+
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

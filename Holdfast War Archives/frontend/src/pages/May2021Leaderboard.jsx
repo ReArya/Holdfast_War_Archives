@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// May2021Leaderboard.jsx
+// Holdfast War Archives
+// May 2021 Leaderboard Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import May2021LeaderboardLogo from '../assets/May 2021 Leaderboard.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

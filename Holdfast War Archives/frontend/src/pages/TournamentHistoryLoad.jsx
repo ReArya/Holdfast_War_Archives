@@ -1,6 +1,12 @@
+// Albert Mendez IV
+// TournamentHistoryLoad.jsx
+// Holdfast War Archives
+// Tournament History Load Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
 

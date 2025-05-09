@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// KingOfFighters2019.jsx
+// Holdfast War Archives
+// King Of Fighters Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import KingOfFighters2019Logo from '../assets/King-Of-Fighters-2019.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* King of Fighters 2019 */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

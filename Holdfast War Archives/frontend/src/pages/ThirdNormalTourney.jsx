@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// ThirdNormalTourney.jsx
+// Holdfast War Archives
+// Third Normal Tourney Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ThirdNormalTourneyLogo from '../assets/Third Normal Tourney.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

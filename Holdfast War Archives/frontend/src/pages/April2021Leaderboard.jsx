@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// April2021Leaderboard.jsx
+// Holdfast War Archives
+// April 2021 Leaderboard Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import April2021LeaderboardLogo from '../assets/April-2021-Leaderboard.svg';

@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// XMGFiveVersusFiveTourneyApril2020.jsx
+// Holdfast War Archives
+// XMG 5 Versus 5 Tourney April 2020 Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import XMG5v5April2020Tourney from '../assets/XMG 5v5 2020 Tourney.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

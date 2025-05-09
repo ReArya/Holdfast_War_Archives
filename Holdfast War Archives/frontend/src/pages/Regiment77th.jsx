@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// Regiment77th.jsx
+// Holdfast War Archives
+// 77th Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Regiment77thLogo from '../assets/77th.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

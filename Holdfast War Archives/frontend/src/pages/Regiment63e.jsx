@@ -1,9 +1,14 @@
-// Enhanced Regiment63e.jsx with improved UI/UX and modular structure
+// Albert Mendez IV
+// Regiment63e.jsx
+// Holdfast War Archives
+// 63e Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Regiment63eLogo from '../assets/63e.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

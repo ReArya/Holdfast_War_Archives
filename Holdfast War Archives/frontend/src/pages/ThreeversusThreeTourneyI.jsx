@@ -1,9 +1,14 @@
+// Albert Mendez IV
+// ThreeversusThreeTourneyI.jsx
+// Holdfast War Archives
+// Three Versus Three Tourney I Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ThreeVersusThreeTourneyILogo from '../assets/Three v Three Tourney I.svg';
-
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

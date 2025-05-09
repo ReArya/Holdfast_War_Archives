@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// Regiment45e.jsx
+// Holdfast War Archives
+// 45e Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Regiment45eLogo from '../assets/45e.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

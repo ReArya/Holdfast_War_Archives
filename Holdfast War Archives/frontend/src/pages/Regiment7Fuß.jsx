@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// Regiment7Fuß.jsx
+// Holdfast War Archives
+// 7.Fuß Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Regiment7FußLogo from '../assets/7Fuß.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

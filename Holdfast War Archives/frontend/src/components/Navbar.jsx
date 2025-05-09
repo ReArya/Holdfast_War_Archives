@@ -1,3 +1,9 @@
+// Albert Mendez IV
+// Navbar.jsx
+// Holdfast War Archives
+// Containst the navigation bar which is present on every site 
+
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
@@ -19,6 +25,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // sets the navigation for the navigation bar options
   const navigation = [
     { name: 'Home', path: '/', icon: 'fa-solid fa-house' },
     { name: 'League History', path: '/leagueHistory', icon: 'fa-solid fa-trophy' },
@@ -61,7 +68,7 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Menu Dropdown with Animation - Matching Desktop Style */}
+        {/* Mobile Menu Dropdown with Animation */}
         <div className={`mobile-nav-container fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
           <div className="bg-black bg-opacity-50 absolute inset-0" onClick={() => setIsOpen(false)}></div>
           <div className="absolute right-0 top-0 h-full w-72 bg-gray-900 shadow-lg transform">
@@ -108,7 +115,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Desktop Sidebar - Modern Design */}
+      {/* Desktop Sidebar */}
       <div className="hidden lg:flex">
         <div className={`bg-gray-900 h-screen w-64 fixed left-0 top-0 flex flex-col transition-all duration-300 shadow-lg ${scrolled ? 'shadow-xl' : ''}`}>
           <div className="p-6 border-b border-gray-800">

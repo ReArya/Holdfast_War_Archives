@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// HCLSeason1.jsx
+// Holdfast War Archives
+// HCL Season 1 Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HCLSeason1Logo from '../assets/HCL Season 1.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

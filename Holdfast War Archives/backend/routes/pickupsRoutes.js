@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// pickupsRoutes.js
+// Holdfast War Archives
+// Sets the public pickups routes for public use
+
 import express from 'express';
 import { PickupsStats } from '../models/pickupsModel.js';
 import { authenticateAdmin } from "../middlewares/authMiddleware.js";
@@ -233,6 +238,7 @@ router.delete('/:id', authenticateAdmin, async (request, response) => {
     }
 });
 
+// searching for specific player ID
 router.put('/:id', authenticateAdmin, async (request, response) => {
     try {
         const { id } = request.params;

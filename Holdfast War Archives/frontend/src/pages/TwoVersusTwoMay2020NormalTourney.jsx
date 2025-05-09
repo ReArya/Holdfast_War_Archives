@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// TwoVersusTwoMay2020NormalTourney.jsx
+// Holdfast War Archives
+// Two Versus Two May 2020 Normal Tourney Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import May2v2NormalTourneyLogo from '../assets/2v2-May-Normal-Tourney.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

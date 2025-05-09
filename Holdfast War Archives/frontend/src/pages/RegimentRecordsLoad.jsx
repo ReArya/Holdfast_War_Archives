@@ -1,7 +1,13 @@
+// Albert Mendez IV
+// RegimentRecordsLoad.jsx
+// Holdfast War Archives
+// Regiment Records Load Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NAHoldfastLogo from '../assets/NA Holdfast.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

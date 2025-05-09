@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// KumiteSeason2.jsx
+// Holdfast War Archives
+// Kumite Season 2 Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import KumiteSeason2Logo from '../assets/Kumite Season 2.png';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

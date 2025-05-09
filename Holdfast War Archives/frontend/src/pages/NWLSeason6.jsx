@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// NWLSeason6.jsx
+// Holdfast War Archives
+// NWL Season 6 Page
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NWLSeason6Logo from '../assets/NWL Season 6.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

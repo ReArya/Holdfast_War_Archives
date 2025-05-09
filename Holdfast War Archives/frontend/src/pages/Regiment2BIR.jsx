@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// Regiment2BIR.jsx
+// Holdfast War Archives
+// 2.BIR Regiment Page
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Regiment2BIRLogo from '../assets/2BIR.png';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, onOptionClick }) => {
   const dropdownRef = useRef(null);
 

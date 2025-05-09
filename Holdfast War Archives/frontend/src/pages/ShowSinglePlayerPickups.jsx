@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// ShowSinglePlayerPikcups.jsx
+// Holdfast War Archives
+// Show Single Player Pickups Page
+
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import debounce from 'lodash/debounce';

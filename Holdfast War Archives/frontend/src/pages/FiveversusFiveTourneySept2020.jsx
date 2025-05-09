@@ -1,8 +1,14 @@
+// Albert Mendez IV
+// FiveversusFiveTourneySept2020.jsx
+// Holdfast War Archives
+// Five Versus Five Tourney September 2020
+
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FiveVersusFiveSeptemberTourneyLogo from '../assets/September 2020 HMS 5v5.svg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+{/* Dropdown Menu */}
 const Dropdown = ({ title, options, isOpen, toggleDropdown, id, onOptionClick }) => {
     const dropdownRef = useRef(null);
     

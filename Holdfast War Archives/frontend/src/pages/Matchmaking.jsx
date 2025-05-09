@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// Matchmaking.jsx
+// Holdfast War Archives
+// Matchmaking Page
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -21,6 +26,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
 import DeleteIcon from '@material-ui/icons/Delete';
+
 
 const Matchmaking = () => {
   // State for animation

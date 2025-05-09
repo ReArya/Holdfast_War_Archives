@@ -1,3 +1,8 @@
+// Albert Mendez IV
+// StatisticsLoad.jsx
+// Holdfast War Archives
+// Statistics Load Page
+
 import React, { useState, useEffect } from 'react';
 import SinglePlayerStatistics from '../assets/SinglePlayerStatistic.png';
 import ComparePlayerStatistics from '../assets/ComparePlayerStatistic.png';
