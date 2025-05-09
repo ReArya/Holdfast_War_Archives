@@ -3,7 +3,7 @@
 // Holdfast War Archives
 // Contains the admin functionality including CRUD operations
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import {
   AppBar,
@@ -42,6 +42,7 @@ import {
   useMediaQuery,
   Tooltip,
   Badge,
+  ClickAwayListener,
 } from '@mui/material';
 import { Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -166,6 +167,7 @@ const AdminPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
+  const searchInputRef = useRef(null);
 
   // Check for token on mount
   useEffect(() => {
@@ -195,6 +197,10 @@ const AdminPage = () => {
     message: '',
     severity: 'success'
   });
+  
+  // New state for autocomplete suggestions
+  const [suggestions, setSuggestions] = useState([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   // Modal states 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -214,14 +220,43 @@ const AdminPage = () => {
     Date: new Date().toLocaleDateString('en-CA'),
   });
 
-  // Debounced search function 
-  const debouncedSearch = React.useCallback(
+  // Function to fetch player suggestions
+  const fetchSuggestions = async (search) => {
+    if (!search || search.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+    
+    try {
+      const response = await axios.get(`/Pickups/suggestions?search=${encodeURIComponent(search)}`);
+      if (response.data && Array.isArray(response.data)) {
+        setSuggestions(response.data);
+      }
+    } catch (err) {
+      console.error('Failed to load suggestions:', err);
+      setSuggestions([]);
+    }
+  };
+
+  // Debounced search for suggestions
+  const debouncedSuggestionSearch = useCallback(
     debounce((searchTerm) => {
-      fetchPlayers(1, searchTerm);
+      if (searchTerm.trim() && searchTerm.length >= 2) {
+        fetchSuggestions(searchTerm);
+      } else {
+        setSuggestions([]);
+      }
     }, 300),
     []
   );
 
+  // Effect for suggestion search
+  useEffect(() => {
+    debouncedSuggestionSearch(searchTerm);
+    return () => debouncedSuggestionSearch.cancel();
+  }, [searchTerm, debouncedSuggestionSearch]);
+
+  // Fetch player data - no longer tied to immediate search term changes
   const fetchPlayers = async (page = pagination.currentPage, search = searchTerm) => {
     setIsLoading(true);
     try {
@@ -252,15 +287,59 @@ const AdminPage = () => {
     }
   };
 
+  // Initial data load
   useEffect(() => {
-    debouncedSearch(searchTerm);
-    return () => debouncedSearch.cancel();
-  }, [searchTerm]);
+    fetchPlayers(1, '');
+  }, []);
 
   // Handle page change 
   const handlePageChange = (event, newPage) => {
     fetchPlayers(newPage);
   };
+
+  // Handle search submission
+  const handleSearchSubmit = (e) => {
+    if (e) e.preventDefault();
+    fetchPlayers(1, searchTerm);
+    setSuggestions([]);
+  };
+
+  // Handle suggestion selection
+  const handleSuggestionSelect = (player) => {
+    setSearchTerm(player);
+    fetchPlayers(1, player);
+    setSuggestions([]);
+    setHighlightedIndex(-1);
+    // Focus back on input after selection
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  };
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        suggestions.length > 0 && 
+        searchInputRef.current && 
+        !searchInputRef.current.contains(event.target) &&
+        !event.target.closest('.suggestions-dropdown')
+      ) {
+        setSuggestions([]);
+        setHighlightedIndex(-1);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [suggestions.length]);
+
+  // Reset highlighted index when suggestions change
+  useEffect(() => {
+    setHighlightedIndex(-1);
+  }, [suggestions]);
 
   // Show notification
   const showNotification = (message, severity = 'success') => {
@@ -513,49 +592,137 @@ const AdminPage = () => {
                   flexDirection: isTablet ? 'column' : 'row',
                   alignItems: isTablet ? 'flex-end' : 'center'
                 }}>
-                  <TextField
-                    variant="outlined"
-                    size="small"
-                    placeholder="Search players..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    sx={{
-                      width: isTablet ? '100%' : '300px',
-                      backgroundColor: theme.palette.background.paper,
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: 2,
-                        pr: 0,
-                      }
-                    }}
-                    InputProps={{
-                      startAdornment: <SearchIcon sx={{ color: 'text.secondary', mr: 1 }} />,
-                      endAdornment: searchTerm && (
-                        <IconButton 
-                          size="small" 
-                          onClick={() => setSearchTerm('')}
-                          sx={{ mr: 0.5 }}
+                  <form onSubmit={handleSearchSubmit} style={{ display: 'flex', gap: '8px' }}>
+                    <Box sx={{ position: 'relative' }}>
+                      <TextField
+                        inputRef={searchInputRef}
+                        variant="outlined"
+                        size="small"
+                        placeholder="Search players..."
+                        value={searchTerm}
+                        onChange={(e) => {
+                          setSearchTerm(e.target.value);
+                          setHighlightedIndex(-1);
+                        }}
+                        onKeyDown={(e) => {
+                          if (suggestions.length > 0) {
+                            // Arrow down
+                            if (e.key === 'ArrowDown') {
+                              e.preventDefault();
+                              setHighlightedIndex((prev) => 
+                                prev < suggestions.length - 1 ? prev + 1 : prev
+                              );
+                            }
+                            // Arrow up
+                            else if (e.key === 'ArrowUp') {
+                              e.preventDefault();
+                              setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+                            }
+                            // Enter
+                            else if (e.key === 'Enter' && highlightedIndex >= 0) {
+                              e.preventDefault();
+                              handleSuggestionSelect(suggestions[highlightedIndex]);
+                            }
+                            // Escape
+                            else if (e.key === 'Escape') {
+                              setSuggestions([]);
+                              setHighlightedIndex(-1);
+                            }
+                          }
+                        }}
+                        sx={{
+                          width: isTablet ? '100%' : '300px',
+                          backgroundColor: theme.palette.background.paper,
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 2,
+                            pr: 0,
+                          }
+                        }}
+                        InputProps={{
+                          startAdornment: <SearchIcon sx={{ color: 'text.secondary', mr: 1 }} />,
+                          endAdornment: searchTerm && (
+                            <IconButton 
+                              size="small" 
+                              onClick={() => setSearchTerm('')}
+                              sx={{ mr: 0.5 }}
+                            >
+                              <CancelIcon fontSize="small" />
+                            </IconButton>
+                          )
+                        }}
+                        autoComplete="off"
+                      />
+                      
+                      {/* Suggestions dropdown */}
+                      {suggestions.length > 0 && (
+                        <Box
+                          className="suggestions-dropdown"
+                          sx={{
+                            position: 'absolute',
+                            zIndex: 10,
+                            mt: 0.5,
+                            width: '100%',
+                            maxHeight: '300px',
+                            overflow: 'auto',
+                            bgcolor: 'background.paper',
+                            borderRadius: 1,
+                            boxShadow: 3,
+                            border: '1px solid',
+                            borderColor: 'divider'
+                          }}
                         >
-                          <CancelIcon fontSize="small" />
-                        </IconButton>
-                      )
-                    }}
-                  />
-                  <Box display="flex" gap={1}>
+                          {suggestions.map((player, index) => (
+                            <Box
+                              key={player}
+                              onClick={() => handleSuggestionSelect(player)}
+                              sx={{
+                                px: 2,
+                                py: 1,
+                                cursor: 'pointer',
+                                fontSize: '0.875rem',
+                                bgcolor: index === highlightedIndex 
+                                  ? alpha(theme.palette.primary.main, 0.1)
+                                  : 'transparent',
+                                color: index === highlightedIndex 
+                                  ? 'primary.main'
+                                  : 'text.primary',
+                                '&:hover': {
+                                  bgcolor: alpha(theme.palette.primary.main, 0.05),
+                                  color: 'primary.main'
+                                }
+                              }}
+                              onMouseEnter={() => setHighlightedIndex(index)}
+                            >
+                              {player}
+                            </Box>
+                          ))}
+                        </Box>
+                      )}
+                    </Box>
                     <Button
+                      type="submit"
                       variant="contained"
                       color="primary"
-                      startIcon={<AddIcon />}
-                      onClick={() => handleOpenModal('create')}
-                      sx={{ 
-                        px: 2, 
-                        py: 1,
-                        textTransform: 'none',
-                        fontWeight: 600
-                      }}
+                      size="medium"
+                      sx={{ px: 2 }}
                     >
-                      Add Player
+                      Search
                     </Button>
-                  </Box>
+                  </form>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<AddIcon />}
+                    onClick={() => handleOpenModal('create')}
+                    sx={{ 
+                      px: 2, 
+                      py: 1,
+                      textTransform: 'none',
+                      fontWeight: 600
+                    }}
+                  >
+                    Add Player
+                  </Button>
                 </Box>
               }
               sx={{ pb: 2 }}
