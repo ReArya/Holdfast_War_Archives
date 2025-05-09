@@ -383,7 +383,7 @@ const Matchmaking = () => {
                 <h3 className="text-gray-800 text-xl font-semibold mb-6 text-center">Add Players To Matchmake</h3>
                 
                 {/* Search Input with Enhanced Autocomplete */}
-                + <div className="mb-6 search-container relative w-full"> 
+                <div className="mb-6 search-container relative w-full"> 
                   <TextField
                     fullWidth
                     variant="outlined"
