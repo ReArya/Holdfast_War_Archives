@@ -50,6 +50,32 @@ router.get('/public', async (request, response) => {
 
 
 
+// Route to get player name suggestions for autocomplete
+router.get('/suggestions', async (request, response) => {
+    try {
+        const searchTerm = request.query.search || '';
+        
+        if (searchTerm.length < 2) {
+            return response.status(200).json([]);
+        }
+        
+        // Find distinct player names that match the search term (case insensitive)
+        const playerNames = await PickupsStats.distinct("Player", {
+            Player: { $regex: searchTerm, $options: 'i' }
+        });
+        
+        // Limit to first 10 results for performance
+        return response.status(200).json(playerNames.slice(0, 10));
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({
+            message: 'Error fetching player suggestions',
+            error: error.message
+        });
+    }
+});
+
+
 // Route to get paginated players with search
 router.get('/', authenticateAdmin, async (request, response) => {
     try {

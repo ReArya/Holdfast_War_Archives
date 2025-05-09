@@ -3,7 +3,7 @@
 // Holdfast War Archives
 // Show Single Player Pickups Page
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import debounce from 'lodash/debounce';
 import {
@@ -27,8 +27,10 @@ const PlayerStatsPage = () => {
   const [error, setError] = useState(null);
   const [selectedStat, setSelectedStat] = useState('Score');
   const [suggestions, setSuggestions] = useState([]);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [pagination, setPagination] = useState({ currentPage: 1, total: 0, pages: 0, limit: 10 });
   const [isLoaded, setIsLoaded] = useState(false);
+  const searchInputRef = useRef(null);
 
   // Use relative URLs instead of hardcoded localhost
   // This will work in both development and production environments
@@ -36,7 +38,7 @@ const PlayerStatsPage = () => {
 
   const debouncedSearch = useCallback(
     debounce(async (searchTerm) => {
-      if (searchTerm.trim()) {
+      if (searchTerm.trim() && searchTerm.length >= 2) {
         await fetchSuggestions(searchTerm);
       } else {
         setSuggestions([]);
@@ -50,7 +52,7 @@ const PlayerStatsPage = () => {
     setError(null);
     try {
       const response = await axios.get(
-        `/Pickups/public?page=${page}&limit=${pagination.limit}&search=${search}&sort=-Date`
+        `/Pickups/public?page=${page}&limit=${pagination.limit}&search=${encodeURIComponent(search)}&sort=-Date`
       );
 
       const { data, pagination: paginationData } = response.data;
@@ -73,34 +75,51 @@ const PlayerStatsPage = () => {
     }
   };
 
-  // const fetchSuggestions = async (search) => {
-  //   try {
-  //     const response = await axios.get(`/Pickups/suggestions?search=${search}`);
-  //     if (response.data && Array.isArray(response.data)) {
-  //       setSuggestions(response.data);
-  //     }
-  //   } catch (err) {
-  //     console.error('Failed to load suggestions:', err);
-  //   }
-  // };
-  
-  // Changes to fetchSuggestions function to limit suggestions to 5
-const fetchSuggestions = async (search) => {
-  try {
-    const response = await axios.get(`/Pickups/suggestions?search=${search}`);
-    if (response.data && Array.isArray(response.data)) {
-      // Limit suggestions to top 5 results
-      setSuggestions(response.data.slice(0, 5));
+  const fetchSuggestions = async (search) => {
+    if (!search || search.length < 2) {
+      setSuggestions([]);
+      return;
     }
-  } catch (err) {
-    console.error('Failed to load suggestions:', err);
-  }
-};
-
+    
+    try {
+      const response = await axios.get(`/Pickups/suggestions?search=${encodeURIComponent(search)}`);
+      if (response.data && Array.isArray(response.data)) {
+        setSuggestions(response.data);
+      }
+    } catch (err) {
+      console.error('Failed to load suggestions:', err);
+      setSuggestions([]);
+    }
+  };
+  
   useEffect(() => {
     debouncedSearch(searchTerm);
     return () => debouncedSearch.cancel();
   }, [searchTerm, debouncedSearch]);
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        suggestions.length > 0 && 
+        !event.target.closest('.search-container') && 
+        !event.target.closest('.suggestions-dropdown')
+      ) {
+        setSuggestions([]);
+        setHighlightedIndex(-1);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [suggestions.length]);
+
+  // Reset highlighted index when suggestions change
+  useEffect(() => {
+    setHighlightedIndex(-1);
+  }, [suggestions]);
 
   useEffect(() => {
     setIsLoaded(true);
@@ -114,6 +133,18 @@ const fetchSuggestions = async (search) => {
     e.preventDefault();
     if (searchTerm.trim()) {
       fetchPlayers(1, searchTerm);
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionSelect = (player) => {
+    setSearchTerm(player);
+    fetchPlayers(1, player);
+    setSuggestions([]);
+    setHighlightedIndex(-1);
+    // Focus back on input after selection
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
     }
   };
 
@@ -148,20 +179,69 @@ const fetchSuggestions = async (search) => {
 
               <form onSubmit={handleSubmit} className="w-full sm:w-auto">
                 <div className="flex items-center space-x-3">
-                  <div className="relative">
+                  <div className="relative w-full search-container">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <SearchIcon className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
+                      ref={searchInputRef}
                       type="text"
                       className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
                       placeholder="Search players..."
                       value={searchTerm}
                       onChange={(e) => {
                         setSearchTerm(e.target.value);
+                        setHighlightedIndex(-1);
                         debouncedSearch(e.target.value);
                       }}
+                      onKeyDown={(e) => {
+                        if (suggestions.length > 0) {
+                          // Arrow down
+                          if (e.key === 'ArrowDown') {
+                            e.preventDefault();
+                            setHighlightedIndex((prev) => 
+                              prev < suggestions.length - 1 ? prev + 1 : prev
+                            );
+                          }
+                          // Arrow up
+                          else if (e.key === 'ArrowUp') {
+                            e.preventDefault();
+                            setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : 0));
+                          }
+                          // Enter
+                          else if (e.key === 'Enter' && highlightedIndex >= 0) {
+                            e.preventDefault();
+                            handleSuggestionSelect(suggestions[highlightedIndex]);
+                          }
+                          // Escape
+                          else if (e.key === 'Escape') {
+                            setSuggestions([]);
+                            setHighlightedIndex(-1);
+                          }
+                        }
+                      }}
+                      autoComplete="off"
                     />
+                    
+                    {/* Suggestion dropdown */}
+                    {suggestions.length > 0 && (
+                      <div className="absolute z-10 mt-1 w-full bg-white shadow-lg rounded-md border border-gray-200 max-h-60 overflow-y-auto suggestions-dropdown">
+                        {suggestions.map((player, index) => (
+                          <div
+                            key={player}
+                            onClick={() => handleSuggestionSelect(player)}
+                            className={`px-4 py-2 cursor-pointer text-sm ${
+                              index === highlightedIndex
+                                ? 'bg-sky-100 text-sky-700'
+                                : 'text-gray-700 hover:bg-sky-50 hover:text-sky-700'
+                            }`}
+                            onMouseEnter={() => setHighlightedIndex(index)}
+                          >
+                            {player}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <button
                     type="submit"
@@ -172,46 +252,6 @@ const fetchSuggestions = async (search) => {
                 </div>
               </form>
             </div>
-
-            {/* {suggestions.length > 0 && (
-              <div className="mt-2 sm:ml-auto sm:w-72">
-                <div className="bg-white shadow-md rounded-md border border-gray-200 max-h-60 overflow-y-auto">
-                  {suggestions.map((player) => (
-                    <div
-                      key={player}
-                      onClick={() => {
-                        setSearchTerm(player);
-                        fetchPlayers(1, player);
-                        setSuggestions([]);
-                      }}
-                      className="px-4 py-2 hover:bg-sky-50 cursor-pointer text-sm text-gray-700 hover:text-sky-700"
-                    >
-                      {player}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )} */}
-            {suggestions.length > 0 && (
-  <div className="absolute mt-1 w-full z-10">
-    <div className="bg-white shadow-lg rounded-md border border-gray-200 max-h-60 overflow-y-auto">
-      {suggestions.map((player) => (
-        <div
-          key={player}
-          onClick={() => {
-            setSearchTerm(player);
-            fetchPlayers(1, player);
-            setSuggestions([]);
-          }}
-          className="px-4 py-2 hover:bg-sky-50 cursor-pointer text-sm text-gray-700 hover:text-sky-700 border-b last:border-b-0 border-gray-100 flex items-center"
-        >
-          <SearchIcon className="h-4 w-4 text-gray-400 mr-2 flex-shrink-0" />
-          <span className="truncate">{player}</span>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
           </div>
 
           {error && (
@@ -405,7 +445,7 @@ const fetchSuggestions = async (search) => {
                         </svg>
                       </div>
                       <p className="text-gray-700">
-                        Enter an exact player name and press "Search" or select from suggestions to view all data points and statistics.
+                        Enter a player name and press "Search" or select from suggestions to view all data points and statistics.
                       </p>
                     </div>
                   </div>
